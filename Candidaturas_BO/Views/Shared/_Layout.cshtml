@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Candidaturas BO</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Candidaturas BO", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            @if (ADAuthorization.ADAuthenticate())
+            {
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Concelhos", "Index", "Concelhos")</li>
+                    <li>@Html.ActionLink("Conhecimentos", "Index", "ConhecimentoEscolas")</li>
+                    <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
+                    <li>@Html.ActionLink("Distritos", "Index", "Distritos")</li>
+                    <li>@Html.ActionLink("Estados Civis", "Index", "EstadosCivis")</li>
+                    <li>@Html.ActionLink("Exames", "Index", "Exames")</li>
+                    <li>@Html.ActionLink("Freguesias", "Index", "Freguesias")</li>
+                    <li>@Html.ActionLink("Generos", "Index", "Generos")</li>
+                    <li>@Html.ActionLink("Localidades", "Index", "Localidades")</li>
+                    <li>@Html.ActionLink("Nacionalidades", "Index", "Nacionalidades")</li>
+                    <li>@Html.ActionLink("Situações", "Index", "Situacaos")</li>
+                    <li>@Html.ActionLink("Tipos de Documento ID", "Index", "TiposDocumentoID")</li>
+                </ul>
+            </div>
+            }            
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

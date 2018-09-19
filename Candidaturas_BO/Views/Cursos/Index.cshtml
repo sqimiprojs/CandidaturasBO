@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.Curso>
+
+@{
+    ViewBag.Title = "Cursos";
+}
+
+<h2>Lista de Cursos</h2>
+
+<p class="BoParag">
+    @Html.ActionLink("Criar Novo Curso", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoCurso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoRamo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoCurso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoRamo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
