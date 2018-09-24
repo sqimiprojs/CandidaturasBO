@@ -169,6 +169,7 @@
     <Compile Include="Controllers\GenerosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadesController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NacionalidadesController.cs" />
     <Compile Include="Controllers\SituacaosController.cs" />
     <Compile Include="Controllers\TiposDocumentoIDController.cs" />
@@ -345,6 +346,7 @@
     <Content Include="Views\ConhecimentoEscolas\Details.cshtml" />
     <Content Include="Views\ConhecimentoEscolas\Edit.cshtml" />
     <Content Include="Views\ConhecimentoEscolas\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

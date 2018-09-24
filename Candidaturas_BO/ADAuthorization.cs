@@ -8,13 +8,62 @@ namespace Candidaturas_BO
 {
     public class ADAuthorization
     {
+        public static Boolean ADAuthenticate(string userName, string password)
+        {
+            // set up domain context
+            PrincipalContext ctx = new PrincipalContext(ContextType.Domain, BOConstants.AdDomain, BOConstants.AdDomainDC, BOConstants.AdDomainUser, BOConstants.AdDomainPassword);
+
+            //validate credentials
+            if(ctx.ValidateCredentials(userName, password))
+            {
+                HttpContext.Current.Session["userName"] = userName;
+
+                // find current user
+                UserPrincipal user = UserPrincipal.FindByIdentity(ctx, userName);
+
+                // find the group in question
+                GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, BOConstants.AdGroup);
+
+                if (user != null)
+                {
+                    // check if user is member of that group
+                    if (user.IsMemberOf(group))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static Boolean ADAuthenticate()
         {
             // set up domain context
             PrincipalContext ctx = new PrincipalContext(ContextType.Domain, BOConstants.AdDomain, BOConstants.AdDomainDC, BOConstants.AdDomainUser, BOConstants.AdDomainPassword);
 
             // find current user
-            string Name = System.Web.HttpContext.Current.User.Identity.Name;
+            string Name = String.Empty;
+
+            if(HttpContext.Current.Session["userName"] != null)
+            {
+                Name = HttpContext.Current.Session["userName"].ToString();
+            }
+            else
+            {
+                Name = System.Web.HttpContext.Current.User.Identity.Name;
+            }
+
             UserPrincipal user = UserPrincipal.FindByIdentity(ctx, Name);
 
             // find the group in question

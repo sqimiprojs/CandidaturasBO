@@ -5,20 +5,15 @@ namespace Candidaturas_BO.Controllers
     public class HomeController : Controller
     {
 
-        /*public ActionResult Index()
-        {
-            return View();
-        }*/
-        
         public ActionResult Index()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (Session["userName"] != null)
             {
                 return View();
             }
             else
             {
-                return View("Error");
+                return RedirectToAction("Login", "Login");
             }
         }
     }
