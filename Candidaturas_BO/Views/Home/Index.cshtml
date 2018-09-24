@@ -1,5 +1,10 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+
+    if (Session["userName"] == null)
+    {
+        Response.Redirect("~/Login/Login");
+    }
 }
 
 <div class="jumbotron">

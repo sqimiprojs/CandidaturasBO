@@ -3,8 +3,6 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
-
 <style>
     #login-div {
         position: absolute;
@@ -22,28 +20,30 @@
     <div id="login-div" class="form-group">
         @using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
         {
-            <table>
-                <br />
-                <tr>
-                    <td>@Html.Label("Username", htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td>@Html.Editor("Username", new { htmlAttributes = new { @class = "form-control", @required = true, @name = "userName" } })</td>
-                </tr>
-                <tr>
-                    <td>@Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-2" })</td>
-                    <td>@Html.Editor("Password", new { htmlAttributes = new { @class = "form-control", @required = true, @type = "password", @name = "password" } })</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <label class="field-validation-error">@Html.Display("LoginErrorMessage")</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" name="name" value="Login" class="btn btn-default" />
-                    </td>
-                </tr>
-            </table>
+        <table>
+            <br />
+            <tr>
+                <td>@Html.Label("Username", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td>@Html.Editor("Username", new { htmlAttributes = new { @class = "form-control", @required = true, @name = "userName" } })</td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Password", htmlAttributes: new { @class = "control-label col-md-2" })</td>
+                <td>@Html.Editor("Password", new { htmlAttributes = new { @class = "form-control", @required = true, @type = "password", @name = "password" } })</td>
+            </tr>
+            @if(ViewBag.ErrorMessage != null) { 
+            <tr>
+                <td colspan="2">
+                    <label class="field-validation-error">@ViewBag.ErrorMessage</label>
+                </td>
+            </tr>
+            }
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="name" value="Login" class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
         }
 
     </div>

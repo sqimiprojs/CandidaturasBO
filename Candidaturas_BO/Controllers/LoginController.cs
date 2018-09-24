@@ -11,6 +11,12 @@ namespace Candidaturas_BO.Controllers
         // GET: Login
         public ActionResult Login()
         {
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"].ToString();
+                TempData.Remove("ErrorMessage");
+            }
+
             return View();
         }
 
@@ -23,8 +29,15 @@ namespace Candidaturas_BO.Controllers
             }
             else
             {
-                return View();
+                TempData["ErrorMessage"] = "Username ou password inválido!";
+                return RedirectToAction("Login", "Login");
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "Login");
         }
     }
 }
