@@ -21,7 +21,7 @@
                     <a class="glyphicon glyphicon-log-out navbar-brand" style="padding-left: 880px;font-size: 17px;" href="@Url.Action("Logout", "Login")"><span style="font-family:Arial,Helvetica,sans-serif;padding-left: 5px;">Logout</span></a>
                 }
             </div>
-            @if (ADAuthorization.ADAuthenticate())
+            @if (Session["userName"] != null)
             {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
