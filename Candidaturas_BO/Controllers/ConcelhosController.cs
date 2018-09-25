@@ -21,12 +21,6 @@ namespace Candidaturas_BO.Controllers
             {
                 List<Concelho> concelhos = db.Concelho.ToList();
 
-                foreach (Concelho concelho in concelhos)
-                {
-                    int distrito = Convert.ToInt32(concelho.Distrito);
-                    concelho.Distrito = db.Distrito.Where(dp => dp.ID == distrito).Select(dp => dp.Nome).First();
-                }
-
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -55,9 +49,6 @@ namespace Candidaturas_BO.Controllers
                 {
                     return HttpNotFound();
                 }
-                int distrito = Convert.ToInt32(concelho.Distrito);
-
-                concelho.Distrito = db.Distrito.Where(dp => dp.ID == distrito).Select(dp => dp.Nome).First();
 
                 return View(concelho);
             }
@@ -74,7 +65,7 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.ID.ToString(),
+                    Value = c.Nome,
                     Text = c.Nome
                 });
 
@@ -122,9 +113,9 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.ID.ToString(),
+                    Value = c.Nome,
                     Text = c.Nome,
-                    Selected = c.ID.ToString() == concelho.Distrito
+                    Selected = c.Nome == concelho.Distrito
                 });
 
                 ViewBag.Distrito = distritos.ToList();
@@ -167,16 +158,13 @@ namespace Candidaturas_BO.Controllers
                 {
                     return HttpNotFound();
                 }
-                int distrito = Convert.ToInt32(concelho.Distrito);
-
-                concelho.Distrito = db.Distrito.Where(dp => dp.ID == distrito).Select(dp => dp.Nome).First();
 
                 return View(concelho);
             }
             else
             {
                 return View("Error");
-            }         
+            }
         }
 
         // POST: Concelhos/Delete/5

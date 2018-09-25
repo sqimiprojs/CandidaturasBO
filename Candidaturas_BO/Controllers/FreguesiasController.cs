@@ -21,12 +21,6 @@ namespace Candidaturas_BO.Controllers
             {
                 List<Freguesia> freguesias = db.Freguesia.ToList();
 
-                foreach (Freguesia freguesia in freguesias)
-                {
-                    int concelho = Convert.ToInt32(freguesia.Concelho);
-                    freguesia.Concelho = db.Concelho.Where(dp => dp.ID == concelho).Select(dp => dp.Nome).First();
-                }
-
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -57,10 +51,7 @@ namespace Candidaturas_BO.Controllers
                 {
                     return HttpNotFound();
                 }
-                int concelho = Convert.ToInt32(freguesia.Concelho);
 
-                freguesia.Concelho = db.Concelho.Where(dp => dp.ID == concelho).Select(dp => dp.Nome).First();
-                
                 return View(freguesia);
             }
             else
@@ -76,7 +67,7 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.ID.ToString(),
+                    Value = c.Nome,
                     Text = c.Nome
                 });
 
@@ -87,7 +78,7 @@ namespace Candidaturas_BO.Controllers
             else
             {
                 return View("Error");
-            }           
+            }
         }
 
         // POST: Freguesias/Create
@@ -124,9 +115,9 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.ID.ToString(),
+                    Value = c.Nome,
                     Text = c.Nome,
-                    Selected = c.ID.ToString() == freguesia.Concelho
+                    Selected = c.Nome == freguesia.Concelho
                 });
 
                 ViewBag.Concelho = concelhos.ToList();
@@ -171,10 +162,6 @@ namespace Candidaturas_BO.Controllers
                 {
                     return HttpNotFound();
                 }
-
-                int concelho = Convert.ToInt32(freguesia.Concelho);
-
-                freguesia.Concelho = db.Concelho.Where(dp => dp.ID == concelho).Select(dp => dp.Nome).First();
 
                 return View(freguesia);
             }
