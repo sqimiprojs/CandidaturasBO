@@ -24,7 +24,7 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.CodigoCurso.Contains(searchString) || s.CodigoRamo.Contains(searchString)).ToList();
+                    cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString) || s.CodigoCurso.Contains(searchString) || s.CodigoRamo.Contains(searchString)).ToList();
                 }
 
                 return View(cursos);

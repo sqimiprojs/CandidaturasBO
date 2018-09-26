@@ -24,7 +24,7 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    conhecimentosEscola = conhecimentosEscola.Where(s => s.Nome.Contains(searchString)).ToList();
+                    conhecimentosEscola = conhecimentosEscola.Where(s => s.Nome.ToLower().Contains(searchString) || s.Nome.Contains(searchString)).ToList();
                 }
 
                 return View(conhecimentosEscola);

@@ -24,7 +24,7 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    localidades = localidades.Where(s => s.Nome.Contains(searchString)).ToList();
+                    localidades = localidades.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
                 return View(localidades);

@@ -24,7 +24,7 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    tiposDocID = tiposDocID.Where(s => s.Nome.Contains(searchString)).ToList();
+                    tiposDocID = tiposDocID.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
                 return View(tiposDocID);
