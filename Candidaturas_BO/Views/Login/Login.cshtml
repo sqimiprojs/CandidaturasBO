@@ -20,7 +20,7 @@
     <div id="login-div" class="form-group">
         @using (Html.BeginForm("Authorize", "Login", FormMethod.Post))
         {
-        <table>
+        <table style="border-collapse: separate;border-spacing: 1em;">
             <br />
             <tr>
                 <td>@Html.Label("Username", htmlAttributes: new { @class = "control-label col-md-2" })</td>
