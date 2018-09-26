@@ -12,10 +12,10 @@
 
 @using (Html.BeginForm())
 {
-    <p>
-        Procurar por nome ou distrito: @Html.TextBox("SearchString")
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </p>
+<div style="display: inline-flex;">
+    Procurar distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control" })
+    <input type="submit" value="Procurar" class="btn btn-default" />
+</div>
 }
 
 <table class="table">

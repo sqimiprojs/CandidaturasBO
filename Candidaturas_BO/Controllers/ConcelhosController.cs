@@ -15,17 +15,25 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Concelhos
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string distrito)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 List<Concelho> concelhos = db.Concelho.ToList();
 
                 //search
-                if (!String.IsNullOrEmpty(searchString))
+                if (!String.IsNullOrEmpty(distrito))
                 {
-                    concelhos = concelhos.Where(s => s.Nome.Contains(searchString) || s.Distrito.Contains(searchString)).ToList();
+                    concelhos = concelhos.Where(s => s.Distrito == distrito).ToList();
                 }
+
+                IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Nome,
+                    Text = c.Nome
+                });
+
+                ViewBag.Distrito = distritos.ToList();
 
                 return View(concelhos);
             }
