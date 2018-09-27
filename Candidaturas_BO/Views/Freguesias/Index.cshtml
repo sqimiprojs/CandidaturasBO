@@ -12,7 +12,7 @@
 
 @using (Html.BeginForm())
 {
-<div style="display: inline-flex;">
+<div class="FilterDiv">
     Procurar por concelho: @Html.DropDownList("concelho", ViewBag.Concelho as SelectList, "Escolha um concelho...", new { @class = "form-control" })
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>

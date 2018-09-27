@@ -14,10 +14,10 @@
 
 @using (Html.BeginForm())
 {
-    <p>
+    <div class="FilterDiv">
         Procurar por nome: @Html.TextBox("SearchString")
         <input type="submit" value="Procurar" class="btn btn-default" />
-    </p>
+    </div>
 }
 
 <table class="table">

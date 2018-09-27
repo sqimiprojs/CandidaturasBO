@@ -6,16 +6,16 @@
 
 <h2>Lista de Conhecimentos de Escola</h2>
 
-<p>
+<p class="BoParag">
     @Html.ActionLink("Criar Novo Conhecimento de Escola", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
 
 @using (Html.BeginForm())
 {
-    <p>
+    <div class="FilterDiv">
         Procurar por nome: @Html.TextBox("SearchString")
         <input type="submit" value="Procurar" class="btn btn-default" />
-    </p>
+    </div>
 }
 
 <table class="table">
