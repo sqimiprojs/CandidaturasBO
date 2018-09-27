@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Candidaturas_BO.Models;
+using OfficeOpenXml;
 
 namespace Candidaturas_BO.Controllers
 {
@@ -177,6 +178,49 @@ namespace Candidaturas_BO.Controllers
             {
                 return View("Error");
             }
+        }
+
+        //GET: Freguesias/MassInsert
+        public ActionResult MassInsert()
+        {
+            if (ADAuthorization.ADAuthenticate())
+            {
+                return View();
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult MassInsert(HttpPostedFileBase uploadFile)
+        {
+            if (uploadFile != null && uploadFile.ContentLength > 0)
+            {
+                string fileName = uploadFile.FileName;
+                string fileContentType = uploadFile.ContentType;
+                byte[] fileBytes = new byte[uploadFile.ContentLength];
+                var data = uploadFile.InputStream.Read(fileBytes, 0, Convert.ToInt32(uploadFile.ContentLength));
+
+                using (var package = new ExcelPackage(uploadFile.InputStream))
+                {
+                    var currentSheet = package.Workbook.Worksheets;
+                    var workSheet = currentSheet.First();
+                    var noOfCol = workSheet.Dimension.End.Column;
+                    var noOfRow = workSheet.Dimension.End.Row;
+
+                    for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                    {
+                        Freguesia freguesia = new Freguesia();
+                        freguesia.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                        freguesia.Concelho = workSheet.Cells[rowIterator, 2].Value.ToString();
+                        db.Freguesia.Add(freguesia);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Freguesias/Delete/5
