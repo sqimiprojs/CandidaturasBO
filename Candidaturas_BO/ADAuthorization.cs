@@ -16,8 +16,6 @@ namespace Candidaturas_BO
             //validate credentials
             if(ctx.ValidateCredentials(userName, password))
             {
-                HttpContext.Current.Session["userName"] = userName;
-
                 // find current user
                 UserPrincipal user = UserPrincipal.FindByIdentity(ctx, userName);
 
@@ -29,6 +27,7 @@ namespace Candidaturas_BO
                     // check if user is member of that group
                     if (user.IsMemberOf(group))
                     {
+                        HttpContext.Current.Session["userName"] = userName;
                         return true;
                     }
                     else
