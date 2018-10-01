@@ -215,8 +215,11 @@ namespace Candidaturas_BO.Controllers
                     ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                     return View();
                 }
-
-
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Não foi seleccionado nenhum ficheiro. Por favor seleccione um ficheiro Excel válido.";
+                return View();
             }
             return RedirectToAction("Index");
         }
