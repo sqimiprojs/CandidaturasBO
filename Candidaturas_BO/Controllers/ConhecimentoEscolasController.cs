@@ -178,26 +178,40 @@ namespace Candidaturas_BO.Controllers
         {
             if (uploadFile != null && uploadFile.ContentLength > 0)
             {
-                string fileName = uploadFile.FileName;
-                string fileContentType = uploadFile.ContentType;
-                byte[] fileBytes = new byte[uploadFile.ContentLength];
-                var data = uploadFile.InputStream.Read(fileBytes, 0, Convert.ToInt32(uploadFile.ContentLength));
-
-                using (var package = new ExcelPackage(uploadFile.InputStream))
+                if(ExcelValidator.HasExcelExtension(uploadFile) && ExcelValidator.HasExcelMimeType(uploadFile))
                 {
-                    var currentSheet = package.Workbook.Worksheets;
-                    var workSheet = currentSheet.First();
-                    var noOfCol = workSheet.Dimension.End.Column;
-                    var noOfRow = workSheet.Dimension.End.Row;
+                    string fileName = uploadFile.FileName;
+                    string fileContentType = uploadFile.ContentType;
+                    byte[] fileBytes = new byte[uploadFile.ContentLength];
+                    var data = uploadFile.InputStream.Read(fileBytes, 0, Convert.ToInt32(uploadFile.ContentLength));
 
-                    for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                    try
                     {
-                        ConhecimentoEscola conhecimentoEscola = new ConhecimentoEscola();
-                        conhecimentoEscola.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                        db.ConhecimentoEscola.Add(conhecimentoEscola);
-                        db.SaveChanges();
+                        var package = new ExcelPackage(uploadFile.InputStream);
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var noOfCol = workSheet.Dimension.End.Column;
+                        var noOfRow = workSheet.Dimension.End.Row;
+
+                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
+                        {
+                            ConhecimentoEscola conhecimentoEscola = new ConhecimentoEscola();
+                            conhecimentoEscola.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            db.ConhecimentoEscola.Add(conhecimentoEscola);
+                            db.SaveChanges();
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
+                        return View();
                     }
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
+                    return View();
+                }     
             }
             return RedirectToAction("Index");
         }

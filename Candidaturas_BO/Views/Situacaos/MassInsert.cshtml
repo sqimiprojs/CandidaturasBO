@@ -6,11 +6,8 @@
 
 <h2>Inserção em Massa</h2>
 <hr />
-<head>
-    <script src="~/Scripts/CandidaturasBO.js"></script>
-</head>
 
-@using (Html.BeginForm("MassInsert", "Situacaos", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "checkExtension()" }))
+@using (Html.BeginForm("MassInsert", "Situacaos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -20,7 +17,7 @@
             @Html.Label("Ficheiro", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="uploadFile" id="uploadFile" />
-                <span id="FileWarning" for="uploadFile" class="text-danger"></span>
+                <span id="FileWarning" for="uploadFile" class="text-danger">@ViewBag.ErrorMessage</span>
             </div>
         </div>
 

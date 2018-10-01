@@ -177,6 +177,7 @@
     <Compile Include="Controllers\NacionalidadesController.cs" />
     <Compile Include="Controllers\SituacaosController.cs" />
     <Compile Include="Controllers\TiposDocumentoIDController.cs" />
+    <Compile Include="ExcelValidator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -266,7 +267,6 @@
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\CandidaturasBO.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
