@@ -25,12 +25,12 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(distrito))
                 {
-                    concelhos = concelhos.Where(s => s.Distrito == distrito).ToList();
+                    concelhos = concelhos.Where(s => s.CodigoDistrito == distrito).ToList();
                 }
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome
                 });
 
@@ -74,11 +74,11 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome
                 });
 
-                ViewBag.Distrito = distritos.ToList();
+                ViewBag.CodigoDistrito = distritos.ToList();
 
                 return View();
             }
@@ -93,7 +93,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Distrito")] Concelho concelho)
+        public ActionResult Create([Bind(Include = "ID,Nome,Codigo,CodigoDistrito")] Concelho concelho)
         {
             if (ModelState.IsValid)
             {
@@ -122,12 +122,12 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome,
-                    Selected = c.Nome == concelho.Distrito
+                    Selected = c.Codigo == concelho.CodigoDistrito
                 });
 
-                ViewBag.Distrito = distritos.ToList();
+                ViewBag.CodigoDistrito = distritos.ToList();
 
                 return View(concelho);
             }
@@ -142,7 +142,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Distrito")] Concelho concelho)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo,CodigoDistrito")] Concelho concelho)
         {
             if (ModelState.IsValid)
             {
@@ -224,7 +224,8 @@ namespace Candidaturas_BO.Controllers
                         {
                             Concelho concelho = new Concelho();
                             concelho.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            concelho.Distrito = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            concelho.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            concelho.CodigoDistrito = workSheet.Cells[rowIterator, 3].Value.ToString();
                             db.Concelho.Add(concelho);
                             db.SaveChanges();
                         }

@@ -11,10 +11,14 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Distrito
     {
         public int ID { get; set; }
         public string Nome { get; set; }
+
+        [DisplayName("Código")]
+        public string Codigo { get; set; }
     }
 }

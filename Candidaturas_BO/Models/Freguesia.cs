@@ -11,11 +11,20 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Freguesia
     {
         public int ID { get; set; }
         public string Nome { get; set; }
-        public string Concelho { get; set; }
+
+        [DisplayName("Código")]
+        public string Codigo { get; set; }
+
+        [DisplayName("Código Concelho")]
+        public string CodigoConcelho { get; set; }
+
+        [DisplayName("Código Distrito")]
+        public string CodigoDistrito { get; set; }
     }
 }

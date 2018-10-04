@@ -1,7 +1,7 @@
 ﻿@model Candidaturas_BO.Models.Genero
 
 @{
-    ViewBag.Title = "Editar Gênero - " + Model.Nome;
+    ViewBag.Title = "Editar Género - " + Model.Nome;
 }
 
 <h2>Edit</h2>
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Gênero</h4>
+        <h4>Género</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)

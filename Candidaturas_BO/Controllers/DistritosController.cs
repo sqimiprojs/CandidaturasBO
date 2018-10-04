@@ -76,7 +76,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Distrito distrito)
+        public ActionResult Create([Bind(Include = "ID,Nome,Codigo")] Distrito distrito)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Distrito distrito)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo")] Distrito distrito)
         {
             if (ModelState.IsValid)
             {
@@ -196,6 +196,7 @@ namespace Candidaturas_BO.Controllers
                         {
                             Distrito distrito = new Distrito();
                             distrito.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            distrito.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
                             db.Distrito.Add(distrito);
                             db.SaveChanges();
                         }

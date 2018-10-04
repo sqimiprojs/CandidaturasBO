@@ -25,12 +25,12 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(concelho))
                 {
-                    freguesias = freguesias.Where(s => s.Concelho == concelho).ToList();
+                    freguesias = freguesias.Where(s => s.CodigoConcelho == concelho).ToList();
                 }
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome
                 });
 
@@ -76,11 +76,11 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome
                 });
 
-                ViewBag.Concelho = concelhos.ToList();
+                ViewBag.CodigoConcelho = concelhos.ToList();
 
                 return View();
             }
@@ -95,10 +95,12 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Concelho")] Freguesia freguesia)
+        public ActionResult Create([Bind(Include = "ID,Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
         {
             if (ModelState.IsValid)
             {
+                string codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                freguesia.CodigoDistrito = codigoDistrito;
                 db.Freguesia.Add(freguesia);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,12 +126,12 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Nome,
+                    Value = c.Codigo,
                     Text = c.Nome,
-                    Selected = c.Nome == freguesia.Concelho
+                    Selected = c.Codigo == freguesia.CodigoConcelho
                 });
 
-                ViewBag.Concelho = concelhos.ToList();
+                ViewBag.CodigoConcelho = concelhos.ToList();
 
                 return View(freguesia);
             }
@@ -144,10 +146,12 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Concelho")] Freguesia freguesia)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
         {
             if (ModelState.IsValid)
             {
+                string codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                freguesia.CodigoDistrito = codigoDistrito;
                 db.Entry(freguesia).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -217,7 +221,9 @@ namespace Candidaturas_BO.Controllers
                         {
                             Freguesia freguesia = new Freguesia();
                             freguesia.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            freguesia.Concelho = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            freguesia.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            freguesia.CodigoConcelho = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            freguesia.CodigoDistrito = workSheet.Cells[rowIterator, 4].Value.ToString();
                             db.Freguesia.Add(freguesia);
                             db.SaveChanges();
                         }

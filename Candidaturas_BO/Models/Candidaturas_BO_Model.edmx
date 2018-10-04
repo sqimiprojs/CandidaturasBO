@@ -11,7 +11,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" />
-          <Property Name="Distrito" Type="varchar" MaxLength="50" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" />
+          <Property Name="CodigoDistrito" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ConhecimentoEscola">
           <Key>
@@ -35,6 +36,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EstadoCivil">
           <Key>
@@ -56,7 +58,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Concelho" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoConcelho" Type="varchar" MaxLength="50" />
+          <Property Name="CodigoDistrito" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Genero">
           <Key>
@@ -111,14 +115,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CandidaturasBOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Concelho">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Distrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Curso">
           <Key>
             <PropertyRef Name="ID" />
@@ -127,13 +123,6 @@
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodigoCurso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CodigoRamo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Distrito">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EstadoCivil">
           <Key>
@@ -148,14 +137,6 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Freguesia">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Concelho" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Genero">
           <Key>
@@ -193,18 +174,18 @@
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="CandidaturasBOEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Concelho" EntityType="Self.Concelho" />
           <EntitySet Name="Curso" EntityType="Self.Curso" />
-          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
           <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" />
           <EntitySet Name="Exame" EntityType="Self.Exame" />
-          <EntitySet Name="Freguesia" EntityType="Self.Freguesia" />
           <EntitySet Name="Genero" EntityType="Self.Genero" />
           <EntitySet Name="Localidade" EntityType="Self.Localidade" />
           <EntitySet Name="Nacionalidade" EntityType="Self.Nacionalidade" />
           <EntitySet Name="Situacao" EntityType="Self.Situacao" />
           <EntitySet Name="TipoDocumentoID" EntityType="Self.TipoDocumentoID" />
           <EntitySet Name="ConhecimentoEscola" EntityType="CandidaturasBOModel.ConhecimentoEscola" />
+          <EntitySet Name="Concelho" EntityType="CandidaturasBOModel.Concelho" />
+          <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
+          <EntitySet Name="Freguesia" EntityType="CandidaturasBOModel.Freguesia" />
         </EntityContainer>
         <EntityType Name="ConhecimentoEscola">
           <Key>
@@ -213,34 +194,44 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Concelho">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoDistrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Freguesia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoConcelho" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoDistrito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CandidaturasBOModelStoreContainer" CdmEntityContainer="CandidaturasBOEntities">
-          <EntitySetMapping Name="Concelho">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
-              <MappingFragment StoreEntitySet="Concelho">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Curso">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Curso">
               <MappingFragment StoreEntitySet="Curso">
                 <ScalarProperty Name="CodigoRamo" ColumnName="CodigoRamo" />
                 <ScalarProperty Name="CodigoCurso" ColumnName="CodigoCurso" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Distrito">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
-              <MappingFragment StoreEntitySet="Distrito">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
               </MappingFragment>
@@ -259,15 +250,6 @@
               <MappingFragment StoreEntitySet="Exame">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Freguesia">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Freguesia">
-              <MappingFragment StoreEntitySet="Freguesia">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Concelho" ColumnName="Concelho" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -314,6 +296,36 @@
           <EntitySetMapping Name="ConhecimentoEscola">
             <EntityTypeMapping TypeName="CandidaturasBOModel.ConhecimentoEscola">
               <MappingFragment StoreEntitySet="ConhecimentoEscola">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concelho">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
+              <MappingFragment StoreEntitySet="Concelho">
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freguesia">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Freguesia">
+              <MappingFragment StoreEntitySet="Freguesia">
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
+                <ScalarProperty Name="CodigoConcelho" ColumnName="CodigoConcelho" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

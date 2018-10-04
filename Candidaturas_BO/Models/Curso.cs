@@ -11,17 +11,17 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel;
 
     public partial class Curso
     {
         public int ID { get; set; }
         public string Nome { get; set; }
 
-        [Display(Name = "Código Curso")]
+        [DisplayName("Código Curso")]
         public string CodigoCurso { get; set; }
 
-        [Display(Name = "Código Ramo")]
+        [DisplayName("Código Ramo")]
         public string CodigoRamo { get; set; }
     }
 }

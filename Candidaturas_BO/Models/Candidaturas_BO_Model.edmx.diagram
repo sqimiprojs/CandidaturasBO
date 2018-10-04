@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0254b980f9d94f8c90bb0ca8d46824c8" Name="Diagram1">
-        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Curso" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.EstadoCivil" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Genero" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Localidade" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Nacionalidade" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Situacao" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.TipoDocumentoID" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CandidaturasBOModel.ConhecimentoEscola" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="2.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
