@@ -36,7 +36,7 @@
     {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nome)
+            @Html.ActionLink(item.Nome, "Index", "Freguesias", new { concelho = item.Nome }, null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)

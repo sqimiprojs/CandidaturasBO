@@ -25,12 +25,16 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(concelho))
                 {
-                    freguesias = freguesias.Where(s => s.CodigoConcelho == Convert.ToInt32(concelho)).ToList();
+                    int codigoConcelho = db.Concelho.Where(s => s.Nome == concelho).Select(s => s.Codigo).FirstOrDefault();
+
+                    int codigoDistrito = db.Concelho.Where(s => s.Nome == concelho).Select(s => s.CodigoDistrito).FirstOrDefault();
+
+                    freguesias = freguesias.Where(s => s.CodigoConcelho == codigoConcelho && s.CodigoDistrito == codigoDistrito).ToList();
                 }
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo.ToString(),
+                    Value = c.Nome,
                     Text = c.Nome
                 });
 
