@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="9.75" PointY="0.75" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="2.75" PointY="9.75" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

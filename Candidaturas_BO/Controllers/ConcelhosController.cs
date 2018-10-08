@@ -25,12 +25,12 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(distrito))
                 {
-                    concelhos = concelhos.Where(s => s.CodigoDistrito == distrito).ToList();
+                    concelhos = concelhos.Where(s => s.CodigoDistrito == Convert.ToInt32(distrito)).ToList();
                 }
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome
                 });
 
@@ -74,7 +74,7 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome
                 });
 
@@ -122,7 +122,7 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome,
                     Selected = c.Codigo == concelho.CodigoDistrito
                 });
@@ -224,8 +224,8 @@ namespace Candidaturas_BO.Controllers
                         {
                             Concelho concelho = new Concelho();
                             concelho.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            concelho.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            concelho.CodigoDistrito = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            concelho.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            concelho.CodigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
                             db.Concelho.Add(concelho);
                             db.SaveChanges();
                         }

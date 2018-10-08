@@ -25,12 +25,12 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(concelho))
                 {
-                    freguesias = freguesias.Where(s => s.CodigoConcelho == concelho).ToList();
+                    freguesias = freguesias.Where(s => s.CodigoConcelho == Convert.ToInt32(concelho)).ToList();
                 }
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome
                 });
 
@@ -76,7 +76,7 @@ namespace Candidaturas_BO.Controllers
             {
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome
                 });
 
@@ -99,7 +99,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (ModelState.IsValid)
             {
-                string codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                int codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
                 freguesia.CodigoDistrito = codigoDistrito;
                 db.Freguesia.Add(freguesia);
                 db.SaveChanges();
@@ -126,7 +126,7 @@ namespace Candidaturas_BO.Controllers
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
-                    Value = c.Codigo,
+                    Value = c.Codigo.ToString(),
                     Text = c.Nome,
                     Selected = c.Codigo == freguesia.CodigoConcelho
                 });
@@ -150,7 +150,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (ModelState.IsValid)
             {
-                string codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                int codigoDistrito = db.Concelho.Where(d => d.Codigo == freguesia.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
                 freguesia.CodigoDistrito = codigoDistrito;
                 db.Entry(freguesia).State = EntityState.Modified;
                 db.SaveChanges();
@@ -221,9 +221,9 @@ namespace Candidaturas_BO.Controllers
                         {
                             Freguesia freguesia = new Freguesia();
                             freguesia.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            freguesia.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            freguesia.CodigoConcelho = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            freguesia.CodigoDistrito = workSheet.Cells[rowIterator, 4].Value.ToString();
+                            freguesia.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            freguesia.CodigoConcelho = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                            freguesia.CodigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
                             db.Freguesia.Add(freguesia);
                             db.SaveChanges();
                         }

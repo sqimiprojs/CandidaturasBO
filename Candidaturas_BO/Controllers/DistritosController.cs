@@ -196,7 +196,7 @@ namespace Candidaturas_BO.Controllers
                         {
                             Distrito distrito = new Distrito();
                             distrito.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            distrito.Codigo = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            distrito.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
                             db.Distrito.Add(distrito);
                             db.SaveChanges();
                         }
