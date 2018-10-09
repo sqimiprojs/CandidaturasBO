@@ -16,10 +16,15 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Freguesias
-        public ActionResult Index(string concelho)
+        public ActionResult Index(string concelho, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+                ViewBag.ConcelhoSortParm = sortOrder == "Concelho" ? "concelho_desc" : "Concelho";
+                ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
+
                 List<Freguesia> freguesias = db.Freguesia.ToList();
 
                 //search
@@ -30,6 +35,35 @@ namespace Candidaturas_BO.Controllers
                     int codigoDistrito = db.Concelho.Where(s => s.Nome == concelho).Select(s => s.CodigoDistrito).FirstOrDefault();
 
                     freguesias = freguesias.Where(s => s.CodigoConcelho == codigoConcelho && s.CodigoDistrito == codigoDistrito).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        freguesias = freguesias.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Code":
+                        freguesias = freguesias.OrderBy(s => s.Codigo).ToList();
+                        break;
+                    case "code_desc":
+                        freguesias = freguesias.OrderByDescending(s => s.Codigo).ToList();
+                        break;
+                    case "Concelho":
+                        freguesias = freguesias.OrderBy(s => s.CodigoConcelho).ToList();
+                        break;
+                    case "concelho_desc":
+                        freguesias = freguesias.OrderByDescending(s => s.CodigoConcelho).ToList();
+                        break;
+                    case "Distrito":
+                        freguesias = freguesias.OrderBy(s => s.CodigoDistrito).ToList();
+                        break;
+                    case "distrito_desc":
+                        freguesias = freguesias.OrderByDescending(s => s.CodigoDistrito).ToList();
+                        break;
+                    default:
+                        freguesias = freguesias.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem

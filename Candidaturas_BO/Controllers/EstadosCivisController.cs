@@ -16,16 +16,29 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: EstadosCivis
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
                 List<EstadoCivil> estadosCivis = db.EstadoCivil.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     estadosCivis = estadosCivis.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        estadosCivis = estadosCivis.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    default:
+                        estadosCivis = estadosCivis.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 return View(estadosCivis);

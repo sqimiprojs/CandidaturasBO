@@ -16,16 +16,29 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: TiposDocumentoID
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
                 List<TipoDocumentoID> tiposDocID = db.TipoDocumentoID.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     tiposDocID = tiposDocID.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        tiposDocID = tiposDocID.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    default:
+                        tiposDocID = tiposDocID.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 return View(tiposDocID);

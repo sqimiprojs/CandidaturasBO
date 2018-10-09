@@ -16,16 +16,43 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Concelhos
-        public ActionResult Index(string distrito)
+        public ActionResult Index(string distrito, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+                ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
+
                 List<Concelho> concelhos = db.Concelho.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(distrito))
                 {
                     concelhos = concelhos.Where(s => s.CodigoDistrito == Convert.ToInt32(distrito)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        concelhos = concelhos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Code":
+                        concelhos = concelhos.OrderBy(s => s.Codigo).ToList();
+                        break;
+                    case "code_desc":
+                        concelhos = concelhos.OrderByDescending(s => s.Codigo).ToList();
+                        break;
+                    case "Distrito":
+                        concelhos = concelhos.OrderBy(s => s.CodigoDistrito).ToList();
+                        break;
+                    case "distrito_desc":
+                        concelhos = concelhos.OrderByDescending(s => s.CodigoDistrito).ToList();
+                        break;
+                    default:
+                        concelhos = concelhos.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem

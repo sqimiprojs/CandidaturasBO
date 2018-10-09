@@ -16,16 +16,29 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Generos
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
                 List<Genero> generos = db.Genero.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     generos = generos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        generos = generos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    default:
+                        generos = generos.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 return View(generos);

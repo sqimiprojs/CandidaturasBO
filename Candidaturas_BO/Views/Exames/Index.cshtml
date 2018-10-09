@@ -23,7 +23,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th></th>
     </tr>

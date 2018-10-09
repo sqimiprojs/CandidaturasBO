@@ -16,16 +16,43 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CursoSortParm = sortOrder == "Curso" ? "curso_desc" : "Curso";
+                ViewBag.RamoSortParm = sortOrder == "Ramo" ? "ramo_desc" : "Ramo";
+
                 List<Curso> cursos = db.Curso.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString) || s.CodigoCurso.Contains(searchString) || s.CodigoRamo.Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        cursos = cursos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Curso":
+                        cursos = cursos.OrderBy(s => s.CodigoCurso).ToList();
+                        break;
+                    case "curso_desc":
+                        cursos = cursos.OrderByDescending(s => s.CodigoCurso).ToList();
+                        break;
+                    case "Ramo":
+                        cursos = cursos.OrderBy(s => s.CodigoRamo).ToList();
+                        break;
+                    case "ramo_desc":
+                        cursos = cursos.OrderByDescending(s => s.CodigoRamo).ToList();
+                        break;
+                    default:
+                        cursos = cursos.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 return View(cursos);

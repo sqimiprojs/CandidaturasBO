@@ -16,16 +16,36 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Distritos
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                List<Distrito> distritos = db.Distrito.ToList();
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+
+                var distritos = db.Distrito.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     distritos = distritos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        distritos = distritos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Code":
+                        distritos = distritos.OrderBy(s => s.Codigo).ToList();
+                        break;
+                    case "code_desc":
+                        distritos = distritos.OrderByDescending(s => s.Codigo).ToList();
+                        break;
+                    default:
+                        distritos = distritos.OrderBy(s => s.Nome).ToList();
+                        break;
                 }
 
                 return View(distritos);
