@@ -1,7 +1,7 @@
 ﻿@model Candidaturas_BO.Models.Nacionalidade
 
 @{
-    ViewBag.Title = "Editar Nacionalidade - " + Model.Nome;
+    ViewBag.Title = "Editar País - " + Model.Nome;
 }
 
 <h2>Edit</h2>
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Nacionalidade</h4>
+        <h4>País</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
