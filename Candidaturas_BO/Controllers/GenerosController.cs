@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalGeneros = generos.Count();
+
                 return View(generos);
             }
             else

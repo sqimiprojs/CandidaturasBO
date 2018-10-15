@@ -74,6 +74,8 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.Concelho = concelhos.ToList();
 
+                ViewBag.TotalFreguesias = freguesias.Count();
+
                 return View(freguesias);
             }
             else

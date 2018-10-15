@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalExames = exames.Count();
+
                 return View(exames);
             }
             else

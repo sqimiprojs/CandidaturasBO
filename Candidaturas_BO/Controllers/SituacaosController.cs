@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalSituacaos = situacoes.Count();
+
                 return View(situacoes);
             }
             else

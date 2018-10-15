@@ -63,6 +63,8 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.Distrito = distritos.ToList();
 
+                ViewBag.TotalConcelhos = concelhos.Count();
+
                 return View(concelhos);
             }
             else

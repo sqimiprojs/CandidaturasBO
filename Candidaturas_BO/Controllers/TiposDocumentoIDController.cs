@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalTiposDocID = tiposDocID.Count();
+
                 return View(tiposDocID);
             }
             else

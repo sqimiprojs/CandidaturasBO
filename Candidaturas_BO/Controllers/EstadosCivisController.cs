@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalEstadosCivis = estadosCivis.Count();
+
                 return View(estadosCivis);
             }
             else

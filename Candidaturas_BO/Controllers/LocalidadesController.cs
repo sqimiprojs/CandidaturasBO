@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalLocalidades = localidades.Count();
+
                 return View(localidades);
             }
             else

@@ -49,3 +49,8 @@ textarea {
     display: inline-flex;
     margin-top: 20px;
 }
+
+.TotalDiv {
+    margin-top: 20px;
+    font-weight: bold;
+}

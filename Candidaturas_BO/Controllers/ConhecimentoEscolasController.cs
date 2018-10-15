@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalConhecimentosEscola = conhecimentosEscola.Count();
+
                 return View(conhecimentosEscola);
             }
             else

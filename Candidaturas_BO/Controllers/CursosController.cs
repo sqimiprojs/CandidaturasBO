@@ -55,6 +55,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalCursos = cursos.Count();
+
                 return View(cursos);
             }
             else

@@ -41,6 +41,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalNacionalidades = nacionalidades.Count();
+
                 return View(nacionalidades);
             }
             else

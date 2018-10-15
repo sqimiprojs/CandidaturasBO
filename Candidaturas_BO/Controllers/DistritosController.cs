@@ -48,6 +48,8 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
+                ViewBag.TotalDistritos = distritos.Count();
+
                 return View(distritos);
             }
             else
