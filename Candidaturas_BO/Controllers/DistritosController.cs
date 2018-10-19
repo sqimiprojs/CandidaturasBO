@@ -57,29 +57,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }
         }
-
-        // GET: Distritos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Distrito distrito = db.Distrito.Find(id);
-                if (distrito == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(distrito);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: Distritos/Create
         public ActionResult Create()
         {

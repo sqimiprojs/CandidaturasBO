@@ -73,29 +73,6 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
-        // GET: Concelhos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Concelho concelho = db.Concelho.Find(id);
-                if (concelho == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(concelho);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
         // GET: Concelhos/Create
         public ActionResult Create()
         {

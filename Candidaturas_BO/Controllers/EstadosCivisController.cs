@@ -50,29 +50,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }
         }
-
-        // GET: EstadosCivis/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                EstadoCivil estadoCivil = db.EstadoCivil.Find(id);
-                if (estadoCivil == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(estadoCivil);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: EstadosCivis/Create
         public ActionResult Create()
         {

@@ -83,32 +83,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }
         }
-
-        // GET: Freguesias/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
-                Freguesia freguesia = db.Freguesia.Find(id);
-
-                if (freguesia == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(freguesia);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: Freguesias/Create
         public ActionResult Create()
         {

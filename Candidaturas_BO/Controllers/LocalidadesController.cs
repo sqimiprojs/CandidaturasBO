@@ -50,29 +50,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }            
         }
-
-        // GET: Localidades/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Localidade localidade = db.Localidade.Find(id);
-                if (localidade == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(localidade);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: Localidades/Create
         public ActionResult Create()
         {

@@ -51,31 +51,6 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
-        // GET: Situacaos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
-                Situacao situacao = db.Situacao.Find(id);
-
-                if (situacao == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(situacao);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
         // GET: Situacaos/Create
         public ActionResult Create()
         {

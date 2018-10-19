@@ -50,29 +50,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }    
         }
-
-        // GET: Exames/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Exame exame = db.Exame.Find(id);
-                if (exame == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(exame);
-            }
-            else
-            {
-                return View("Error");
-            }         
-        }
-
+        
         // GET: Exames/Create
         public ActionResult Create()
         {

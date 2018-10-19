@@ -51,29 +51,7 @@ namespace Candidaturas_BO.Controllers
             }
             
         }
-
-        // GET: ConhecimentoEscolas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                ConhecimentoEscola conhecimentoEscola = db.ConhecimentoEscola.Find(id);
-                if (conhecimentoEscola == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(conhecimentoEscola);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: ConhecimentoEscolas/Create
         public ActionResult Create()
         {

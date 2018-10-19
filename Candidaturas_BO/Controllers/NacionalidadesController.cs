@@ -50,33 +50,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }
         }
-
-        // GET: Nacionalidades/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
-                Nacionalidade nacionalidade = db.Nacionalidade.Find(id);
-
-                if (nacionalidade == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(nacionalidade);
-            }
-            else
-            {
-                return View("Error");
-            }
-            
-        }
-
+        
         // GET: Nacionalidades/Create
         public ActionResult Create()
         {

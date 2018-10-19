@@ -51,28 +51,6 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
-        // GET: Generos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Genero genero = db.Genero.Find(id);
-                if (genero == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(genero);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
         // GET: Generos/Create
         public ActionResult Create()
         {

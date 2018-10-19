@@ -67,28 +67,6 @@ namespace Candidaturas_BO.Controllers
             
         }
 
-        // GET: Cursos/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Curso curso = db.Curso.Find(id);
-                if (curso == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(curso);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
         // GET: Cursos/Create
         public ActionResult Create()
         {

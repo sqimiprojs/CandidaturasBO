@@ -50,32 +50,7 @@ namespace Candidaturas_BO.Controllers
                 return View("Error");
             }
         }
-
-        // GET: TiposDocumentoID/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (ADAuthorization.ADAuthenticate())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
-                TipoDocumentoID tipoDocumentoID = db.TipoDocumentoID.Find(id);
-
-                if (tipoDocumentoID == null)
-                {
-                    return HttpNotFound();
-                }
-
-                return View(tipoDocumentoID);
-            }
-            else
-            {
-                return View("Error");
-            }
-        }
-
+        
         // GET: TiposDocumentoID/Create
         public ActionResult Create()
         {
