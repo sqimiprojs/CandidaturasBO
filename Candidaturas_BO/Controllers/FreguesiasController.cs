@@ -69,7 +69,7 @@ namespace Candidaturas_BO.Controllers
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
                     Value = c.Nome,
-                    Text = c.Nome
+                    Text = c.Nome + " - " + db.Distrito.Where(dp => dp.Codigo == c.CodigoDistrito).Select(d => d.Nome).FirstOrDefault()
                 });
 
                 ViewBag.Concelho = concelhos.ToList();
