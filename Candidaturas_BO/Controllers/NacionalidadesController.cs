@@ -193,10 +193,18 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Nacionalidade nacionalidade = new Nacionalidade();
-                            nacionalidade.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.Nacionalidade.Add(nacionalidade);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.Nacionalidade.Any(n => n.Nome == nome))
+                            {
+                                Nacionalidade nacionalidade = new Nacionalidade
+                                {
+                                    Nome = nome
+                                };
+
+                                db.Nacionalidade.Add(nacionalidade);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

@@ -193,10 +193,15 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            TipoDocumentoID tipoDocID = new TipoDocumentoID();
-                            tipoDocID.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.TipoDocumentoID.Add(tipoDocID);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.TipoDocumentoID.Any(td => td.Nome == nome))
+                            {
+                                TipoDocumentoID tipoDocID = new TipoDocumentoID();
+                                tipoDocID.Nome = nome;
+                                db.TipoDocumentoID.Add(tipoDocID);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

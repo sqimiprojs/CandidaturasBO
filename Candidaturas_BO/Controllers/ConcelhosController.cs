@@ -228,12 +228,22 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Concelho concelho = new Concelho();
-                            concelho.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            concelho.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
-                            concelho.CodigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
-                            db.Concelho.Add(concelho);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            var codigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+
+                            if(!db.Concelho.Any(c => c.Nome == nome && c.Codigo == codigo && c.CodigoDistrito == codigoDistrito))
+                            {
+                                Concelho concelho = new Concelho
+                                {
+                                    Nome = nome,
+                                    Codigo = codigo,
+                                    CodigoDistrito = codigoDistrito
+                                };
+
+                                db.Concelho.Add(concelho);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch (Exception e)

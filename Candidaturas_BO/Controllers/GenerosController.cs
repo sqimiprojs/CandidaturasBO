@@ -187,10 +187,18 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Genero genero = new Genero();
-                            genero.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.Genero.Add(genero);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.Genero.Any(g => g.Nome == nome))
+                            {
+                                Genero genero = new Genero
+                                {
+                                    Nome = nome
+                                };
+
+                                db.Genero.Add(genero);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

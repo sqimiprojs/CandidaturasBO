@@ -187,10 +187,15 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            EstadoCivil estadoCivil = new EstadoCivil();
-                            estadoCivil.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.EstadoCivil.Add(estadoCivil);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.EstadoCivil.Any(ec => ec.Nome == nome))
+                            {
+                                EstadoCivil estadoCivil = new EstadoCivil();
+                                estadoCivil.Nome = nome;
+                                db.EstadoCivil.Add(estadoCivil);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

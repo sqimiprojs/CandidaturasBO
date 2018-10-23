@@ -234,13 +234,24 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Freguesia freguesia = new Freguesia();
-                            freguesia.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            freguesia.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
-                            freguesia.CodigoConcelho = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
-                            freguesia.CodigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
-                            db.Freguesia.Add(freguesia);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            var codigoConcelho = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                            var codigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
+
+                            if(!db.Freguesia.Any(f => f.Nome == nome && f.Codigo == codigo && f.CodigoConcelho == codigoConcelho && f.CodigoDistrito == codigoDistrito))
+                            {
+                                Freguesia freguesia = new Freguesia
+                                {
+                                    Nome = nome,
+                                    Codigo = codigo,
+                                    CodigoConcelho = codigoConcelho,
+                                    CodigoDistrito = codigoDistrito
+                                };
+
+                                db.Freguesia.Add(freguesia);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

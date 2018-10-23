@@ -187,10 +187,15 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Situacao situacao = new Situacao();
-                            situacao.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.Situacao.Add(situacao);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.Situacao.Any(s => s.Nome == nome))
+                            {
+                                Situacao situacao = new Situacao();
+                                situacao.Nome = nome;
+                                db.Situacao.Add(situacao);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

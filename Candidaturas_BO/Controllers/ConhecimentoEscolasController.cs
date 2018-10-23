@@ -188,10 +188,15 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            ConhecimentoEscola conhecimentoEscola = new ConhecimentoEscola();
-                            conhecimentoEscola.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.ConhecimentoEscola.Add(conhecimentoEscola);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.ConhecimentoEscola.Any(ce => ce.Nome == nome))
+                            {
+                                ConhecimentoEscola conhecimentoEscola = new ConhecimentoEscola();
+                                conhecimentoEscola.Nome = nome;
+                                db.ConhecimentoEscola.Add(conhecimentoEscola);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

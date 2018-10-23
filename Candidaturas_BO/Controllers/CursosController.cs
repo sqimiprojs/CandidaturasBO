@@ -203,12 +203,22 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Curso curso = new Curso();
-                            curso.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            curso.CodigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            curso.CodigoRamo = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            db.Curso.Add(curso);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            var codigoRamo = workSheet.Cells[rowIterator, 3].Value.ToString();
+
+                            if(!db.Curso.Any(c => c.Nome == nome && c.CodigoCurso == codigoCurso && c.CodigoRamo == codigoRamo))
+                            {
+                                Curso curso = new Curso
+                                {
+                                    Nome = nome,
+                                    CodigoCurso = codigoCurso,
+                                    CodigoRamo = codigoRamo
+                                };
+
+                                db.Curso.Add(curso);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

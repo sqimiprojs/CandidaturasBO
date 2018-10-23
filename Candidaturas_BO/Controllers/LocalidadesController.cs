@@ -194,10 +194,18 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Localidade localidade = new Localidade();
-                            localidade.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.Localidade.Add(localidade);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.Localidade.Any(l => l.Nome == nome))
+                            {
+                                Localidade localidade = new Localidade
+                                {
+                                    Nome = nome
+                                };
+
+                                db.Localidade.Add(localidade);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

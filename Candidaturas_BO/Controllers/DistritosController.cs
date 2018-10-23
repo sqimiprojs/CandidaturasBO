@@ -193,12 +193,21 @@ namespace Candidaturas_BO.Controllers
                         var noOfRow = workSheet.Dimension.End.Row;
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
-                        {
-                            Distrito distrito = new Distrito();
-                            distrito.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            distrito.Codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
-                            db.Distrito.Add(distrito);
-                            db.SaveChanges();
+                        {               
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+
+                            if (!db.Distrito.Any(d => d.Nome == nome))
+                            {
+                                Distrito distrito = new Distrito
+                                {
+                                    Nome = nome,
+                                    Codigo = codigo
+                                };
+
+                                db.Distrito.Add(distrito);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)

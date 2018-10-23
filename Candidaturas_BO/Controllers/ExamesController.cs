@@ -187,10 +187,18 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            Exame exame = new Exame();
-                            exame.Nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            db.Exame.Add(exame);
-                            db.SaveChanges();
+                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+
+                            if(!db.Exame.Any(e => e.Nome == nome))
+                            {
+                                Exame exame = new Exame
+                                {
+                                    Nome = nome
+                                };
+
+                                db.Exame.Add(exame);
+                                db.SaveChanges();
+                            }
                         }
                     }
                     catch(Exception e)
