@@ -197,8 +197,11 @@ namespace Candidaturas_BO.Controllers
 
                             if(!db.TipoDocumentoID.Any(td => td.Nome == nome))
                             {
-                                TipoDocumentoID tipoDocID = new TipoDocumentoID();
-                                tipoDocID.Nome = nome;
+                                TipoDocumentoID tipoDocID = new TipoDocumentoID
+                                {
+                                    Nome = nome
+                                };
+
                                 db.TipoDocumentoID.Add(tipoDocID);
                                 db.SaveChanges();
                             }

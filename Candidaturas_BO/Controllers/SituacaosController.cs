@@ -191,8 +191,11 @@ namespace Candidaturas_BO.Controllers
 
                             if(!db.Situacao.Any(s => s.Nome == nome))
                             {
-                                Situacao situacao = new Situacao();
-                                situacao.Nome = nome;
+                                Situacao situacao = new Situacao
+                                {
+                                    Nome = nome
+                                };
+
                                 db.Situacao.Add(situacao);
                                 db.SaveChanges();
                             }
