@@ -34,8 +34,8 @@ namespace Candidaturas_BO.Models
         public virtual DbSet<Situacao> Situacao { get; set; }
         public virtual DbSet<TipoDocumentoID> TipoDocumentoID { get; set; }
         public virtual DbSet<ConhecimentoEscola> ConhecimentoEscola { get; set; }
-        public virtual DbSet<Concelho> Concelho { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
+        public virtual DbSet<Concelho> Concelho { get; set; }
         public virtual DbSet<Freguesia> Freguesia { get; set; }
     }
 }
