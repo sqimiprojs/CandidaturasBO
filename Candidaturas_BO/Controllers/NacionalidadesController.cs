@@ -22,28 +22,28 @@ namespace Candidaturas_BO.Controllers
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
-                List<Nacionalidade> nacionalidades = db.Nacionalidade.ToList();
+                List<Pais> pais = db.Pais.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    nacionalidades = nacionalidades.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                    pais = pais.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
                 //sort
                 switch (sortOrder)
                 {
                     case "name_desc":
-                        nacionalidades = nacionalidades.OrderByDescending(s => s.Nome).ToList();
+                        pais = pais.OrderByDescending(s => s.Nome).ToList();
                         break;
                     default:
-                        nacionalidades = nacionalidades.OrderBy(s => s.Nome).ToList();
+                        pais = pais.OrderBy(s => s.Nome).ToList();
                         break;
                 }
 
-                ViewBag.TotalNacionalidades = nacionalidades.Count();
+                ViewBag.TotalNacionalidades = pais.Count();
 
-                return View(nacionalidades);
+                return View(pais);
             }
             else
             {
@@ -69,16 +69,16 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Nacionalidade nacionalidade)
+        public ActionResult Create([Bind(Include = "ID,Nome,Sigla")] Pais pais)
         {
             if (ModelState.IsValid)
             {
-                db.Nacionalidade.Add(nacionalidade);
+                db.Pais.Add(pais);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(nacionalidade);
+            return View(pais);
         }
 
         // GET: Nacionalidades/Edit/5
@@ -91,14 +91,14 @@ namespace Candidaturas_BO.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Nacionalidade nacionalidade = db.Nacionalidade.Find(id);
+                Pais pais = db.Pais.Find(id);
 
-                if (nacionalidade == null)
+                if (pais == null)
                 {
                     return HttpNotFound();
                 }
 
-                return View(nacionalidade);
+                return View(pais);
             }
             else
             {
@@ -111,15 +111,15 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Nacionalidade nacionalidade)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Sigla")] Pais pais)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(nacionalidade).State = EntityState.Modified;
+                db.Entry(pais).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(nacionalidade);
+            return View(pais);
         }
 
         // GET: Nacionalidades/Delete/5
@@ -132,14 +132,14 @@ namespace Candidaturas_BO.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Nacionalidade nacionalidade = db.Nacionalidade.Find(id);
+                Pais pais = db.Pais.Find(id);
 
-                if (nacionalidade == null)
+                if (pais == null)
                 {
                     return HttpNotFound();
                 }
 
-                return View(nacionalidade);
+                return View(pais);
             }
             else
             {
@@ -150,10 +150,10 @@ namespace Candidaturas_BO.Controllers
         // POST: Nacionalidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-            Nacionalidade nacionalidade = db.Nacionalidade.Find(id);
-            db.Nacionalidade.Remove(nacionalidade);
+            Pais pais = db.Pais.Find(id);
+            db.Pais.Remove(pais);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -194,15 +194,17 @@ namespace Candidaturas_BO.Controllers
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var sigla = workSheet.Cells[rowIterator, 2].Value.ToString();
 
-                            if(!db.Nacionalidade.Any(n => n.Nome == nome))
+                            if (!db.Pais.Any(n => n.Nome == nome && n.Sigla == sigla))
                             {
-                                Nacionalidade nacionalidade = new Nacionalidade
+                                Pais pais = new Pais
                                 {
-                                    Nome = nome
+                                    Nome = nome,
+                                    Sigla = sigla
                                 };
 
-                                db.Nacionalidade.Add(nacionalidade);
+                                db.Pais.Add(pais);
                                 db.SaveChanges();
                             }
                         }

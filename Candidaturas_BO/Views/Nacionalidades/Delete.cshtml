@@ -1,4 +1,4 @@
-﻿@model Candidaturas_BO.Models.Nacionalidade
+﻿@model Candidaturas_BO.Models.Pais
 
 @{
     ViewBag.Title = "Apagar País " + Model.Nome;
@@ -16,6 +16,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sigla)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sigla)
         </dd>
 
     </dl>

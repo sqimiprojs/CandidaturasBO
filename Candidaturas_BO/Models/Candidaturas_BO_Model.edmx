@@ -7,8 +7,7 @@
     <Schema Namespace="CandidaturasBOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Concelho">
           <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoDistrito" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
@@ -33,7 +32,7 @@
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
@@ -55,9 +54,7 @@
         </EntityType>
         <EntityType Name="Freguesia">
           <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoConcelho" />
-            <PropertyRef Name="CodigoDistrito" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
@@ -79,12 +76,13 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Nacionalidade">
+        <EntityType Name="Pais">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Sigla" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Situacao">
           <Key>
@@ -110,7 +108,7 @@
           <EntitySet Name="Freguesia" EntityType="Self.Freguesia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidade" EntityType="Self.Localidade" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Nacionalidade" EntityType="Self.Nacionalidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Situacao" EntityType="Self.Situacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDocumentoID" EntityType="Self.TipoDocumentoID" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -155,13 +153,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Nacionalidade">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Situacao">
           <Key>
             <PropertyRef Name="ID" />
@@ -182,13 +173,13 @@
           <EntitySet Name="Exame" EntityType="Self.Exame" />
           <EntitySet Name="Genero" EntityType="Self.Genero" />
           <EntitySet Name="Localidade" EntityType="Self.Localidade" />
-          <EntitySet Name="Nacionalidade" EntityType="Self.Nacionalidade" />
           <EntitySet Name="Situacao" EntityType="Self.Situacao" />
           <EntitySet Name="TipoDocumentoID" EntityType="Self.TipoDocumentoID" />
           <EntitySet Name="ConhecimentoEscola" EntityType="CandidaturasBOModel.ConhecimentoEscola" />
-          <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
           <EntitySet Name="Concelho" EntityType="CandidaturasBOModel.Concelho" />
+          <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
           <EntitySet Name="Freguesia" EntityType="CandidaturasBOModel.Freguesia" />
+          <EntitySet Name="Pais" EntityType="CandidaturasBOModel.Pais" />
           </EntityContainer>
         <EntityType Name="ConhecimentoEscola">
           <Key>
@@ -196,6 +187,15 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Concelho">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -205,27 +205,23 @@
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Codigo" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Concelho">
-          <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoDistrito" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Codigo" Type="Int32" Nullable="false" />
-          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Freguesia">
           <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoConcelho" />
-            <PropertyRef Name="CodigoDistrito" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="CodigoConcelho" Type="Int32" Nullable="false" />
           <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sigla" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -275,14 +271,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Nacionalidade">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Nacionalidade">
-              <MappingFragment StoreEntitySet="Nacionalidade">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Situacao">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Situacao">
               <MappingFragment StoreEntitySet="Situacao">
@@ -307,19 +295,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Distrito">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
-              <MappingFragment StoreEntitySet="Distrito">
+          <EntitySetMapping Name="Concelho">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
+              <MappingFragment StoreEntitySet="Concelho">
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Concelho">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
-              <MappingFragment StoreEntitySet="Concelho">
-                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -332,6 +320,15 @@
                 <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
                 <ScalarProperty Name="CodigoConcelho" ColumnName="CodigoConcelho" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

@@ -224,7 +224,7 @@
     <Compile Include="Models\Localidade.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Nacionalidade.cs">
+    <Compile Include="Models\Pais.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Situacao.cs">
