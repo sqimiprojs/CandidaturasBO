@@ -196,7 +196,7 @@ namespace Candidaturas_BO.Controllers
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
                             var sigla = workSheet.Cells[rowIterator, 2].Value.ToString();
 
-                            if (!db.Pais.Any(n => n.Nome == nome && n.Sigla == sigla))
+                            if (!db.Pais.Any(n => n.Nome == nome || n.Sigla == sigla))
                             {
                                 Pais pais = new Pais
                                 {
@@ -209,7 +209,7 @@ namespace Candidaturas_BO.Controllers
                             }
                         }
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();

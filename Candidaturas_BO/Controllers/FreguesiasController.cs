@@ -239,7 +239,7 @@ namespace Candidaturas_BO.Controllers
                             var codigoConcelho = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
                             var codigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
 
-                            if(!db.Freguesia.Any(f => f.Nome == nome && f.Codigo == codigo && f.CodigoConcelho == codigoConcelho && f.CodigoDistrito == codigoDistrito))
+                            if(!db.Freguesia.Any(f => f.Nome == nome || f.Codigo == codigo))
                             {
                                 Freguesia freguesia = new Freguesia
                                 {
@@ -254,7 +254,7 @@ namespace Candidaturas_BO.Controllers
                             }
                         }
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();

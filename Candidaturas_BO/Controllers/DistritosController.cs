@@ -197,7 +197,7 @@ namespace Candidaturas_BO.Controllers
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
                             var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
 
-                            if (!db.Distrito.Any(d => d.Nome == nome))
+                            if (!db.Distrito.Any(d => d.Nome == nome || d.Codigo == codigo))
                             {
                                 Distrito distrito = new Distrito
                                 {
@@ -210,7 +210,7 @@ namespace Candidaturas_BO.Controllers
                             }
                         }
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();

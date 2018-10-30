@@ -6,15 +6,18 @@ using System.Web;
 namespace Candidaturas_BO
 {
     public static class BOConstants
-    {
-        //public const string AdDomain = "LDAP:/sqimi.net/DC=sqimi,DC=net";
-        
+    {       
+        //Domínio da Active Directory
         public const string AdDomain = "sqimi.net";
         public const string AdDomainDC = "DC=sqimi,DC=net";
 
+        //Utilizador admin da Active Directory
         public const string AdDomainUser = "Administrator";
-        public const string AdDomainPassword = "Sqimi2018";
 
+        //Password do utilizador admin da Active Directory
+        public const string AdDomainPassword = "Windows2018";
+
+        //Grupo da Active Directory que tem permissões de aceder ao BO
         public const string AdGroup = "Candidaturas";
     }
 }

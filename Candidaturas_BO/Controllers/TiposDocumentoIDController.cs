@@ -207,7 +207,7 @@ namespace Candidaturas_BO.Controllers
                             }
                         }
                     }
-                    catch(Exception e)
+                    catch(Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();

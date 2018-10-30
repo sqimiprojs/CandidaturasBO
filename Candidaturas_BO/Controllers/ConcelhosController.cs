@@ -232,7 +232,7 @@ namespace Candidaturas_BO.Controllers
                             var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
                             var codigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
 
-                            if(!db.Concelho.Any(c => c.Nome == nome && c.Codigo == codigo && c.CodigoDistrito == codigoDistrito))
+                            if(!db.Concelho.Any(c => c.Nome == nome || c.Codigo == codigo))
                             {
                                 Concelho concelho = new Concelho
                                 {
@@ -246,7 +246,7 @@ namespace Candidaturas_BO.Controllers
                             }
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();
