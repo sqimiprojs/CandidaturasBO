@@ -1,0 +1,313 @@
+﻿@model Candidaturas_BO.Models.Candidato
+
+@{
+    ViewBag.Title = "Details";
+}
+<head>
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<h2>Detalhes</h2>
+<h3>
+    Candidato - @Html.DisplayFor(model => model.User.NomeCompleto)
+</h3>
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Militar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Militar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.DataNascimento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.DataNascimento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Dados Pessoais</h4>
+    <dl class="dl-horizontal">
+        <div class="row">
+            <div class="column">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Nomes)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Nomes)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Apelidos)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Apelidos)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.NomePai)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.NomePai)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.NomeMae)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.NomeMae)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Genero)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Genero)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.EstadoCivil)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.EstadoCivil)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Telefone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Telefone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.TipoDocID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.TipoDocID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.NDI)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.NDI)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.CCDigitosControlo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.CCDigitosControlo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.NIF)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.NIF)
+                </dd>
+            </div>
+            <div class="column">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.RepFinNIF)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.RepFinNIF)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Nacionalidade)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Nacionalidade)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.DistritoNatural)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.DistritoNatural)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.ConcelhoNatural)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.ConcelhoNatural)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.FreguesiaNatural)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.FreguesiaNatural)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.Morada)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.Morada)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.CodigoPostal4Dig)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.CodigoPostal4Dig) - @Html.DisplayFor(model => model.DadosPessoais.CodigoPostal3Dig)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.DistritoMorada)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.DistritoMorada)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.ConcelhoMorada)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.ConcelhoMorada)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DadosPessoais.FreguesiaMorada)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DadosPessoais.FreguesiaMorada)
+                </dd>
+            </div>
+        </div>
+    </dl>
+    <hr />
+    <h4>Inquerito</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.SituacaoPai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.SituacaoPai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.OutraPai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.OutraPai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.SituacaoMae)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.SituacaoMae)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.OutraMae)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.OutraMae)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.ConhecimentoEscola)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.ConhecimentoEscola)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.Outro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.Outro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inquerito.CandidatarOutros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inquerito.CandidatarOutros)
+        </dd>
+    </dl>
+    <hr />
+    <h4>Exames</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.UserExames)
+        {
+            <dt>
+                @Html.DisplayFor(modelItem => item)
+            </dt>
+        }
+    </dl>
+    <br />
+    <hr />
+    <h4>Cursos</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.UserCursos)
+        {
+            <dt>
+                @Html.DisplayFor(modelItem => item.Prioridade).
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </dd>
+        }
+    </dl>
+</div>

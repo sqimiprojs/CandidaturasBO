@@ -41,10 +41,6 @@ textarea {
     float: right;
 }
 
-.navbar {
-    font-size: 12px !important;
-}
-
 .FilterDiv {
     display: inline-flex;
     margin-top: 20px;

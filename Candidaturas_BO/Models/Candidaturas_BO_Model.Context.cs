@@ -25,17 +25,24 @@ namespace Candidaturas_BO.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Concelho> Concelho { get; set; }
+        public virtual DbSet<ConhecimentoEscola> ConhecimentoEscola { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
+        public virtual DbSet<DadosPessoais> DadosPessoais { get; set; }
+        public virtual DbSet<Distrito> Distrito { get; set; }
+        public virtual DbSet<Documento> Documento { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivil { get; set; }
         public virtual DbSet<Exame> Exame { get; set; }
+        public virtual DbSet<Freguesia> Freguesia { get; set; }
         public virtual DbSet<Genero> Genero { get; set; }
+        public virtual DbSet<Inquerito> Inquerito { get; set; }
         public virtual DbSet<Localidade> Localidade { get; set; }
+        public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Situacao> Situacao { get; set; }
         public virtual DbSet<TipoDocumentoID> TipoDocumentoID { get; set; }
-        public virtual DbSet<ConhecimentoEscola> ConhecimentoEscola { get; set; }
-        public virtual DbSet<Concelho> Concelho { get; set; }
-        public virtual DbSet<Distrito> Distrito { get; set; }
-        public virtual DbSet<Freguesia> Freguesia { get; set; }
-        public virtual DbSet<Pais> Pais { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserCurso> UserCurso { get; set; }
+        public virtual DbSet<UserDocumento> UserDocumento { get; set; }
+        public virtual DbSet<UserExame> UserExame { get; set; }
     }
 }

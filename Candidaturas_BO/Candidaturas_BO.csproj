@@ -164,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOConstants.cs" />
+    <Compile Include="Controllers\CandidatosController.cs" />
     <Compile Include="Controllers\ConcelhosController.cs" />
     <Compile Include="Controllers\ConhecimentoEscolasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Candidato.cs" />
     <Compile Include="Models\Candidaturas_BO_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,7 +208,14 @@
     <Compile Include="Models\Curso.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CursoDisplay.cs" />
+    <Compile Include="Models\DadosPessoais.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Distrito.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Documento.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstadoCivil.cs">
@@ -221,6 +230,9 @@
     <Compile Include="Models\Genero.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Inquerito.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Localidade.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
@@ -231,6 +243,18 @@
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoDocumentoID.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserCurso.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserDocumento.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -353,6 +377,8 @@
     <Content Include="Views\TiposDocumentoID\MassInsert.cshtml" />
     <Content Include="Views\Situacaos\MassInsert.cshtml" />
     <Content Include="Views\ConhecimentoEscolas\MassInsert.cshtml" />
+    <Content Include="Views\Candidatos\Index.cshtml" />
+    <Content Include="Views\Candidatos\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

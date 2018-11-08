@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.Candidato>
+
+@{
+    ViewBag.Title = "Candidatos";
+}
+
+<h2>Index</h2>
+
+<div class="TotalDiv">
+    Total de Candidatos: @ViewBag.TotalCandidatos
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Nome Completo
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Data de Nascimento
+        </th>
+        <th>
+            Genero
+        </th>
+        <th>
+            Cursos Inscritos
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.NomeCompleto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.DataNascimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DadosPessoais.Genero)
+        </td>
+        <td>
+            @foreach (var curso in item.UserCursos)
+            {
+                <span class="glyphicon glyphicon-minus"></span> @Html.DisplayFor(modelItem => curso.Nome)<br />
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Detalhes", "Details", new { id = item.User.ID })
+        </td>
+    </tr>
+    }
+
+</table>
