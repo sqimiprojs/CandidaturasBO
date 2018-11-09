@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.DataNascimento)
+            Data de Nascimento
         </dt>
 
         <dd>
@@ -43,11 +43,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
+            E-Mail
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            Data de Inscrição
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.DataCriacao)
         </dd>
     </dl>
     <hr />
@@ -72,7 +80,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.NomePai)
+                    Nome do Pai
                 </dt>
 
                 <dd>
@@ -80,7 +88,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.NomeMae)
+                    Nome da Mãe
                 </dt>
 
                 <dd>
@@ -96,7 +104,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.EstadoCivil)
+                    Estado Civil
                 </dt>
 
                 <dd>
@@ -112,7 +120,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.TipoDocID)
+                    Tipo de Documento de Identificação
                 </dt>
 
                 <dd>
@@ -120,7 +128,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.NDI)
+                    Nº de Documento de Identificação
                 </dt>
 
                 <dd>
@@ -128,7 +136,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.CCDigitosControlo)
+                    Dígitos de Controlo
                 </dt>
 
                 <dd>
@@ -136,7 +144,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.NIF)
+                    Nº de Identificação Fiscal
                 </dt>
 
                 <dd>
@@ -145,7 +153,7 @@
             </div>
             <div class="column">
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.RepFinNIF)
+                    Repartição de Finanças do NIF
                 </dt>
 
                 <dd>
@@ -161,7 +169,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.DistritoNatural)
+                    Distrito Natural
                 </dt>
 
                 <dd>
@@ -169,7 +177,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.ConcelhoNatural)
+                    Concelho Natural
                 </dt>
 
                 <dd>
@@ -177,7 +185,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.FreguesiaNatural)
+                    Freguesia Natural
                 </dt>
 
                 <dd>
@@ -193,7 +201,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.CodigoPostal4Dig)
+                    Código Postal
                 </dt>
 
                 <dd>
@@ -201,7 +209,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.DistritoMorada)
+                    Distrito Morada
                 </dt>
 
                 <dd>
@@ -209,7 +217,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.ConcelhoMorada)
+                    Concelho Morada
                 </dt>
 
                 <dd>
@@ -217,7 +225,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.DadosPessoais.FreguesiaMorada)
+                    Freguesia Morada
                 </dt>
 
                 <dd>
@@ -230,7 +238,7 @@
     <h4>Inquerito</h4>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.SituacaoPai)
+            Situação do Pai
         </dt>
 
         <dd>
@@ -238,7 +246,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.OutraPai)
+            Outro
         </dt>
 
         <dd>
@@ -246,7 +254,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.SituacaoMae)
+            Situação da Mãe
         </dt>
 
         <dd>
@@ -254,7 +262,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.OutraMae)
+            Outro
         </dt>
 
         <dd>
@@ -262,7 +270,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.ConhecimentoEscola)
+            Como tomou conhecimento da escola?
         </dt>
 
         <dd>
@@ -270,7 +278,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.Outro)
+            Outro
         </dt>
 
         <dd>
@@ -278,7 +286,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Inquerito.CandidatarOutros)
+            Candidatou-se a outras escolas?
         </dt>
 
         <dd>

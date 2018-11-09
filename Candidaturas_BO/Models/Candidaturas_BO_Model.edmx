@@ -62,6 +62,8 @@
           <Property Name="Telefone" Type="varchar" MaxLength="50" />
           <Property Name="CodigoPostal4Dig" Type="nchar" MaxLength="10" />
           <Property Name="CodigoPostal3Dig" Type="nchar" MaxLength="10" />
+          <Property Name="DataCriacao" Type="datetime" />
+          <Property Name="DataUltimaAtualizacao" Type="datetime" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -127,6 +129,8 @@
           <Property Name="Outro" Type="varchar" MaxLength="50" />
           <Property Name="CandidatarOutros" Type="bit" Nullable="false" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataCriacao" Type="datetime" />
+          <Property Name="DataAtualizacao" Type="datetime" />
         </EntityType>
         <EntityType Name="Localidade">
           <Key>
@@ -170,6 +174,7 @@
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="LoginErrorMessage" Type="varchar" MaxLength="50" />
           <Property Name="TipoDocID" Type="varchar" MaxLength="50" />
+          <Property Name="DataCriacao" Type="datetime" />
         </EntityType>
         <EntityType Name="UserCurso">
           <Key>
@@ -359,6 +364,8 @@
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CodigoPostal4Dig" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="CodigoPostal3Dig" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="DataCriacao" Type="DateTime" Precision="3" />
+          <Property Name="DataUltimaAtualizacao" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -426,6 +433,8 @@
           <Property Name="CandidatarOutros" Type="Boolean" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="User" Relationship="CandidaturasBOModel.FK_UserId" FromRole="Inquerito" ToRole="User" />
+          <Property Name="DataCriacao" Type="DateTime" Precision="3" />
+          <Property Name="DataAtualizacao" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Localidade">
           <Key>
@@ -471,6 +480,7 @@
           <Property Name="TipoDocID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Inquerito" Relationship="CandidaturasBOModel.FK_UserId" FromRole="User" ToRole="Inquerito" />
           <NavigationProperty Name="UserExame" Relationship="CandidaturasBOModel.FK_UserUE" FromRole="User" ToRole="UserExame" />
+          <Property Name="DataCriacao" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="UserCurso">
           <Key>
@@ -572,6 +582,8 @@
           <EntitySetMapping Name="DadosPessoais">
             <EntityTypeMapping TypeName="CandidaturasBOModel.DadosPessoais">
               <MappingFragment StoreEntitySet="DadosPessoais">
+                <ScalarProperty Name="DataUltimaAtualizacao" ColumnName="DataUltimaAtualizacao" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
                 <ScalarProperty Name="CodigoPostal3Dig" ColumnName="CodigoPostal3Dig" />
                 <ScalarProperty Name="CodigoPostal4Dig" ColumnName="CodigoPostal4Dig" />
                 <ScalarProperty Name="Telefone" ColumnName="Telefone" />
@@ -660,6 +672,8 @@
           <EntitySetMapping Name="Inquerito">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Inquerito">
               <MappingFragment StoreEntitySet="Inquerito">
+                <ScalarProperty Name="DataAtualizacao" ColumnName="DataAtualizacao" />
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CandidatarOutros" ColumnName="CandidatarOutros" />
                 <ScalarProperty Name="Outro" ColumnName="Outro" />
@@ -708,6 +722,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="CandidaturasBOModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
                 <ScalarProperty Name="TipoDocID" ColumnName="TipoDocID" />
                 <ScalarProperty Name="LoginErrorMessage" ColumnName="LoginErrorMessage" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

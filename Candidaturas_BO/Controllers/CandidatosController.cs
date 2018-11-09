@@ -74,6 +74,7 @@ namespace Candidaturas_BO.Controllers
 
                 candidato.User = db.User.Where(u => u.ID == id).FirstOrDefault();
                 candidato.DadosPessoais = db.DadosPessoais.Where(dp => dp.UserId == id).FirstOrDefault();
+                candidato.Inquerito = db.Inquerito.Where(i => i.UserId == id).FirstOrDefault();
 
                 foreach(var uc in db.UserCurso.Where(uc => uc.UserId == id).ToList())
                 {

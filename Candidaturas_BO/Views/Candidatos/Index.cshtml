@@ -4,7 +4,7 @@
     ViewBag.Title = "Candidatos";
 }
 
-<h2>Index</h2>
+<h2>Lista de Candidatos</h2>
 
 <div class="TotalDiv">
     Total de Candidatos: @ViewBag.TotalCandidatos
@@ -26,6 +26,9 @@
         </th>
         <th>
             Cursos Inscritos
+        </th>
+        <th>
+            Data de Candidatura
         </th>
         <th>
 
@@ -52,6 +55,9 @@
             {
                 <span class="glyphicon glyphicon-minus"></span> @Html.DisplayFor(modelItem => curso.Nome)<br />
             }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.DataCriacao)
         </td>
         <td>
             @Html.ActionLink("Detalhes", "Details", new { id = item.User.ID })

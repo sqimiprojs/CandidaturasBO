@@ -30,6 +30,7 @@ namespace Candidaturas_BO.Models
         public string Email { get; set; }
         public string LoginErrorMessage { get; set; }
         public string TipoDocID { get; set; }
+        public Nullable<System.DateTime> DataCriacao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inquerito> Inquerito { get; set; }

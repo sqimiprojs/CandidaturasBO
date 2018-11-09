@@ -23,6 +23,8 @@ namespace Candidaturas_BO.Models
         public string Outro { get; set; }
         public bool CandidatarOutros { get; set; }
         public int ID { get; set; }
+        public Nullable<System.DateTime> DataCriacao { get; set; }
+        public Nullable<System.DateTime> DataAtualizacao { get; set; }
     
         public virtual User User { get; set; }
     }
