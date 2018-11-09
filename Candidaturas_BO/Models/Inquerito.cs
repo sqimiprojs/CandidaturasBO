@@ -11,31 +11,16 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Inquerito
     {
         public int UserId { get; set; }
-
-        [DisplayName("Situação do Pai")]
         public string SituacaoPai { get; set; }
-
-        [DisplayName("Outra (Pai)")]
         public string OutraPai { get; set; }
-
-        [DisplayName("Situação da Mãe")]
         public string SituacaoMae { get; set; }
-
-        [DisplayName("Outra (Mãe)")]
         public string OutraMae { get; set; }
-
-        [DisplayName("Como tomou conhecimento da escola?")]
         public string ConhecimentoEscola { get; set; }
-
-        [DisplayName("Outro (Escola)")]
         public string Outro { get; set; }
-
-        [DisplayName("Candidatou-se a outros estabelecimentos de ensino?")]
         public bool CandidatarOutros { get; set; }
         public int ID { get; set; }
     

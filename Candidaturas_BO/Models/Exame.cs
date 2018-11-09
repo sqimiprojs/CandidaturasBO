@@ -11,13 +11,19 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Exame
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Exame()
+        {
+            this.UserExame = new HashSet<UserExame>();
+        }
+    
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Nome { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserExame> UserExame { get; set; }
     }
 }

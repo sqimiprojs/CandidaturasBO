@@ -11,18 +11,11 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Distrito
     {
         public int ID { get; set; }
-
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Nome { get; set; }
-
-        [DisplayName("Código")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public int Codigo { get; set; }
     }
 }

@@ -28,7 +28,7 @@
             @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Codigo).ToHtmlString()), "Index", new { sortOrder = ViewBag.CodeSortParm })
+            @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th></th>
     </tr>

@@ -28,13 +28,13 @@
             @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Codigo).ToHtmlString()), "Index", new { sortOrder = ViewBag.CodeSortParm })
+            @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.CodigoConcelho).ToHtmlString()), "Index", new { sortOrder = ViewBag.ConcelhoSortParm })
+            @Html.ActionLink("Código Concelho", "Index", new { sortOrder = ViewBag.ConcelhoSortParm })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.CodigoDistrito).ToHtmlString()), "Index", new { sortOrder = ViewBag.DistritoSortParm })
+            @Html.ActionLink("Código Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm })
         </th>
         <th></th>
     </tr>

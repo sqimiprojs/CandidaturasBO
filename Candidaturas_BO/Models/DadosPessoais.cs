@@ -11,65 +11,32 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class DadosPessoais
     {
         public string NomeColoquial { get; set; }
-
-        [DisplayName("Nomes")]
         public string Nomes { get; set; }
-
-        [DisplayName("Apelidos")]
         public string Apelidos { get; set; }
-
-        [DisplayName("Nome do Pai")]
         public string NomePai { get; set; }
-
-        [DisplayName("Nome da Mãe")]
         public string NomeMae { get; set; }
-
-        [DisplayName("Nº do Documento de Identificação")]
         public string NDI { get; set; }
-
-        [DisplayName("Tipo do Documento de Identificação")]
         public string TipoDocID { get; set; }
         public string Genero { get; set; }
-
-        [DisplayName("Estado Civil")]
         public string EstadoCivil { get; set; }
         public string Nacionalidade { get; set; }
-
-        [DisplayName("Distrito Natural")]
         public string DistritoNatural { get; set; }
-
-        [DisplayName("Concelho Natural")]
         public string ConcelhoNatural { get; set; }
-
-        [DisplayName("Freguesia Natural")]
         public string FreguesiaNatural { get; set; }
         public string Morada { get; set; }
         public string Localidade { get; set; }
         public int UserId { get; set; }
         public int ID { get; set; }
-
-        [DisplayName("Repartição de Finanças do NIF")]
         public string RepFinNIF { get; set; }
-
-        [DisplayName("Dígitos de Controlo")]
         public string CCDigitosControlo { get; set; }
-
-        [DisplayName("Nº de Segurança Social")]
         public string NSegSoc { get; set; }
         public string NIF { get; set; }
-
-        [DisplayName("Distrito Morada")]
         public string DistritoMorada { get; set; }
-
-        [DisplayName("Concelho Morada")]
         public string ConcelhoMorada { get; set; }
-
-        [DisplayName("Freguesia Morada")]
         public string FreguesiaMorada { get; set; }
         public string Telefone { get; set; }
         public string CodigoPostal4Dig { get; set; }

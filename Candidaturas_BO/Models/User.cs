@@ -11,8 +11,7 @@ namespace Candidaturas_BO.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,14 +22,10 @@ namespace Candidaturas_BO.Models
         }
     
         public int ID { get; set; }
-
-        [DisplayName("Nome Completo")]
         public string NomeCompleto { get; set; }
         public string Password { get; set; }
         public string NDI { get; set; }
         public bool Militar { get; set; }
-
-        [DisplayName("Data de Nascimento")]
         public Nullable<System.DateTime> DataNascimento { get; set; }
         public string Email { get; set; }
         public string LoginErrorMessage { get; set; }
