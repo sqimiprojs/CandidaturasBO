@@ -6,6 +6,14 @@
 
 <h2>Lista de Candidatos</h2>
 
+@using (Html.BeginForm())
+{
+<div style="display: flex;margin-top: 20px;">
+Procurar candidatos inscritos entre @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style= "width: 14%" }) e @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 14%" })
+<input type="submit" value="Procurar" class="btn btn-default" /> <span> </span>
+</div>
+}
+
 <div class="TotalDiv">
     Total de Candidatos: @ViewBag.TotalCandidatos
 </div>
@@ -37,32 +45,32 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.NomeCompleto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.DataNascimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DadosPessoais.Genero)
-        </td>
-        <td>
-            @foreach (var curso in item.UserCursos)
-            {
-                <span class="glyphicon glyphicon-minus"></span> @Html.DisplayFor(modelItem => curso.Nome)<br />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.DataCriacao)
-        </td>
-        <td>
-            @Html.ActionLink("Detalhes", "Details", new { id = item.User.ID })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.NomeCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.DataNascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DadosPessoais.Genero)
+            </td>
+            <td>
+                @foreach (var curso in item.UserCursos)
+                {
+                    <span class="glyphicon glyphicon-minus"></span> @Html.DisplayFor(modelItem => curso.Nome)<br />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.DataCriacao)
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "Details", new { id = item.User.ID })
+            </td>
+        </tr>
     }
 
 </table>

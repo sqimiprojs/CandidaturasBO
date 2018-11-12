@@ -1,5 +1,8 @@
 ﻿using Candidaturas_BO.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,7 +13,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string distrito, string sortOrder)
+        public ActionResult Index(string startDate, string endDate)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -18,7 +21,16 @@ namespace Candidaturas_BO.Controllers
 
                 List<User> users = db.User.ToList();
 
-                foreach(var user in users)
+                //search
+                if (startDate != null || endDate != null)
+                {
+                    DateTime? start = Convert.ToDateTime(startDate);
+                    DateTime? end = Convert.ToDateTime(endDate);
+
+                    users = users.Where(u => u.DataCriacao >= start || u.DataCriacao <= end).ToList();
+                }
+
+                foreach (var user in users)
                 {
                     Candidato candidato = new Candidato();
 
@@ -51,6 +63,15 @@ namespace Candidaturas_BO.Controllers
 
                     candidatos.Add(candidato);
                 }
+
+                /*//search
+                if (startDate != null || endDate != null)
+                {
+                    DateTime? start = Convert.ToDateTime(startDate);
+                    DateTime? end = Convert.ToDateTime(endDate);
+
+                    candidatos = candidatos.Where(u => u.User.DataCriacao.Value.Ticks >= start.Value.Ticks || u.User.DataCriacao.Value.Ticks <= end.Value.Ticks).ToList();
+                }*/
 
                 ViewBag.TotalCandidatos = candidatos.Count();
 
