@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Candidaturas_BO.Models;
 using OfficeOpenXml;
+using PagedList;
 
 namespace Candidaturas_BO.Controllers
 {
@@ -16,11 +17,26 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Localidades
-        public ActionResult Index(string searchString, string sortOrder)
+        public ActionResult Index(string searchString, string currentFilter, string sortOrder, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+                ViewBag.ConcelhoSortParm = sortOrder == "Concelho" ? "concelho_desc" : "Concelho";
+                ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
+
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
 
                 List<Localidade> localidades = db.Localidade.ToList();
 
@@ -36,6 +52,24 @@ namespace Candidaturas_BO.Controllers
                     case "name_desc":
                         localidades = localidades.OrderByDescending(s => s.Nome).ToList();
                         break;
+                    case "Code":
+                        localidades = localidades.OrderBy(s => s.Codigo).ToList();
+                        break;
+                    case "code_desc":
+                        localidades = localidades.OrderByDescending(s => s.Codigo).ToList();
+                        break;
+                    case "Concelho":
+                        localidades = localidades.OrderBy(s => s.CodigoConcelho).ToList();
+                        break;
+                    case "concelho_desc":
+                        localidades = localidades.OrderByDescending(s => s.CodigoConcelho).ToList();
+                        break;
+                    case "Distrito":
+                        localidades = localidades.OrderBy(s => s.CodigoDistrito).ToList();
+                        break;
+                    case "distrito_desc":
+                        localidades = localidades.OrderByDescending(s => s.CodigoDistrito).ToList();
+                        break;
                     default:
                         localidades = localidades.OrderBy(s => s.Nome).ToList();
                         break;
@@ -43,7 +77,10 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.TotalLocalidades = localidades.Count();
 
-                return View(localidades);
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+
+                return View(localidades.ToPagedList(pageNumber, pageSize));
             }
             else
             {
@@ -56,6 +93,14 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.CodigoConcelho = concelhos.ToList();
+
                 return View();
             }
             else
@@ -70,10 +115,12 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Localidade localidade)
+        public ActionResult Create([Bind(Include = "Nome,Codigo,CodigoConcelho,CodigoDistrito")] Localidade localidade)
         {
             if (ModelState.IsValid)
             {
+                int codigoDistrito = db.Concelho.Where(d => d.Codigo == localidade.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                localidade.CodigoDistrito = codigoDistrito;
                 db.Localidade.Add(localidade);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,16 +130,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Localidades/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Localidade localidade = db.Localidade.Find(id);
+                Localidade localidade = db.Localidade.Find(codigo);
 
                 if (localidade == null)
                 {
@@ -112,10 +159,12 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Localidade localidade)
+        public ActionResult Edit([Bind(Include = "Nome,Codigo,CodigoConcelho,CodigoDistrito")] Localidade localidade)
         {
             if (ModelState.IsValid)
             {
+                int codigoDistrito = db.Concelho.Where(d => d.Codigo == localidade.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
+                localidade.CodigoDistrito = codigoDistrito;
                 db.Entry(localidade).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -124,16 +173,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Localidades/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Localidade localidade = db.Localidade.Find(id);
+                Localidade localidade = db.Localidade.Find(codigo);
 
                 if (localidade == null)
                 {
@@ -151,9 +200,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Localidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int codigo)
         {
-            Localidade localidade = db.Localidade.Find(id);
+            Localidade localidade = db.Localidade.Find(codigo);
             db.Localidade.Remove(localidade);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -195,12 +244,18 @@ namespace Candidaturas_BO.Controllers
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            var codigoConcelho = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value.ToString());
+                            var codigoDistrito = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value.ToString());
 
-                            if(!db.Localidade.Any(l => l.Nome == nome))
+                            if (!db.Localidade.Any(l => l.Nome == nome || l.Codigo == codigo))
                             {
                                 Localidade localidade = new Localidade
                                 {
-                                    Nome = nome
+                                    Nome = nome,
+                                    Codigo = codigo,
+                                    CodigoConcelho = codigoConcelho,
+                                    CodigoDistrito = codigoDistrito
                                 };
 
                                 db.Localidade.Add(localidade);

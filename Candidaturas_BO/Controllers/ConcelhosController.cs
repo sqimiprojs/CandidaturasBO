@@ -99,7 +99,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Codigo,CodigoDistrito")] Concelho concelho)
+        public ActionResult Create([Bind(Include = "Nome,Codigo,CodigoDistrito")] Concelho concelho)
         {
             if (ModelState.IsValid)
             {
@@ -112,15 +112,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Concelhos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Concelho concelho = db.Concelho.Find(id);
+                Concelho concelho = db.Concelho.Find(codigo);
                 if (concelho == null)
                 {
                     return HttpNotFound();
@@ -148,7 +148,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo,CodigoDistrito")] Concelho concelho)
+        public ActionResult Edit([Bind(Include = "Nome,Codigo,CodigoDistrito")] Concelho concelho)
         {
             if (ModelState.IsValid)
             {
@@ -160,15 +160,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Concelhos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Concelho concelho = db.Concelho.Find(id);
+                Concelho concelho = db.Concelho.Find(codigo);
                 if (concelho == null)
                 {
                     return HttpNotFound();
@@ -185,9 +185,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Concelhos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int codigo)
         {
-            Concelho concelho = db.Concelho.Find(id);
+            Concelho concelho = db.Concelho.Find(codigo);
             db.Concelho.Remove(concelho);
             db.SaveChanges();
             return RedirectToAction("Index");

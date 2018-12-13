@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Candidaturas_BO.Models;
 using OfficeOpenXml;
+using PagedList;
 
 namespace Candidaturas_BO.Controllers
 {
@@ -16,10 +17,11 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Freguesias
-        public ActionResult Index(string concelho, string sortOrder)
+        public ActionResult Index(string concelho, string currentFilter, string sortOrder, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
                 ViewBag.ConcelhoSortParm = sortOrder == "Concelho" ? "concelho_desc" : "Concelho";
@@ -35,7 +37,15 @@ namespace Candidaturas_BO.Controllers
                     int codigoDistrito = db.Concelho.Where(s => s.Nome == concelho).Select(s => s.CodigoDistrito).FirstOrDefault();
 
                     freguesias = freguesias.Where(s => s.CodigoConcelho == codigoConcelho && s.CodigoDistrito == codigoDistrito).ToList();
+
+                    page = 1;
                 }
+                else
+                {
+                    concelho = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = concelho;
 
                 //sort
                 switch (sortOrder)
@@ -76,7 +86,10 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.TotalFreguesias = freguesias.Count();
 
-                return View(freguesias);
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+
+                return View(freguesias.ToPagedList(pageNumber, pageSize));
             }
             else
             {
@@ -110,7 +123,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
+        public ActionResult Create([Bind(Include = "Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
         {
             if (ModelState.IsValid)
             {
@@ -125,15 +138,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Freguesias/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Freguesia freguesia = db.Freguesia.Find(id);
+                Freguesia freguesia = db.Freguesia.Find(codigo);
                 if (freguesia == null)
                 {
                     return HttpNotFound();
@@ -161,7 +174,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
+        public ActionResult Edit([Bind(Include = "Nome,Codigo,CodigoConcelho,CodigoDistrito")] Freguesia freguesia)
         {
             if (ModelState.IsValid)
             {
@@ -175,16 +188,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Freguesias/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Freguesia freguesia = db.Freguesia.Find(id);
+                Freguesia freguesia = db.Freguesia.Find(codigo);
 
                 if (freguesia == null)
                 {
@@ -277,9 +290,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Freguesias/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int codigo)
         {
-            Freguesia freguesia = db.Freguesia.Find(id);
+            Freguesia freguesia = db.Freguesia.Find(codigo);
             db.Freguesia.Remove(freguesia);
             db.SaveChanges();
             return RedirectToAction("Index");
