@@ -14,7 +14,11 @@ namespace Candidaturas_BO.Models
     
     public partial class Localidade
     {
-        public int ID { get; set; }
+        public int CodigoDistrito { get; set; }
+        public int CodigoConcelho { get; set; }
+        public int Codigo { get; set; }
         public string Nome { get; set; }
+    
+        public virtual Concelho Concelho { get; set; }
     }
 }

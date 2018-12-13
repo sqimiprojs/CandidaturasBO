@@ -14,8 +14,16 @@ namespace Candidaturas_BO.Models
     
     public partial class Distrito
     {
-        public int ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Distrito()
+        {
+            this.Concelho = new HashSet<Concelho>();
+        }
+    
         public string Nome { get; set; }
         public int Codigo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Concelho> Concelho { get; set; }
     }
 }

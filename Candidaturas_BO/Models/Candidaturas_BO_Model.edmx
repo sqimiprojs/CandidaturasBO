@@ -10,7 +10,6 @@
             <PropertyRef Name="Codigo" />
             <PropertyRef Name="CodigoDistrito" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Codigo" Type="int" Nullable="false" />
           <Property Name="CodigoDistrito" Type="int" Nullable="false" />
@@ -69,7 +68,6 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Codigo" Type="int" Nullable="false" />
         </EntityType>
@@ -103,7 +101,6 @@
             <PropertyRef Name="CodigoConcelho" />
             <PropertyRef Name="CodigoDistrito" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Codigo" Type="int" Nullable="false" />
           <Property Name="CodigoConcelho" Type="int" Nullable="false" />
@@ -134,10 +131,14 @@
         </EntityType>
         <EntityType Name="Localidade">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="CodigoDistrito" />
+            <PropertyRef Name="CodigoConcelho" />
+            <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="CodigoDistrito" Type="int" Nullable="false" />
+          <Property Name="CodigoConcelho" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -201,6 +202,18 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ExameId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Concelho_Distrito">
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
+          <End Role="Concelho" Type="Self.Concelho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Concelho">
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ExameUE">
           <End Role="Exame" Type="Self.Exame" Multiplicity="1" />
           <End Role="UserExame" Type="Self.UserExame" Multiplicity="*" />
@@ -210,6 +223,34 @@
             </Principal>
             <Dependent Role="UserExame">
               <PropertyRef Name="ExameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freguesia_Distrito_Concelho">
+          <End Role="Concelho" Type="Self.Concelho" Multiplicity="1" />
+          <End Role="Freguesia" Type="Self.Freguesia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Freguesia">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidade_Distrito_Concelho">
+          <End Role="Concelho" Type="Self.Concelho" Multiplicity="1" />
+          <End Role="Localidade" Type="Self.Localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Localidade">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -257,9 +298,21 @@
           <EntitySet Name="UserCurso" EntityType="Self.UserCurso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDocumento" EntityType="Self.UserDocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserExame" EntityType="Self.UserExame" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Concelho_Distrito" Association="Self.FK_Concelho_Distrito">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Concelho" EntitySet="Concelho" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExameUE" Association="Self.FK_ExameUE">
             <End Role="Exame" EntitySet="Exame" />
             <End Role="UserExame" EntitySet="UserExame" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freguesia_Distrito_Concelho" Association="Self.FK_Freguesia_Distrito_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Freguesia" EntitySet="Freguesia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidade_Distrito_Concelho" Association="Self.FK_Localidade_Distrito_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Localidade" EntitySet="Localidade" />
           </AssociationSet>
           <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
             <End Role="User" EntitySet="User" />
@@ -275,18 +328,14 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CandidaturasBOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CandidaturasBOEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Concelho" EntityType="CandidaturasBOModel.Concelho" />
           <EntitySet Name="ConhecimentoEscola" EntityType="CandidaturasBOModel.ConhecimentoEscola" />
           <EntitySet Name="Curso" EntityType="CandidaturasBOModel.Curso" />
           <EntitySet Name="DadosPessoais" EntityType="CandidaturasBOModel.DadosPessoais" />
-          <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
           <EntitySet Name="Documento" EntityType="CandidaturasBOModel.Documento" />
           <EntitySet Name="EstadoCivil" EntityType="CandidaturasBOModel.EstadoCivil" />
           <EntitySet Name="Exame" EntityType="CandidaturasBOModel.Exame" />
-          <EntitySet Name="Freguesia" EntityType="CandidaturasBOModel.Freguesia" />
           <EntitySet Name="Genero" EntityType="CandidaturasBOModel.Genero" />
           <EntitySet Name="Inquerito" EntityType="CandidaturasBOModel.Inquerito" />
-          <EntitySet Name="Localidade" EntityType="CandidaturasBOModel.Localidade" />
           <EntitySet Name="Pais" EntityType="CandidaturasBOModel.Pais" />
           <EntitySet Name="Situacao" EntityType="CandidaturasBOModel.Situacao" />
           <EntitySet Name="TipoDocumentoID" EntityType="CandidaturasBOModel.TipoDocumentoID" />
@@ -306,17 +355,23 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserExame" EntitySet="UserExame" />
           </AssociationSet>
+          <EntitySet Name="Concelho" EntityType="CandidaturasBOModel.Concelho" />
+          <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
+          <EntitySet Name="Freguesia" EntityType="CandidaturasBOModel.Freguesia" />
+          <EntitySet Name="Localidade" EntityType="CandidaturasBOModel.Localidade" />
+          <AssociationSet Name="FK_Concelho_Distrito" Association="CandidaturasBOModel.FK_Concelho_Distrito">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Concelho" EntitySet="Concelho" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freguesia_Distrito_Concelho" Association="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Freguesia" EntitySet="Freguesia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Localidade_Distrito_Concelho" Association="CandidaturasBOModel.FK_Localidade_Distrito_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Localidade" EntitySet="Localidade" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Concelho">
-          <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoDistrito" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Codigo" Type="Int32" Nullable="false" />
-          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="ConhecimentoEscola">
           <Key>
             <PropertyRef Name="ID" />
@@ -367,14 +422,6 @@
           <Property Name="DataCriacao" Type="DateTime" Precision="3" />
           <Property Name="DataUltimaAtualizacao" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Distrito">
-          <Key>
-            <PropertyRef Name="Codigo" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Codigo" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Documento">
           <Key>
             <PropertyRef Name="ID" />
@@ -400,18 +447,6 @@
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserExame" Relationship="CandidaturasBOModel.FK_ExameUE" FromRole="Exame" ToRole="UserExame" />
         </EntityType>
-        <EntityType Name="Freguesia">
-          <Key>
-            <PropertyRef Name="Codigo" />
-            <PropertyRef Name="CodigoConcelho" />
-            <PropertyRef Name="CodigoDistrito" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Codigo" Type="Int32" Nullable="false" />
-          <Property Name="CodigoConcelho" Type="Int32" Nullable="false" />
-          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Genero">
           <Key>
             <PropertyRef Name="ID" />
@@ -435,13 +470,6 @@
           <NavigationProperty Name="User" Relationship="CandidaturasBOModel.FK_UserId" FromRole="Inquerito" ToRole="User" />
           <Property Name="DataCriacao" Type="DateTime" Precision="3" />
           <Property Name="DataAtualizacao" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Localidade">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -545,22 +573,96 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Concelho">
+          <Key>
+            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="CodigoDistrito" />
+          </Key>
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Distrito" Relationship="CandidaturasBOModel.FK_Concelho_Distrito" FromRole="Concelho" ToRole="Distrito" />
+          <NavigationProperty Name="Freguesia" Relationship="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho" FromRole="Concelho" ToRole="Freguesia" />
+          <NavigationProperty Name="Localidade" Relationship="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" FromRole="Concelho" ToRole="Localidade" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Concelho" Relationship="CandidaturasBOModel.FK_Concelho_Distrito" FromRole="Distrito" ToRole="Concelho" />
+        </EntityType>
+        <EntityType Name="Freguesia">
+          <Key>
+            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="CodigoConcelho" />
+            <PropertyRef Name="CodigoDistrito" />
+          </Key>
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="CodigoConcelho" Type="Int32" Nullable="false" />
+          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Concelho" Relationship="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho" FromRole="Freguesia" ToRole="Concelho" />
+        </EntityType>
+        <EntityType Name="Localidade">
+          <Key>
+            <PropertyRef Name="CodigoDistrito" />
+            <PropertyRef Name="CodigoConcelho" />
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="CodigoDistrito" Type="Int32" Nullable="false" />
+          <Property Name="CodigoConcelho" Type="Int32" Nullable="false" />
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Concelho" Relationship="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" FromRole="Localidade" ToRole="Concelho" />
+        </EntityType>
+        <Association Name="FK_Concelho_Distrito">
+          <End Type="CandidaturasBOModel.Distrito" Role="Distrito" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Concelho" Role="Concelho" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Concelho">
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freguesia_Distrito_Concelho">
+          <End Type="CandidaturasBOModel.Concelho" Role="Concelho" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Freguesia" Role="Freguesia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Freguesia">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Localidade_Distrito_Concelho">
+          <End Type="CandidaturasBOModel.Concelho" Role="Concelho" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Localidade" Role="Localidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Localidade">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CandidaturasBOModelStoreContainer" CdmEntityContainer="CandidaturasBOEntities">
-          <EntitySetMapping Name="Concelho">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
-              <MappingFragment StoreEntitySet="Concelho">
-                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ConhecimentoEscola">
             <EntityTypeMapping TypeName="CandidaturasBOModel.ConhecimentoEscola">
               <MappingFragment StoreEntitySet="ConhecimentoEscola">
@@ -614,15 +716,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Distrito">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
-              <MappingFragment StoreEntitySet="Distrito">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Documento">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Documento">
               <MappingFragment StoreEntitySet="Documento">
@@ -650,17 +743,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Freguesia">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Freguesia">
-              <MappingFragment StoreEntitySet="Freguesia">
-                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
-                <ScalarProperty Name="CodigoConcelho" ColumnName="CodigoConcelho" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Genero">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Genero">
               <MappingFragment StoreEntitySet="Genero">
@@ -683,14 +765,6 @@
                 <ScalarProperty Name="OutraPai" ColumnName="OutraPai" />
                 <ScalarProperty Name="SituacaoPai" ColumnName="SituacaoPai" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Localidade">
-            <EntityTypeMapping TypeName="CandidaturasBOModel.Localidade">
-              <MappingFragment StoreEntitySet="Localidade">
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -760,6 +834,43 @@
                 <ScalarProperty Name="ExameId" ColumnName="ExameId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concelho">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Concelho">
+              <MappingFragment StoreEntitySet="Concelho">
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freguesia">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Freguesia">
+              <MappingFragment StoreEntitySet="Freguesia">
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
+                <ScalarProperty Name="CodigoConcelho" ColumnName="CodigoConcelho" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidade">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Localidade">
+              <MappingFragment StoreEntitySet="Localidade">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="CodigoConcelho" ColumnName="CodigoConcelho" />
+                <ScalarProperty Name="CodigoDistrito" ColumnName="CodigoDistrito" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

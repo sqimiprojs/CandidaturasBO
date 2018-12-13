@@ -15,7 +15,7 @@ namespace Candidaturas_BO
         public const string AdDomainUser = "Administrator";
 
         //Password do utilizador admin da Active Directory
-        public const string AdDomainPassword = "Windows2018";
+        public const string AdDomainPassword = "Sqimi2018";
 
         //Grupo da Active Directory que tem permissões de aceder ao BO
         public const string AdGroup = "Candidaturas";
