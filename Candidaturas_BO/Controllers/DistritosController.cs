@@ -76,7 +76,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Codigo")] Distrito distrito)
+        public ActionResult Create([Bind(Include = "Nome,Codigo")] Distrito distrito)
         {
             if (ModelState.IsValid)
             {
@@ -89,15 +89,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Distritos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Distrito distrito = db.Distrito.Find(id);
+                Distrito distrito = db.Distrito.Find(codigo);
                 if (distrito == null)
                 {
                     return HttpNotFound();
@@ -115,7 +115,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Codigo")] Distrito distrito)
+        public ActionResult Edit([Bind(Include = "Nome,Codigo")] Distrito distrito)
         {
             if (ModelState.IsValid)
             {
@@ -127,15 +127,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Distritos/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? codigo)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Distrito distrito = db.Distrito.Find(id);
+                Distrito distrito = db.Distrito.Find(codigo);
                 if (distrito == null)
                 {
                     return HttpNotFound();
@@ -151,9 +151,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Distritos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int codigo)
         {
-            Distrito distrito = db.Distrito.Find(id);
+            Distrito distrito = db.Distrito.Find(codigo);
             db.Distrito.Remove(distrito);
             db.SaveChanges();
             return RedirectToAction("Index");
