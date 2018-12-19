@@ -26,12 +26,13 @@ namespace Candidaturas_BO.Models
         public string Password { get; set; }
         public string NDI { get; set; }
         public bool Militar { get; set; }
-        public Nullable<System.DateTime> DataNascimento { get; set; }
+        public System.DateTime DataNascimento { get; set; }
         public string Email { get; set; }
         public string LoginErrorMessage { get; set; }
         public string TipoDocID { get; set; }
-        public Nullable<System.DateTime> DataCriacao { get; set; }
+        public System.DateTime DataCriacao { get; set; }
     
+        public virtual DadosPessoais DadosPessoais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inquerito> Inquerito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

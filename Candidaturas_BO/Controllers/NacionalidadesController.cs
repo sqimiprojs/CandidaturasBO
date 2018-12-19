@@ -69,7 +69,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Sigla")] Pais pais)
+        public ActionResult Create([Bind(Include = "Nome,Sigla")] Pais pais)
         {
             if (ModelState.IsValid)
             {
@@ -82,16 +82,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Nacionalidades/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(String sigla)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (sigla == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Pais pais = db.Pais.Find(id);
+                Pais pais = db.Pais.Find(sigla);
 
                 if (pais == null)
                 {
@@ -111,7 +111,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Sigla")] Pais pais)
+        public ActionResult Edit([Bind(Include = "Nome,Sigla")] Pais pais)
         {
             if (ModelState.IsValid)
             {
@@ -123,16 +123,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Nacionalidades/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(String sigla)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (sigla == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Pais pais = db.Pais.Find(id);
+                Pais pais = db.Pais.Find(sigla);
 
                 if (pais == null)
                 {
@@ -150,9 +150,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Nacionalidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int? id)
+        public ActionResult DeleteConfirmed(String sigla)
         {
-            Pais pais = db.Pais.Find(id);
+            Pais pais = db.Pais.Find(sigla);
             db.Pais.Remove(pais);
             db.SaveChanges();
             return RedirectToAction("Index");

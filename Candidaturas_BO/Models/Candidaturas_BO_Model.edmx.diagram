@@ -6,30 +6,33 @@
     <edmx:Diagrams>
       <Diagram DiagramId="0254b980f9d94f8c90bb0ca8d46824c8" Name="Diagram1" ZoomLevel="63">
         <EntityTypeShape EntityType="CandidaturasBOModel.ConhecimentoEscola" Width="1.5" PointX="5.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Curso" Width="1.5" PointX="5.75" PointY="6.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Curso" Width="1.5" PointX="14.5" PointY="1.625" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Documento" Width="1.5" PointX="9.75" PointY="0.75" />
         <EntityTypeShape EntityType="CandidaturasBOModel.EstadoCivil" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="0.75" PointY="7.125" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Genero" Width="1.5" PointX="9.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Inquerito" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Pais" Width="1.5" PointX="9.75" PointY="6.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Situacao" Width="1.5" PointX="9.75" PointY="9.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.TipoDocumentoID" Width="1.5" PointX="6.75" PointY="10.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.User" Width="1.5" PointX="0.75" PointY="2.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Situacao" Width="1.5" PointX="18.5" PointY="4.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.TipoDocumentoID" Width="1.5" PointX="16" PointY="4.375" />
         <EntityTypeShape EntityType="CandidaturasBOModel.UserCurso" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="CandidaturasBOModel.UserDocumento" Width="1.5" PointX="11.75" PointY="3.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.UserExame" Width="1.5" PointX="3" PointY="2" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_ExameUE" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_UserId" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_UserUE" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="14.625" PointY="8.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="12.375" PointY="8.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="16.875" PointY="9.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Localidade" Width="1.5" PointX="16.875" PointY="7" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="16.125" PointY="9.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="18.5" PointY="9.875" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="14" PointY="11" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Localidade" Width="1.5" PointX="14" PointY="8.25" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Concelho_Distrito" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="11" PointY="6.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="2.875" PointY="6.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Inquerito" Width="1.5" PointX="5.5" PointY="10.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.User" Width="1.5" PointX="7.875" PointY="6.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.UserExame" Width="1.5" PointX="5.375" PointY="6.375" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia_Morada" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_User" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_ExameUE" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_Inquerito_User" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_UserExame_User" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Pais" Width="1.5" PointX="14" PointY="6.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

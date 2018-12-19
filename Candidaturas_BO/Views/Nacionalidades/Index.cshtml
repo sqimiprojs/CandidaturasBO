@@ -43,8 +43,8 @@
             @Html.DisplayFor(modelItem => item.Sigla)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+            @Html.ActionLink("Editar", "Edit", new { sigla = item.Sigla }) |
+            @Html.ActionLink("Apagar", "Delete", new { sigla = item.Sigla })
         </td>
     </tr>
     }
