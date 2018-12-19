@@ -53,7 +53,7 @@ Procurar candidatos inscritos entre @Html.TextBox("startDate", null, new { @clas
                 @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DataNascimento)
+                @Html.DisplayFor(modelItem => item.User.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.User.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.User.DataNascimento.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DadosPessoais.Genero)
