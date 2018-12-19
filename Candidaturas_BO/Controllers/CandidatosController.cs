@@ -20,15 +20,31 @@ namespace Candidaturas_BO.Controllers
                 List<Candidato> candidatos = new List<Candidato>();
 
                 List<User> users = db.User.ToList();
-
+                
                 //search
-                if (startDate != null || endDate != null)
+                if(startDate != null || endDate != null)
                 {
-                    DateTime? start = Convert.ToDateTime(startDate);
-                    DateTime? end = Convert.ToDateTime(endDate);
+                    if (startDate != "" && endDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+                        DateTime? end = Convert.ToDateTime(endDate);
 
-                    users = users.Where(u => u.DataCriacao >= start || u.DataCriacao <= end).ToList();
+                        users = users.Where(u => u.DataCriacao >= start && u.DataCriacao <= end).ToList();
+                    }
+                    else if (startDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+
+                        users = users.Where(u => u.DataCriacao >= start).ToList();
+                    }
+                    else if (endDate != "")
+                    {
+                        DateTime? end = Convert.ToDateTime(endDate);
+
+                        users = users.Where(u => u.DataCriacao <= end).ToList();
+                    }
                 }
+                
 
                 foreach (var user in users)
                 {

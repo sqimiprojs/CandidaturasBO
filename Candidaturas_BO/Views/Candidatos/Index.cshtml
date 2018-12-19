@@ -9,8 +9,12 @@
 @using (Html.BeginForm())
 {
 <div style="display: flex;margin-top: 20px;">
-Procurar candidatos inscritos entre @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style= "width: 14%" }) e @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 14%" })
-<input type="submit" value="Procurar" class="btn btn-default" /> <span> </span>
+    Procurar candidatos inscritos entre o seguinte intervalo: &nbsp;
+    @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+    &nbsp; e &nbsp;
+    @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+    &nbsp;
+    <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
 }
 
