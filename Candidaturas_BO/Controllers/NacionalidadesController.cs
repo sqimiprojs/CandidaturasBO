@@ -20,7 +20,9 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.SiglaSortParm = sortOrder == "Sigla" ? "sigla_desc" : "Sigla";
 
                 List<Pais> pais = db.Pais.ToList();
 
@@ -35,6 +37,12 @@ namespace Candidaturas_BO.Controllers
                 {
                     case "name_desc":
                         pais = pais.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Sigla":
+                        pais = pais.OrderBy(s => s.Sigla).ToList();
+                        break;
+                    case "sigla_desc":
+                        pais = pais.OrderByDescending(s => s.Sigla).ToList();
                         break;
                     default:
                         pais = pais.OrderBy(s => s.Nome).ToList();

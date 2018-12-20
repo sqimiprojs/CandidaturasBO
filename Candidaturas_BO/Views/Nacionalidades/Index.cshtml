@@ -25,10 +25,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Sigla).ToHtmlString()), "Index")
+            @Html.ActionLink("Sigla", "Index", new { sortOrder = ViewBag.SiglaSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
