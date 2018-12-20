@@ -38,11 +38,11 @@ namespace Candidaturas_BO.Models
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Freguesia> Freguesia { get; set; }
         public virtual DbSet<Localidade> Localidade { get; set; }
-        public virtual DbSet<DadosPessoais> DadosPessoais { get; set; }
         public virtual DbSet<Exame> Exame { get; set; }
         public virtual DbSet<Inquerito> Inquerito { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserExame> UserExame { get; set; }
         public virtual DbSet<Pais> Pais { get; set; }
+        public virtual DbSet<DadosPessoais> DadosPessoais { get; set; }
     }
 }

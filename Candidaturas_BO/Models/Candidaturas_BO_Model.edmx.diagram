@@ -21,18 +21,19 @@
         <AssociationConnector Association="CandidaturasBOModel.FK_Concelho_Distrito" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="11" PointY="6.375" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="2.875" PointY="6.625" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Inquerito" Width="1.5" PointX="5.5" PointY="10.625" />
         <EntityTypeShape EntityType="CandidaturasBOModel.User" Width="1.5" PointX="7.875" PointY="6.375" />
         <EntityTypeShape EntityType="CandidaturasBOModel.UserExame" Width="1.5" PointX="5.375" PointY="6.375" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia_Morada" />
-        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_User" />
         <AssociationConnector Association="CandidaturasBOModel.FK_ExameUE" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Inquerito_User" />
         <AssociationConnector Association="CandidaturasBOModel.FK_UserExame_User" />
         <EntityTypeShape EntityType="CandidaturasBOModel.Pais" Width="1.5" PointX="14" PointY="6.125" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="11" PointY="6.125" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Freguesia_Morada" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_Pais" />
+        <AssociationConnector Association="CandidaturasBOModel.FK_DadosPessoais_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

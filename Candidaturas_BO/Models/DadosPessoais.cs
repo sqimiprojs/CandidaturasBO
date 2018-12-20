@@ -38,13 +38,14 @@ namespace Candidaturas_BO.Models
         public Nullable<int> ConcelhoMorada { get; set; }
         public Nullable<int> FreguesiaMorada { get; set; }
         public string Telefone { get; set; }
-        public string CodigoPostal4Dig { get; set; }
-        public string CodigoPostal3Dig { get; set; }
+        public Nullable<short> CodigoPostal4Dig { get; set; }
+        public Nullable<short> CodigoPostal3Dig { get; set; }
         public Nullable<System.DateTime> DataCriacao { get; set; }
         public Nullable<System.DateTime> DataUltimaAtualizacao { get; set; }
     
         public virtual Freguesia Freguesia { get; set; }
         public virtual Freguesia Freguesia1 { get; set; }
+        public virtual Pais Pais { get; set; }
         public virtual User User { get; set; }
     }
 }
