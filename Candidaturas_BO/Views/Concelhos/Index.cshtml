@@ -34,7 +34,7 @@
             @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.ActionLink("Código Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm })
+            @Html.ActionLink("Distrito - Cód.", "Index", new { sortOrder = ViewBag.DistritoSortParm })
         </th>
         <th></th>
     </tr>
@@ -52,8 +52,8 @@
             @Html.DisplayFor(modelItem => item.CodigoDistrito)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
-            @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo })
+            @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo, codigoDistrito = item.CodigoDistrito }) |
+            @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo, codigoDistrito = item.CodigoDistrito })
         </td>
     </tr>
     }

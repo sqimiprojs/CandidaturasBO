@@ -130,21 +130,30 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Localidades/Edit/5
-        public ActionResult Edit(int? codigo)
+        public ActionResult Edit(int? codigo, int? codigoConcelho, int? codigoDistrito)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (codigo == null)
+                if (codigo == null || codigoConcelho == null || codigoDistrito == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Localidade localidade = db.Localidade.Find(codigo);
+                Localidade localidade = db.Localidade.Find(codigoDistrito, codigoConcelho, codigo);
 
                 if (localidade == null)
                 {
                     return HttpNotFound();
                 }
+
+                IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome,
+                    Selected = c.Codigo == localidade.CodigoConcelho
+                });
+
+                ViewBag.CodigoConcelho = concelhos.ToList();
 
                 return View(localidade);
             }
@@ -163,8 +172,6 @@ namespace Candidaturas_BO.Controllers
         {
             if (ModelState.IsValid)
             {
-                int codigoDistrito = db.Concelho.Where(d => d.Codigo == localidade.CodigoConcelho).Select(d => d.CodigoDistrito).FirstOrDefault();
-                localidade.CodigoDistrito = codigoDistrito;
                 db.Entry(localidade).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -173,16 +180,16 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Localidades/Delete/5
-        public ActionResult Delete(int? codigo)
+        public ActionResult Delete(int? codigo, int? codigoConcelho, int? codigoDistrito)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (codigo == null)
+                if (codigo == null || codigoConcelho == null || codigoDistrito == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Localidade localidade = db.Localidade.Find(codigo);
+                Localidade localidade = db.Localidade.Find(codigoDistrito, codigoConcelho, codigo);
 
                 if (localidade == null)
                 {
@@ -200,9 +207,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Localidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int codigo)
+        public ActionResult DeleteConfirmed(int codigo, int? codigoConcelho, int? codigoDistrito)
         {
-            Localidade localidade = db.Localidade.Find(codigo);
+            Localidade localidade = db.Localidade.Find(codigo, codigoConcelho, codigoDistrito);
             db.Localidade.Remove(localidade);
             db.SaveChanges();
             return RedirectToAction("Index");

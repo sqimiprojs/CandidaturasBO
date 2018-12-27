@@ -14,7 +14,19 @@ namespace Candidaturas_BO.Models
     
     public partial class TipoDocumentoID
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoDocumentoID()
+        {
+            this.DadosPessoais = new HashSet<DadosPessoais>();
+            this.User = new HashSet<User>();
+        }
+    
         public int ID { get; set; }
         public string Nome { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DadosPessoais> DadosPessoais { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User { get; set; }
     }
 }

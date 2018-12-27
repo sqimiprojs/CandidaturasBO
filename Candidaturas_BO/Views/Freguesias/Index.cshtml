@@ -62,8 +62,8 @@
                 @Html.DisplayFor(modelItem => item.CodigoDistrito)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
-                @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo })
+                @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
+                @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
             </td>
         </tr>
     }

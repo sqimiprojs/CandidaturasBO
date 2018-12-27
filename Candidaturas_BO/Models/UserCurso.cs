@@ -18,5 +18,8 @@ namespace Candidaturas_BO.Models
         public int UserId { get; set; }
         public int CursoId { get; set; }
         public int Prioridade { get; set; }
+    
+        public virtual Curso Curso { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -17,5 +17,8 @@ namespace Candidaturas_BO.Models
         public int ID { get; set; }
         public int UserId { get; set; }
         public int DocumentoId { get; set; }
+    
+        public virtual Documento Documento { get; set; }
+        public virtual User User { get; set; }
     }
 }

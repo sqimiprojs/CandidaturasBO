@@ -14,9 +14,18 @@ namespace Candidaturas_BO.Models
     
     public partial class Curso
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Curso()
+        {
+            this.UserCurso = new HashSet<UserCurso>();
+        }
+    
         public int ID { get; set; }
         public string Nome { get; set; }
         public string CodigoCurso { get; set; }
         public string CodigoRamo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserCurso> UserCurso { get; set; }
     }
 }

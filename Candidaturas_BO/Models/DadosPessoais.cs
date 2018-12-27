@@ -47,5 +47,8 @@ namespace Candidaturas_BO.Models
         public virtual Freguesia Freguesia1 { get; set; }
         public virtual Pais Pais { get; set; }
         public virtual User User { get; set; }
+        public virtual EstadoCivil EstadoCivil1 { get; set; }
+        public virtual Genero Genero1 { get; set; }
+        public virtual TipoDocumentoID TipoDocumentoID { get; set; }
     }
 }

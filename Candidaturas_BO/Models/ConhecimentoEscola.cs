@@ -14,7 +14,16 @@ namespace Candidaturas_BO.Models
     
     public partial class ConhecimentoEscola
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ConhecimentoEscola()
+        {
+            this.Inquerito = new HashSet<Inquerito>();
+        }
+    
         public int ID { get; set; }
         public string Nome { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inquerito> Inquerito { get; set; }
     }
 }
