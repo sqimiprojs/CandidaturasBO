@@ -17,7 +17,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Freguesias
-        public ActionResult Index(string concelho, string currentFilter, string sortOrder, int? page)
+        public ActionResult Index(string searchString, string concelho, string currentFilter, string sortOrder, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -46,6 +46,11 @@ namespace Candidaturas_BO.Controllers
                 }
 
                 ViewBag.CurrentFilter = concelho;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    freguesias = freguesias.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
 
                 //sort
                 switch (sortOrder)

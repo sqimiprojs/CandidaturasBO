@@ -16,7 +16,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Concelhos
-        public ActionResult Index(string distrito, string sortOrder)
+        public ActionResult Index(string searchString, string distrito, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -30,6 +30,11 @@ namespace Candidaturas_BO.Controllers
                 if (!String.IsNullOrEmpty(distrito))
                 {
                     concelhos = concelhos.Where(s => s.CodigoDistrito == Convert.ToInt32(distrito)).ToList();
+                }
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    concelhos = concelhos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
                 //sort
