@@ -18,7 +18,6 @@ namespace Candidaturas_BO.Models
         public TipoDocumentoID()
         {
             this.DadosPessoais = new HashSet<DadosPessoais>();
-            this.User = new HashSet<User>();
         }
     
         public int ID { get; set; }
@@ -26,7 +25,5 @@ namespace Candidaturas_BO.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DadosPessoais> DadosPessoais { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
     }
 }

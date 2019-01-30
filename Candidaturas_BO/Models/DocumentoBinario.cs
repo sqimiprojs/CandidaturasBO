@@ -12,13 +12,11 @@ namespace Candidaturas_BO.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserDocumento
+    public partial class DocumentoBinario
     {
-        public int ID { get; set; }
-        public int UserId { get; set; }
-        public int DocumentoId { get; set; }
+        public int DocID { get; set; }
+        public byte[] DocBinario { get; set; }
     
         public virtual Documento Documento { get; set; }
-        public virtual User User { get; set; }
     }
 }

@@ -14,23 +14,23 @@ namespace Candidaturas_BO.Models
     
     public partial class DadosPessoais
     {
+        public int UserId { get; set; }
         public string NomeColoquial { get; set; }
         public string Nomes { get; set; }
         public string Apelidos { get; set; }
         public string NomePai { get; set; }
         public string NomeMae { get; set; }
         public string NDI { get; set; }
-        public string TipoDocID { get; set; }
-        public string Genero { get; set; }
-        public string EstadoCivil { get; set; }
+        public int TipoDocID { get; set; }
+        public Nullable<int> Genero { get; set; }
+        public Nullable<int> EstadoCivil { get; set; }
         public string Nacionalidade { get; set; }
         public Nullable<int> DistritoNatural { get; set; }
         public Nullable<int> ConcelhoNatural { get; set; }
         public Nullable<int> FreguesiaNatural { get; set; }
         public string Morada { get; set; }
         public Nullable<int> Localidade { get; set; }
-        public int UserId { get; set; }
-        public string RepFinNIF { get; set; }
+        public Nullable<int> RepFinNIF { get; set; }
         public string CCDigitosControlo { get; set; }
         public string NSegSoc { get; set; }
         public string NIF { get; set; }
@@ -40,15 +40,28 @@ namespace Candidaturas_BO.Models
         public string Telefone { get; set; }
         public Nullable<short> CodigoPostal4Dig { get; set; }
         public Nullable<short> CodigoPostal3Dig { get; set; }
-        public Nullable<System.DateTime> DataCriacao { get; set; }
-        public Nullable<System.DateTime> DataUltimaAtualizacao { get; set; }
+        public System.DateTime DataCriacao { get; set; }
+        public System.DateTime DataUltimaAtualizacao { get; set; }
+        public System.DateTime DataNascimento { get; set; }
+        public bool Militar { get; set; }
+        public string Ramo { get; set; }
+        public string Categoria { get; set; }
+        public Nullable<int> Posto { get; set; }
+        public string Classe { get; set; }
+        public string NIM { get; set; }
+        public System.DateTime DocumentoValidade { get; set; }
     
+        public virtual Categoria Categoria1 { get; set; }
+        public virtual EstadoCivil EstadoCivil1 { get; set; }
         public virtual Freguesia Freguesia { get; set; }
         public virtual Freguesia Freguesia1 { get; set; }
-        public virtual Pais Pais { get; set; }
-        public virtual User User { get; set; }
-        public virtual EstadoCivil EstadoCivil1 { get; set; }
         public virtual Genero Genero1 { get; set; }
+        public virtual Pais Pais { get; set; }
+        public virtual Posto Posto1 { get; set; }
+        public virtual Ramo Ramo1 { get; set; }
+        public virtual Reparticoes Reparticoes { get; set; }
         public virtual TipoDocumentoID TipoDocumentoID { get; set; }
+        public virtual User User { get; set; }
+        public virtual Form Form { get; set; }
     }
 }

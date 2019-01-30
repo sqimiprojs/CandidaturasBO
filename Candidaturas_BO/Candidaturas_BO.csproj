@@ -189,7 +189,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Candidato.cs" />
+    <Compile Include="Models\Candidato.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidatoFull.cs" />
     <Compile Include="Models\Candidaturas_BO_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,6 +208,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Candidaturas_BO_Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Categoria.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DocModel.cs" />
     <Compile Include="Models\Concelho.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
@@ -224,10 +231,19 @@
     <Compile Include="Models\Documento.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentoBinario.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Edicao.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EstadoCivil.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Exame.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Freguesia.cs">
@@ -245,6 +261,15 @@
     <Compile Include="Models\Pais.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Posto.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ramo.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reparticoes.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Situacao.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
@@ -255,9 +280,6 @@
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserCurso.cs">
-      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserDocumento.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserExame.cs">

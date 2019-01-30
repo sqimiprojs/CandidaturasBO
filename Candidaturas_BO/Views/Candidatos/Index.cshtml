@@ -14,6 +14,9 @@
     &nbsp; e &nbsp;
     @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
     &nbsp;
+    Procurar user com email: \r\n;
+    @Html.TextBox("email", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
+    &nbsp;
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
 }
@@ -34,10 +37,10 @@
             Data de Nascimento
         </th>
         <th>
-            Genero
+            Tipo de Doc
         </th>
         <th>
-            Cursos Inscritos
+            Validade de Doc
         </th>
         <th>
             Data de Inscrição
@@ -51,22 +54,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.NomeCompleto)
+                @Html.DisplayFor(modelItem => item.User.DadosPessoais.NomeColoquial)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.User.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.User.DataNascimento.Year)
+                @Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DadosPessoais.Genero)
+                @Html.DisplayFor(modelItem => item.User.DadosPessoais.TipoDocID)
             </td>
             <td>
-                @foreach (var curso in item.UserCursos)
-                {
-                    <span class="glyphicon glyphicon-minus"></span> @Html.DisplayFor(modelItem => curso.Nome)<br />
-                }
+                @Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Day)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Month)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Year)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.DataCriacao)

@@ -13,11 +13,11 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate)
+        public ActionResult Index(string startDate, string endDate, string email)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                List<Candidato> candidatos = new List<Candidato>();
+                List<UserFull> candidatos = new List<UserFull>();
 
                 List<User> users = db.User.ToList();
                 
@@ -44,50 +44,24 @@ namespace Candidaturas_BO.Controllers
                         users = users.Where(u => u.DataCriacao <= end).ToList();
                     }
                 }
-                
+
+                if (email != null)
+                {
+                    if (email != "")
+                    {
+                        users = users.Where(u => u.Email == email).ToList();
+                    }
+                }
 
                 foreach (var user in users)
                 {
-                    Candidato candidato = new Candidato();
-
-                    List<CursoDisplay> cursoDisplays = new List<CursoDisplay>();
-                    List<string> exames = new List<string>();
+                    UserFull candidato = new UserFull();
 
                     candidato.User = user;
                     candidato.DadosPessoais = db.DadosPessoais.Where(dp => dp.UserId == user.ID).FirstOrDefault();
-                    candidato.Inquerito = db.Inquerito.Where(i => i.UserId == user.ID).FirstOrDefault();
-
-                    foreach (var uc in db.UserCurso.Where(uc => uc.UserId == candidato.User.ID).ToList())
-                    {
-                        CursoDisplay cursoDisplay = new CursoDisplay
-                        {
-                            Prioridade = uc.Prioridade,
-                            Nome = db.Curso.Where(c => c.ID == uc.CursoId).Select(c => c.Nome).FirstOrDefault()
-                        };
-
-                        cursoDisplays.Add(cursoDisplay);
-                    }
-
-                    candidato.UserCursos = cursoDisplays;
-
-                    foreach (var ue in db.UserExame.Where(ue => ue.UserId == candidato.User.ID).ToList())
-                    {
-                        exames.Add(db.Exame.Where(e => e.ID == ue.ExameId).Select(e => e.Nome).FirstOrDefault());
-                    }
-
-                    candidato.UserExames = exames;
 
                     candidatos.Add(candidato);
                 }
-
-                /*//search
-                if (startDate != null || endDate != null)
-                {
-                    DateTime? start = Convert.ToDateTime(startDate);
-                    DateTime? end = Convert.ToDateTime(endDate);
-
-                    candidatos = candidatos.Where(u => u.User.DataCriacao.Value.Ticks >= start.Value.Ticks || u.User.DataCriacao.Value.Ticks <= end.Value.Ticks).ToList();
-                }*/
 
                 ViewBag.TotalCandidatos = candidatos.Count();
 
@@ -104,16 +78,18 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                Candidato candidato = new Candidato();
+                UserFull candidato = new UserFull();
 
                 List<CursoDisplay> cursoDisplays = new List<CursoDisplay>();
                 List<string> exames = new List<string>();
+                List<DocModel> documentos = new List<DocModel>();
 
-                candidato.User = db.User.Where(u => u.ID == id).FirstOrDefault();
+                candidato.User = db.User.Where(dp => dp.ID == id).FirstOrDefault();
                 candidato.DadosPessoais = db.DadosPessoais.Where(dp => dp.UserId == id).FirstOrDefault();
                 candidato.Inquerito = db.Inquerito.Where(i => i.UserId == id).FirstOrDefault();
+                candidato.Candidato = db.Candidato.Where(i => i.UserID == id).FirstOrDefault();
 
-                foreach(var uc in db.UserCurso.Where(uc => uc.UserId == id).ToList())
+                foreach (var uc in db.UserCurso.Where(uc => uc.UserId == candidato.User.ID).ToList())
                 {
                     CursoDisplay cursoDisplay = new CursoDisplay
                     {
@@ -126,12 +102,22 @@ namespace Candidaturas_BO.Controllers
 
                 candidato.UserCursos = cursoDisplays;
 
-                foreach(var ue in db.UserExame.Where(ue => ue.UserId == id).ToList())
+                foreach (var ue in db.UserExame.Where(ue => ue.UserId == candidato.User.ID).ToList())
                 {
                     exames.Add(db.Exame.Where(e => e.ID == ue.ExameId).Select(e => e.Nome).FirstOrDefault());
                 }
 
                 candidato.UserExames = exames;
+
+                foreach (var doc in db.Documento.Where(d => d.UserID == candidato.User.ID).ToList())
+                {
+                    DocModel document = new DocModel();
+                    document.DocumentoInfo = doc;
+                    document.DocumentoBinario = db.DocumentoBinario.Where(db => db.DocID == doc.ID).FirstOrDefault();
+                    documentos.Add(document);
+                }
+
+                candidato.UserDocs = documentos;
 
                 return View(candidato);
             }

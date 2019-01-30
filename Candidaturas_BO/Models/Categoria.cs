@@ -12,24 +12,22 @@ namespace Candidaturas_BO.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Freguesia
+    public partial class Categoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Freguesia()
+        public Categoria()
         {
             this.DadosPessoais = new HashSet<DadosPessoais>();
-            this.DadosPessoais1 = new HashSet<DadosPessoais>();
+            this.Posto = new HashSet<Posto>();
         }
     
+        public string Sigla { get; set; }
         public string Nome { get; set; }
-        public int CodigoDistrito { get; set; }
-        public int CodigoConcelho { get; set; }
-        public int Codigo { get; set; }
+        public short Ordem { get; set; }
     
-        public virtual Concelho Concelho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DadosPessoais> DadosPessoais { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DadosPessoais> DadosPessoais1 { get; set; }
+        public virtual ICollection<Posto> Posto { get; set; }
     }
 }

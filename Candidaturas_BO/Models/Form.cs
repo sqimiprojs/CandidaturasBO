@@ -12,14 +12,12 @@ namespace Candidaturas_BO.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Candidato
+    public partial class Form
     {
         public int UserID { get; set; }
-        public int Numero { get; set; }
-        public string Edicao { get; set; }
-        public bool Sincronizado { get; set; }
+        public byte[] FormBin { get; set; }
+        public Nullable<System.DateTime> DataCriação { get; set; }
     
-        public virtual Edicao Edicao1 { get; set; }
-        public virtual User User { get; set; }
+        public virtual DadosPessoais DadosPessoais { get; set; }
     }
 }
