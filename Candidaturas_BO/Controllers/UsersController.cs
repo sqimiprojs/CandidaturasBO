@@ -8,20 +8,69 @@ using System.Web.Mvc;
 
 namespace Candidaturas_BO.Controllers
 {
-    public class CandidatosController : Controller
+    public class UsersController : Controller
     {
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate, string email)
+        public ActionResult Index(string startDate, string endDate, string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                List<Candidato> candidatos = new List<Candidato>();
+                ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+                ViewBag.IDSortParm = sortOrder == "ID" ? "id_desc" : "ID";
 
-                ViewBag.TotalCandidatos = candidatos.Count();
+                List<User> usersDB = db.User.ToList();
 
-                return View(candidatos);
+                //search
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    usersDB = usersDB.Where(s => s.Email.Contains(searchString) || s.Email.ToLower().Contains(searchString)).ToList();
+                }
+
+                if (startDate != null || endDate != null)
+                {
+                    if (startDate != "" && endDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+                        DateTime? end = Convert.ToDateTime(endDate);
+
+                        usersDB = usersDB.Where(u => u.DataCriacao >= start && u.DataCriacao <= end).ToList();
+                    }
+                    else if (startDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+
+                        usersDB = usersDB.Where(u => u.DataCriacao >= start).ToList();
+                    }
+                    else if (endDate != "")
+                    {
+                        DateTime? end = Convert.ToDateTime(endDate);
+
+                        usersDB = usersDB.Where(u => u.DataCriacao <= end).ToList();
+                    }
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "email_desc":
+                        usersDB = usersDB.OrderByDescending(s => s.Email).ToList();
+                        break;
+                    case "ID":
+                        usersDB = usersDB.OrderBy(s => s.ID).ToList();
+                        break;
+                    case "id_desc":
+                        usersDB = usersDB.OrderByDescending(s => s.ID).ToList();
+                        break;
+                    default:
+                        usersDB = usersDB.OrderBy(s => s.Email).ToList();
+                        break;
+                }
+
+                ViewBag.TotalCandidatos = usersDB.Count();
+
+                return View(usersDB);
             }
             else
             {
@@ -34,11 +83,11 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                CandidatoDTO candidato = new CandidatoDTO();
+                UserFull user = new UserFull();
 
-                candidato.user.email = db.User.Where(guy => guy.ID == id).Select(guy => guy.Email).FirstOrDefault();
+                user.email = db.User.Where(guy => guy.ID == id).Select(guy => guy.Email).FirstOrDefault();
 
-                candidato.user.dadosDTO = db.DadosPessoais
+                user.dadosDTO = db.DadosPessoais
                     .Where(guy => guy.UserId == id)
                     .Select(data => new DadosPessoaisDTO
                     {
@@ -80,7 +129,7 @@ namespace Candidaturas_BO.Controllers
                     })
                     .FirstOrDefault();
 
-                candidato.user.inqueritoDTO = db.Inquerito
+                user.inqueritoDTO = db.Inquerito
                     .Where(guy => guy.UserId == id)
                     .Select(data => new InqueritoDTO
                     {
@@ -94,7 +143,7 @@ namespace Candidaturas_BO.Controllers
                     })
                     .FirstOrDefault();
 
-                candidato.user.cursosDTO = db.UserCurso
+                user.cursosDTO = db.UserCurso
                     .Where(guy => guy.UserId == id)
                     .Select(data => new UserCursoDTO
                     {
@@ -103,7 +152,7 @@ namespace Candidaturas_BO.Controllers
                     })
                     .ToList();
 
-                candidato.user.examesDTO = db.UserExame
+                user.examesDTO = db.UserExame
                     .Where(guy => guy.UserId == id)
                     .Select(data => new UserExameDTO
                     {
@@ -112,7 +161,7 @@ namespace Candidaturas_BO.Controllers
                     })
                     .ToList();
 
-                candidato.user.docsDTO = db.Documento
+                user.docsDTO = db.Documento
                     .Where(guy => guy.UserID == id)
                     .Select(data => new DocsDTO
                     {
@@ -123,11 +172,7 @@ namespace Candidaturas_BO.Controllers
                     })
                     .ToList();
 
-                candidato.candidato = db.Candidato
-                    .Where(guy => guy.UserID == id)
-                    .FirstOrDefault();
-
-                return View(candidato);
+                return View(user);
             }
             else
             {

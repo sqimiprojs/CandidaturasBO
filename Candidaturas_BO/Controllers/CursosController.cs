@@ -21,15 +21,13 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                ViewBag.CursoSortParm = sortOrder == "Curso" ? "curso_desc" : "Curso";
-                ViewBag.RamoSortParm = sortOrder == "Ramo" ? "ramo_desc" : "Ramo";
 
                 List<Curso> cursos = db.Curso.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString) || s.CodigoCurso.Contains(searchString) || s.CodigoRamo.Contains(searchString)).ToList();
+                    cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
                 //sort
@@ -37,18 +35,6 @@ namespace Candidaturas_BO.Controllers
                 {
                     case "name_desc":
                         cursos = cursos.OrderByDescending(s => s.Nome).ToList();
-                        break;
-                    case "Curso":
-                        cursos = cursos.OrderBy(s => s.CodigoCurso).ToList();
-                        break;
-                    case "curso_desc":
-                        cursos = cursos.OrderByDescending(s => s.CodigoCurso).ToList();
-                        break;
-                    case "Ramo":
-                        cursos = cursos.OrderBy(s => s.CodigoRamo).ToList();
-                        break;
-                    case "ramo_desc":
-                        cursos = cursos.OrderByDescending(s => s.CodigoRamo).ToList();
                         break;
                     default:
                         cursos = cursos.OrderBy(s => s.Nome).ToList();
@@ -207,13 +193,11 @@ namespace Candidaturas_BO.Controllers
                             var codigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
                             var codigoRamo = workSheet.Cells[rowIterator, 3].Value.ToString();
 
-                            if(!db.Curso.Any(c => c.Nome == nome && c.CodigoCurso == codigoCurso && c.CodigoRamo == codigoRamo))
+                            if(!db.Curso.Any(c => c.Nome == nome))
                             {
                                 Curso curso = new Curso
                                 {
-                                    Nome = nome,
-                                    CodigoCurso = codigoCurso,
-                                    CodigoRamo = codigoRamo
+                                    Nome = nome
                                 };
 
                                 db.Curso.Add(curso);

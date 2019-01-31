@@ -1,4 +1,4 @@
-﻿@model Candidaturas_BO.Models.CandidatoDTO
+﻿@model Candidaturas_BO.Models.UserFull
 
 @{
     ViewBag.Title = "Details";
@@ -21,18 +21,18 @@
 @Html.ActionLink("Regressar à Lista", "Index")
 <h2>Detalhes</h2>
 <h3>
-    Candidato - @Html.DisplayFor(model => model.user.dadosDTO.NomeColoquial)
+    User - @Html.DisplayFor(model => model.dadosDTO.NomeColoquial)
 </h3>
 
 <div>
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.user.dadosDTO.Militar)
+            @Html.DisplayNameFor(model => model.dadosDTO.Militar)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.dadosDTO.Militar)
+            @Html.DisplayFor(model => model.dadosDTO.Militar)
         </dd>
 
         <dt>
@@ -40,7 +40,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.dadosDTO.DataNascimento)
+            @Html.DisplayFor(model => model.dadosDTO.DataNascimento)
         </dd>
 
         <dt>
@@ -48,7 +48,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.email)
+            @Html.DisplayFor(model => model.email)
         </dd>
 
         <dt>
@@ -56,7 +56,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.dadosDTO.DataCriacao)
+            @Html.DisplayFor(model => model.dadosDTO.DataCriacao)
         </dd>
     </dl>
     <hr />
@@ -65,19 +65,19 @@
         <div class="row">
             <div class="column">
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Nomes)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Nomes)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Nomes)
+                    @Html.DisplayFor(model => model.dadosDTO.Nomes)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Apelidos)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Apelidos)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Apelidos)
+                    @Html.DisplayFor(model => model.dadosDTO.Apelidos)
                 </dd>
 
                 <dt>
@@ -85,7 +85,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.NomePai)
+                    @Html.DisplayFor(model => model.dadosDTO.NomePai)
                 </dd>
 
                 <dt>
@@ -93,15 +93,15 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.NomeMae)
+                    @Html.DisplayFor(model => model.dadosDTO.NomeMae)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Genero)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Genero)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Genero)
+                    @Html.DisplayFor(model => model.dadosDTO.Genero)
                 </dd>
 
                 <dt>
@@ -109,15 +109,15 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.EstadoCivil)
+                    @Html.DisplayFor(model => model.dadosDTO.EstadoCivil)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Telefone)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Telefone)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Telefone)
+                    @Html.DisplayFor(model => model.dadosDTO.Telefone)
                 </dd>
 
                 <dt>
@@ -125,7 +125,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.TipoDocID)
+                    @Html.DisplayFor(model => model.dadosDTO.TipoDocID)
                 </dd>
 
                 <dt>
@@ -133,7 +133,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.NDI)
+                    @Html.DisplayFor(model => model.dadosDTO.NDI)
                 </dd>
 
                 <dt>
@@ -141,7 +141,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.CCDigitosControlo)
+                    @Html.DisplayFor(model => model.dadosDTO.CCDigitosControlo)
                 </dd>
 
                 <dt>
@@ -149,7 +149,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.NIF)
+                    @Html.DisplayFor(model => model.dadosDTO.NIF)
                 </dd>
             </div>
             <div class="column">
@@ -158,15 +158,15 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.RepFinNIF)
+                    @Html.DisplayFor(model => model.dadosDTO.RepFinNIF)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Nacionalidade)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Nacionalidade)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Nacionalidade)
+                    @Html.DisplayFor(model => model.dadosDTO.Nacionalidade)
                 </dd>
 
                 <dt>
@@ -174,7 +174,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.DistritoNatural)
+                    @Html.DisplayFor(model => model.dadosDTO.DistritoNatural)
                 </dd>
 
                 <dt>
@@ -182,7 +182,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.ConcelhoNatural)
+                    @Html.DisplayFor(model => model.dadosDTO.ConcelhoNatural)
                 </dd>
 
                 <dt>
@@ -190,15 +190,15 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.FreguesiaNatural)
+                    @Html.DisplayFor(model => model.dadosDTO.FreguesiaNatural)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.user.dadosDTO.Morada)
+                    @Html.DisplayNameFor(model => model.dadosDTO.Morada)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.Morada)
+                    @Html.DisplayFor(model => model.dadosDTO.Morada)
                 </dd>
 
                 <dt>
@@ -206,7 +206,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.CodigoPostal4Dig) - @Html.DisplayFor(model => model.user.dadosDTO.CodigoPostal3Dig)
+                    @Html.DisplayFor(model => model.dadosDTO.CodigoPostal4Dig) - @Html.DisplayFor(model => model.dadosDTO.CodigoPostal3Dig)
                 </dd>
 
                 <dt>
@@ -214,7 +214,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.DistritoMorada)
+                    @Html.DisplayFor(model => model.dadosDTO.DistritoMorada)
                 </dd>
 
                 <dt>
@@ -222,7 +222,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.ConcelhoMorada)
+                    @Html.DisplayFor(model => model.dadosDTO.ConcelhoMorada)
                 </dd>
 
                 <dt>
@@ -230,7 +230,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.user.dadosDTO.FreguesiaMorada)
+                    @Html.DisplayFor(model => model.dadosDTO.FreguesiaMorada)
                 </dd>
             </div>
         </div>
@@ -243,7 +243,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.SituacaoPai)
+            @Html.DisplayFor(model => model.inqueritoDTO.SituacaoPai)
         </dd>
 
         <dt>
@@ -251,7 +251,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.OutraPai)
+            @Html.DisplayFor(model => model.inqueritoDTO.OutraPai)
         </dd>
 
         <dt>
@@ -259,7 +259,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.SituacaoMae)
+            @Html.DisplayFor(model => model.inqueritoDTO.SituacaoMae)
         </dd>
 
         <dt>
@@ -267,7 +267,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.OutraMae)
+            @Html.DisplayFor(model => model.inqueritoDTO.OutraMae)
         </dd>
 
         <dt>
@@ -275,7 +275,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.ConhecimentoEscola)
+            @Html.DisplayFor(model => model.inqueritoDTO.ConhecimentoEscola)
         </dd>
 
         <dt>
@@ -283,7 +283,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.Outro)
+            @Html.DisplayFor(model => model.inqueritoDTO.Outro)
         </dd>
 
         <dt>
@@ -291,24 +291,28 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.inqueritoDTO.CandidatarOutros)
+            @Html.DisplayFor(model => model.inqueritoDTO.CandidatarOutros)
         </dd>
     </dl>
     <hr />
     <h4>Exames</h4>
     <dl class="dl-horizontal">
-        @foreach (var item in Model.user.examesDTO)
+        @foreach (var item in Model.examesDTO)
         {
             <dt>
-                @Html.DisplayFor(modelItem => item)
+                @Html.DisplayFor(modelItem => item.Codigo)
             </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Exame)
+            </dd>
         }
     </dl>
     <br />
     <hr />
     <h4>Cursos</h4>
     <dl class="dl-horizontal">
-        @foreach (var item in Model.user.cursosDTO)
+        @foreach (var item in Model.cursosDTO)
         {
             <dt>
                 @Html.DisplayFor(modelItem => item.Prioridade).

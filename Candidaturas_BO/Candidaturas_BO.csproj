@@ -170,6 +170,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOConstants.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\CandidatosController.cs" />
     <Compile Include="Controllers\ConcelhosController.cs" />
     <Compile Include="Controllers\ConhecimentoEscolasController.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="Models\Candidato.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CandidatoFull.cs" />
+    <Compile Include="Models\CandidatoDTO.cs" />
     <Compile Include="Models\Candidaturas_BO_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -285,6 +286,7 @@
     <Compile Include="Models\UserExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserFull.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +410,8 @@
     <Content Include="Views\ConhecimentoEscolas\MassInsert.cshtml" />
     <Content Include="Views\Candidatos\Index.cshtml" />
     <Content Include="Views\Candidatos\Details.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

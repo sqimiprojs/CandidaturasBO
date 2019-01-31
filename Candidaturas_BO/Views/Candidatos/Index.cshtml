@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Candidaturas_BO.Models.Candidato>
+﻿@model IEnumerable<Candidaturas_BO.Models.CandidatoDTO>
 
 @{
     ViewBag.Title = "Candidatos";
@@ -14,7 +14,7 @@
     &nbsp; e &nbsp;
     @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
     &nbsp;
-    Procurar user com email: \r\n;
+    Procurar user com email: &nbsp;
     @Html.TextBox("email", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
     &nbsp;
     <input type="submit" value="Procurar" class="btn btn-default" />
@@ -37,13 +37,7 @@
             Data de Nascimento
         </th>
         <th>
-            Tipo de Doc
-        </th>
-        <th>
-            Validade de Doc
-        </th>
-        <th>
-            Data de Inscrição
+            Número de Candidato
         </th>
         <th>
 
@@ -54,25 +48,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DadosPessoais.NomeColoquial)
+                @Html.DisplayFor(modelItem => item.user.dadosDTO.NomeColoquial)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.user.email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DataNascimento.Year)
+                @Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DadosPessoais.TipoDocID)
+                @Html.DisplayFor(modelItem => item.candidato.Numero)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Day)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Month)/@Html.DisplayFor(modelItem => item.User.DadosPessoais.DocumentoValidade.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.DataCriacao)
-            </td>
-            <td>
-                @Html.ActionLink("Detalhes", "Details", new { id = item.User.ID })
+                @Html.ActionLink("Detalhes", "Details", new { id = item.candidato.UserID})
             </td>
         </tr>
     }

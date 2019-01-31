@@ -27,12 +27,6 @@
         <th>
             @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th>
-            @Html.ActionLink("Código Curso", "Index", new { sortOrder = ViewBag.CursoSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Código Ramo", "Index", new { sortOrder = ViewBag.RamoSortParm })
-        </th>
         <th></th>
     </tr>
 
@@ -41,12 +35,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoCurso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoRamo)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
