@@ -13,11 +13,86 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate, string email)
+        public ActionResult Index(string startDate, string endDate, string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                List<Candidato> candidatos = new List<Candidato>();
+                ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+                ViewBag.NumSortParm = sortOrder == "Número" ? "num_desc" : "Número";
+                ViewBag.NomeSortParm = sortOrder == "Nome" ? "nome_desc" : "Nome";
+
+                List<CandidatoDisplay> candidatos = new List<CandidatoDisplay>();
+
+                List<Candidato> candDB = db.Candidato.ToList();
+
+                //search
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    candDB = candDB.Where(s => s.Numero.Equals(searchString)).ToList();
+                }
+
+                foreach( Candidato c in candDB)
+                {
+                    CandidatoDisplay candDisplay = new CandidatoDisplay();
+
+                    candDisplay.userId = c.UserID;
+
+                    candDisplay.numCand = db.Candidato.Where(guy => guy.UserID == c.UserID).Select(guy => guy.Numero).FirstOrDefault();
+
+                    candDisplay.nome = db.DadosPessoais.Where(guy => guy.UserId == c.UserID).Select(guy => guy.NomeColoquial).FirstOrDefault();
+
+                    candDisplay.email = db.User.Where(guy => guy.ID == c.UserID).Select(guy => guy.Email).FirstOrDefault();
+
+                    candDisplay.dataCandidatura = db.Form.Where(guy => guy.UserID == c.UserID).Select(guy => guy.DataCriação).FirstOrDefault();
+
+                    candidatos.Add(candDisplay);
+                }
+
+                if (startDate != null || endDate != null)
+                {
+                    if (startDate != "" && endDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+                        DateTime? end = Convert.ToDateTime(endDate);
+
+                        candidatos = candidatos.Where(u => u.dataCandidatura >= start && u.dataCandidatura <= end).ToList();
+                    }
+                    else if (startDate != "")
+                    {
+                        DateTime? start = Convert.ToDateTime(startDate);
+
+                        candidatos = candidatos.Where(u => u.dataCandidatura >= start).ToList();
+                    }
+                    else if (endDate != "")
+                    {
+                        DateTime? end = Convert.ToDateTime(endDate);
+
+                        candidatos = candidatos.Where(u => u.dataCandidatura <= end).ToList();
+                    }
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "email_desc":
+                        candidatos = candidatos.OrderByDescending(s => s.email).ToList();
+                        break;
+                    case "Número":
+                        candidatos = candidatos.OrderBy(s => s.numCand).ToList();
+                        break;
+                    case "num_desc":
+                        candidatos = candidatos.OrderByDescending(s => s.numCand).ToList();
+                        break;
+                    case "Nome":
+                        candidatos = candidatos.OrderBy(s => s.nome).ToList();
+                        break;
+                    case "nome_desc":
+                        candidatos = candidatos.OrderByDescending(s => s.nome).ToList();
+                        break;
+                    default:
+                        candidatos = candidatos.OrderBy(s => s.email).ToList();
+                        break;
+                }
 
                 ViewBag.TotalCandidatos = candidatos.Count();
 
@@ -29,12 +104,24 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
+        public void getDataForDropdownLists()
+        {
+            IEnumerable<SelectListItem> edicoes = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+            {
+                Value = c.Sigla,
+                Text = c.Sigla
+            });
+
+            ViewBag.Edicoes = edicoes.ToList();
+        }
+
         // GET: Candidatos/Details/5
         public ActionResult Details(int? id)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 CandidatoDTO candidato = new CandidatoDTO();
+                candidato.user = new UserFull();
 
                 candidato.user.email = db.User.Where(guy => guy.ID == id).Select(guy => guy.Email).FirstOrDefault();
 
@@ -52,7 +139,7 @@ namespace Candidaturas_BO.Controllers
                         DocumentoValidade = data.DocumentoValidade,
                         Genero = db.Genero.Where(g => g.ID == data.Genero).Select(g => g.Nome).FirstOrDefault(),
                         EstadoCivil = db.EstadoCivil.Where(ec => ec.ID == data.EstadoCivil).Select(ec => ec.Nome).FirstOrDefault(),
-                        Nacionalidade = data.Nacionalidade,
+                        Nacionalidade = db.Pais.Where(p => p.Sigla == data.Nacionalidade).Select(p => p.Nome).FirstOrDefault(),
                         DistritoNatural = db.Distrito.Where(d => d.Codigo == data.DistritoNatural).Select(d => d.Nome).FirstOrDefault(),
                         ConcelhoNatural = db.Concelho.Where(c => c.Codigo == data.ConcelhoNatural).Select(c => c.Nome).FirstOrDefault(),
                         FreguesiaNatural = db.Freguesia.Where(f => f.Codigo == data.FreguesiaNatural).Select(f => f.Nome).FirstOrDefault(),
@@ -72,8 +159,8 @@ namespace Candidaturas_BO.Controllers
                         DataUltimaAtualizacao = data.DataUltimaAtualizacao,
                         DataNascimento = data.DataNascimento,
                         Militar = data.Militar,
-                        Ramo = data.Ramo,
-                        Categoria = data.Categoria,
+                        Ramo = db.Ramo.Where(r => r.Sigla == data.Ramo).Select(r => r.Nome).FirstOrDefault(),
+                        Categoria = db.Categoria.Where(c => c.Sigla == data.Categoria).Select(c => c.Nome).FirstOrDefault(),
                         Posto = db.Posto.Where(p => p.Código == data.Posto).Select(p => p.Nome).FirstOrDefault(),
                         Classe = data.Classe,
                         NIM = data.NIM
@@ -127,12 +214,36 @@ namespace Candidaturas_BO.Controllers
                     .Where(guy => guy.UserID == id)
                     .FirstOrDefault();
 
+                candidato.form = db.Form
+                    .Where(guy => guy.UserID == id)
+                    .FirstOrDefault();
+
+                ViewData["mil"] = candidato.user.dadosDTO.Militar;
+
                 return View(candidato);
             }
             else
             {
                 return View("Error");
             }
+        }
+
+        public ActionResult DownloadFormulario(int id)
+        {
+            CandidaturasBOEntities db = new CandidaturasBOEntities();
+            byte[] dForm = db.Form.Where(dp => dp.UserID == id).Select(dp => dp.FormBin).FirstOrDefault();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(System.Web.HttpCacheability.Private);
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + "ComprovativoCandidatura.pdf");
+            Response.BinaryWrite(dForm);
+            Response.Flush();
+            Response.End();
+
+            return View("~/Views/Home/Welcome.cshtml");
         }
     }
 }

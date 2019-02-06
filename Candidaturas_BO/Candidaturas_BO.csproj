@@ -193,6 +193,7 @@
     <Compile Include="Models\Candidato.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CandidatoDisplay.cs" />
     <Compile Include="Models\CandidatoDTO.cs" />
     <Compile Include="Models\Candidaturas_BO_Model.Context.cs">
       <AutoGen>True</AutoGen>

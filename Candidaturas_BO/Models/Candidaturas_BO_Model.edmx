@@ -148,8 +148,8 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="FormBin" Type="varbinary(max)" />
-          <Property Name="DataCriação" Type="datetime" />
+          <Property Name="FormBin" Type="varbinary(max)" Nullable="false" />
+          <Property Name="DataCriação" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Freguesia">
           <Key>
@@ -1183,8 +1183,8 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="FormBin" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="DataCriação" Type="DateTime" Precision="3" />
+          <Property Name="FormBin" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="DataCriação" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="DadosPessoais" Relationship="CandidaturasBOModel.FK_Form_DadosPessoais" FromRole="Form" ToRole="DadosPessoais" />
         </EntityType>
         <EntityType Name="Freguesia">

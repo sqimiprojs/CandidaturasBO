@@ -28,14 +28,6 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.DisplayNameFor(model => model.dadosDTO.Militar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.Militar)
-        </dd>
-
-        <dt>
             Data de Nascimento
         </dt>
 
@@ -323,4 +315,75 @@
             </dd>
         }
     </dl>
+    <br />
+    <hr />
+    <h4>Documentos</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.docsDTO)
+        {
+            <dt>
+                Nome
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Nome) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadDocumento", "Users", new { id = (int)item.DocumentoBinario.DocID })'"><span>Download</span></a>
+            </dd>
+
+            <dt>
+                Descrição
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </dd>
+        }
+
+    </dl>
+    <br />
+    <hr />
+    @if ((bool)@ViewData["mil"])
+    {
+    <h4>Militar</h4>
+    <dl class="dl-horizontal">        
+        <dt>
+            Nº de Identificação Militar
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dadosDTO.NIM)
+        </dd>
+
+        <dt>
+            Ramo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dadosDTO.Ramo)
+        </dd>
+
+        <dt>
+            Categoria
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dadosDTO.Categoria)
+        </dd>
+
+        <dt>
+            Posto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dadosDTO.Posto)
+        </dd>
+
+        <dt>
+            Classe
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dadosDTO.Classe)
+        </dd>
+    </dl>
+    }
 </div>

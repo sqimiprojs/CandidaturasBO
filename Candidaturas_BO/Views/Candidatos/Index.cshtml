@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Candidaturas_BO.Models.CandidatoDTO>
+﻿@model IEnumerable<Candidaturas_BO.Models.CandidatoDisplay>
 
 @{
     ViewBag.Title = "Candidatos";
@@ -14,8 +14,8 @@
     &nbsp; e &nbsp;
     @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
     &nbsp;
-    Procurar user com email: &nbsp;
-    @Html.TextBox("email", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
+    Procurar candidato com número: &nbsp;
+    @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
     &nbsp;
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
@@ -28,16 +28,16 @@
 <table class="table">
     <tr>
         <th>
-            Nome Completo
+            @Html.ActionLink("Número", "Index", new { sortOrder = ViewBag.NumSortParm })
         </th>
         <th>
-            Email
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortParm })
         </th>
         <th>
-            Data de Nascimento
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.email).ToHtmlString()), "Index", new { sortOrder = ViewBag.EmailSortParm })
         </th>
         <th>
-            Número de Candidato
+            Data de Candidatura
         </th>
         <th>
 
@@ -48,19 +48,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.user.dadosDTO.NomeColoquial)
+                @Html.DisplayFor(modelItem => item.numCand)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.user.email)
+                @Html.DisplayFor(modelItem => item.nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Day)/@Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Month)/@Html.DisplayFor(modelItem => item.user.dadosDTO.DataNascimento.Year)
+                @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.candidato.Numero)
-            </td>
+                @Html.DisplayFor(modelItem => item.dataCandidatura.Day)/@Html.DisplayFor(modelItem => item.dataCandidatura.Month)/@Html.DisplayFor(modelItem => item.dataCandidatura.Year)
+            </td>            
             <td>
-                @Html.ActionLink("Detalhes", "Details", new { id = item.candidato.UserID})
+                @Html.ActionLink("Detalhes", "Details", new { id = item.userId})
             </td>
         </tr>
     }

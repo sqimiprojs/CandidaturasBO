@@ -21,19 +21,11 @@
 @Html.ActionLink("Regressar à Lista", "Index")
 <h2>Detalhes</h2>
 <h3>
-    Candidato - @Html.DisplayFor(model => model.user.dadosDTO.NomeColoquial)
+    Candidato @Html.DisplayFor(model => model.candidato.Numero) - @Html.DisplayFor(model => model.user.dadosDTO.NomeColoquial)
 </h3>
 
 <div>
     <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.user.dadosDTO.Militar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.user.dadosDTO.Militar)
-        </dd>
 
         <dt>
             Data de Nascimento
@@ -300,8 +292,12 @@
         @foreach (var item in Model.user.examesDTO)
         {
             <dt>
-                @Html.DisplayFor(modelItem => item)
+                @Html.DisplayFor(modelItem => item.Codigo)
             </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Exame)
+            </dd>
         }
     </dl>
     <br />
@@ -319,4 +315,86 @@
             </dd>
         }
     </dl>
+    <br />
+    <hr />
+    <h4>Documentos</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.user.docsDTO)
+        {
+            <dt>
+                Nome
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Nome) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadDocumento", "Users", new { id = (int)item.DocumentoBinario.DocID })'"><span> Download</span></a>
+            </dd>
+
+            <dt>
+                Descrição
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </dd>
+        }
+    </dl>
+    <br />
+    <hr />
+    <h4>Comprovativo de Candidatura</h4>
+    <dl class="dl-horizontal">
+        <dt>
+            Data de Criação
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.form.DataCriação) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Candidatos", new { id = (int)Model.form.UserID })'"><span>Download</span></a>
+        </dd>
+    </dl>
+    <br />
+    <hr />
+    @if ((bool)@ViewData["mil"])
+    {
+        <h4>Militar</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Nº de Identificação Militar
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.user.dadosDTO.NIM)
+            </dd>
+
+            <dt>
+                Ramo
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.user.dadosDTO.Ramo)
+            </dd>
+
+            <dt>
+                Categoria
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.user.dadosDTO.Categoria)
+            </dd>
+
+            <dt>
+                Posto
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.user.dadosDTO.Posto)
+            </dd>
+
+            <dt>
+                Classe
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.user.dadosDTO.Classe)
+            </dd>
+        </dl>
+    }
 </div>

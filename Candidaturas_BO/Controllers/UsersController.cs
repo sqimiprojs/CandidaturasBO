@@ -101,7 +101,7 @@ namespace Candidaturas_BO.Controllers
                         DocumentoValidade = data.DocumentoValidade,
                         Genero = db.Genero.Where(g => g.ID == data.Genero).Select(g => g.Nome).FirstOrDefault(),
                         EstadoCivil = db.EstadoCivil.Where(ec => ec.ID == data.EstadoCivil).Select(ec => ec.Nome).FirstOrDefault(),
-                        Nacionalidade = data.Nacionalidade,
+                        Nacionalidade = db.Pais.Where(p => p.Sigla == data.Nacionalidade).Select(p => p.Nome).FirstOrDefault(),
                         DistritoNatural = db.Distrito.Where(d => d.Codigo == data.DistritoNatural).Select(d => d.Nome).FirstOrDefault(),
                         ConcelhoNatural = db.Concelho.Where(c => c.Codigo == data.ConcelhoNatural).Select(c => c.Nome).FirstOrDefault(),
                         FreguesiaNatural = db.Freguesia.Where(f => f.Codigo == data.FreguesiaNatural).Select(f => f.Nome).FirstOrDefault(),
@@ -121,8 +121,8 @@ namespace Candidaturas_BO.Controllers
                         DataUltimaAtualizacao = data.DataUltimaAtualizacao,
                         DataNascimento = data.DataNascimento,
                         Militar = data.Militar,
-                        Ramo = data.Ramo,
-                        Categoria = data.Categoria,
+                        Ramo = db.Ramo.Where(r => r.Sigla == data.Ramo).Select(r => r.Nome).FirstOrDefault(),
+                        Categoria = db.Categoria.Where(c => c.Sigla == data.Categoria).Select(c => c.Nome).FirstOrDefault(),
                         Posto = db.Posto.Where(p => p.Código == data.Posto).Select(p => p.Nome).FirstOrDefault(),
                         Classe = data.Classe,
                         NIM = data.NIM
@@ -172,7 +172,52 @@ namespace Candidaturas_BO.Controllers
                     })
                     .ToList();
 
+                ViewData["mil"] = user.dadosDTO.Militar;
+
                 return View(user);
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+
+        public ActionResult DownloadDocumento(int id)
+        {
+            if (ADAuthorization.ADAuthenticate())
+            {
+                using (CandidaturasBOEntities dbModel = new CandidaturasBOEntities())
+                {
+                    try
+                    {
+                        Documento doc = dbModel.Documento.Where(dp => dp.ID == id).FirstOrDefault();
+                        DocumentoBinario docbin = dbModel.DocumentoBinario.Where(dp => dp.DocID == id).FirstOrDefault();
+
+                        Response.Clear();
+                        Response.Buffer = true;
+                        Response.Charset = "";
+                        Response.Cache.SetCacheability(System.Web.HttpCacheability.Private);
+                        Response.ContentType = doc.Tipo;
+                        Response.AppendHeader("Content-Disposition", "attachment; filename=" + doc.Nome);
+                        Response.BinaryWrite(docbin.DocBinario);
+                        Response.Flush();
+                        Response.End();
+                    }
+                    catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                    {
+                        Exception raise = dbEx;
+                        foreach (var validationErrors in dbEx.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                string message = string.Format("{0}:{1}", validationErrors.Entry.Entity.ToString(), validationError.ErrorMessage);
+                                raise = new InvalidOperationException(message, raise);
+                            }
+                        }
+                        throw raise;
+                    }
+                }
+                return View("~/Views/Home/Welcome.cshtml");
             }
             else
             {
