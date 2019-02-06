@@ -12,5 +12,6 @@ namespace Candidaturas_BO.Models
         public String nome { get; set; }
         public String email { get; set; }
         public System.DateTime dataCandidatura { get; set; }
+        public String edicao { get; set; }
     }
 }

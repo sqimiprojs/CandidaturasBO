@@ -31,7 +31,9 @@ namespace Candidaturas_BO.Controllers
                     candDB = candDB.Where(s => s.Numero.Equals(searchString)).ToList();
                 }
 
-                foreach( Candidato c in candDB)
+                
+
+                foreach ( Candidato c in candDB)
                 {
                     CandidatoDisplay candDisplay = new CandidatoDisplay();
 

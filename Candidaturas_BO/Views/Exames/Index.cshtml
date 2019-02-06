@@ -16,6 +16,8 @@
 {
     <div class="FilterDiv">
         Procurar por nome: @Html.TextBox("SearchString")
+        &nbsp;
+        Procurar por código: @Html.TextBox("codigo")
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
 }
@@ -27,6 +29,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Código).ToHtmlString()), "Index", new { sortOrder = ViewBag.CodeSortParm })
+        </th>
+        <th>
             @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th></th>
@@ -34,15 +39,18 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Nome)
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-        @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
-    </td>
-</tr>
-}
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Código)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+    }
 
 </table>

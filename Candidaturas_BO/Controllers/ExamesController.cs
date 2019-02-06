@@ -16,11 +16,12 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Exames
-        public ActionResult Index(string searchString, string sortOrder)
+        public ActionResult Index(string searchString, string codigo, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Código" ? "code_desc" : "Código";
 
                 List<Exame> exames = db.Exame.ToList();
 
@@ -30,11 +31,22 @@ namespace Candidaturas_BO.Controllers
                     exames = exames.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
                 }
 
+                if(!String.IsNullOrEmpty(codigo))
+                {
+                    exames = exames.Where(s => s.Código.Equals(int.Parse(codigo))).ToList();
+                }
+
                 //sort
                 switch (sortOrder)
                 {
                     case "name_desc":
                         exames = exames.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Código":
+                        exames = exames.OrderBy(s => s.Código).ToList();
+                        break;
+                    case "code_desc":
+                        exames = exames.OrderByDescending(s => s.Código).ToList();
                         break;
                     default:
                         exames = exames.OrderBy(s => s.Nome).ToList();
