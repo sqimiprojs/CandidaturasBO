@@ -1,6 +1,9 @@
-﻿@model IEnumerable<Candidaturas_BO.Models.User>
-
+﻿@model PagedList.IPagedList<Candidaturas_BO.Models.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
+    /**/
+
     ViewBag.Title = "Users";
 }
 
@@ -8,17 +11,17 @@
 
 @using (Html.BeginForm())
 {
-<div style="display: flex;margin-top: 20px;">
-    Procurar users inscritos entre o seguinte intervalo: &nbsp;
-    @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
-    &nbsp; e &nbsp;
-    @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
-    &nbsp;
-    Procurar user com email: &nbsp;
-    @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
-    &nbsp;
-    <input type="submit" value="Procurar" class="btn btn-default" />
-</div>
+    <div style="display: flex;margin-top: 20px;">
+        Procurar users inscritos entre o seguinte intervalo: &nbsp;
+        @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+        &nbsp; e &nbsp;
+        @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+        &nbsp;
+        Procurar user com email: &nbsp;
+        @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
+        &nbsp;
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
 }
 
 <div class="TotalDiv">
@@ -28,10 +31,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm })
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Email).ToHtmlString()), "Index", new { sortOrder = ViewBag.EmailSortParm })
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             Data de Inscrição
@@ -60,3 +63,8 @@
     }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

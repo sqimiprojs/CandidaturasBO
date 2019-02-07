@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Candidaturas_BO.Models;
 using OfficeOpenXml;
+using PagedList;
 
 namespace Candidaturas_BO.Controllers
 {
@@ -16,10 +17,11 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Concelhos
-        public ActionResult Index(string searchString, string distrito, string sortOrder)
+        public ActionResult Index(string searchString, string distrito, string sortOrder, string currentFilter, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
                 ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
@@ -30,7 +32,14 @@ namespace Candidaturas_BO.Controllers
                 if (!String.IsNullOrEmpty(distrito))
                 {
                     concelhos = concelhos.Where(s => s.CodigoDistrito == Convert.ToInt32(distrito)).ToList();
+                    page = 1;
                 }
+                else
+                {
+                    distrito = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = distrito;
 
                 if (!String.IsNullOrEmpty(searchString))
                 {
@@ -70,7 +79,10 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.TotalConcelhos = concelhos.Count();
 
-                return View(concelhos);
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+
+                return View(concelhos.ToPagedList(pageNumber, pageSize));
             }
             else
             {

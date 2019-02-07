@@ -1,4 +1,5 @@
 ﻿using Candidaturas_BO.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,10 +14,11 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate, string searchString, string numCand, string sortOrder)
+        public ActionResult Index(string startDate, string endDate, string searchString, string numCand, string sortOrder, string currentFilter, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.CurrentSort = sortOrder;
                 ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
                 ViewBag.NumSortParm = sortOrder == "Número" ? "num_desc" : "Número";
                 ViewBag.NomeSortParm = sortOrder == "Nome" ? "nome_desc" : "Nome";
@@ -29,6 +31,7 @@ namespace Candidaturas_BO.Controllers
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     candDB = candDB.Where(s => s.User.DadosPessoais.NomeColoquial.Contains(searchString)).ToList();
+                    page = 1;
                 }
 
                 //search
@@ -102,7 +105,11 @@ namespace Candidaturas_BO.Controllers
 
                 ViewBag.TotalCandidatos = candidatos.Count();
 
-                return View(candidatos);
+                //change pageSize to be global variable
+                int pageSize = 50;
+                int pageNumber = (page ?? 1);
+
+                return View(candidatos.ToPagedList(pageNumber, pageSize));
             }
             else
             {
