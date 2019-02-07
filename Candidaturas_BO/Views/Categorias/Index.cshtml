@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.Categoria>
+
+@{
+                /**/
+
+                ViewBag.Title = "Categorias";
+}
+
+<h2>Lista de Categorias</h2>
+
+<p class="BoParag">
+    @Html.ActionLink("Criar Nova Categoria", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+</p>
+
+
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
+}
+
+<div class="TotalDiv">
+    Total de Categoria: @ViewBag.TotalCategorias
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Ordem", "Index", new { sortOrder = ViewBag.OrdemSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sigla)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ordem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sigla)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Sigla }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Sigla })
+        </td>
+    </tr>
+}
+
+</table>

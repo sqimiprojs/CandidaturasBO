@@ -1,0 +1,38 @@
+﻿@model Candidaturas_BO.Models.Categoria
+
+@{
+    ViewBag.Title = "Inserção em Massa - Categoria";
+}
+
+<h2>Inserção em Massa</h2>
+<hr />
+
+@using (Html.BeginForm("MassInsert", "Categoria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.Label("Ficheiro", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="uploadFile" id="uploadFile" />
+                <span id="FileWarning" for="uploadFile" class="text-danger">@ViewBag.ErrorMessage</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Adicionar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regressar à Lista", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
