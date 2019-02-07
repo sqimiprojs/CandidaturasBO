@@ -13,7 +13,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate, string searchString, string sortOrder)
+        public ActionResult Index(string startDate, string endDate, string searchString, string numCand, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -28,10 +28,14 @@ namespace Candidaturas_BO.Controllers
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    candDB = candDB.Where(s => s.Numero.Equals(searchString)).ToList();
+                    candDB = candDB.Where(s => s.User.DadosPessoais.NomeColoquial.Contains(searchString)).ToList();
                 }
 
-                
+                //search
+                if (!String.IsNullOrEmpty(numCand))
+                {
+                    candDB = candDB.Where(s => s.Numero.Equals(int.Parse(numCand))).ToList();
+                }
 
                 foreach ( Candidato c in candDB)
                 {

@@ -14,10 +14,12 @@
     &nbsp; e &nbsp;
     @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
     &nbsp;
-    Procurar candidato com número: &nbsp;
+    Procurar candidato com nome: &nbsp;
     @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
     &nbsp;
-    
+    Procurar candidato com número: &nbsp;
+    @Html.TextBox("numCand", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
+    &nbsp;
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
 }
