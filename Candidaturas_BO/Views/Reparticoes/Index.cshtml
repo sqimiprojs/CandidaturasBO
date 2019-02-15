@@ -61,8 +61,8 @@
                 @Html.DisplayFor(modelItem => item.Reparticoes2.Nome)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo }) |
+                @Html.ActionLink("Delete", "Delete", new { codigo = item.Codigo })
             </td>
         </tr>
     }
