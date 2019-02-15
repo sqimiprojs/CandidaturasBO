@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.Posto>
+
+@{
+    ViewBag.Title = "Postos";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo Posto", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Abreviatura)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ordem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ramo.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abreviatura)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ordem)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ramo.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Código }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Código })
+        </td>
+    </tr>
+}
+
+</table>

@@ -171,6 +171,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOConstants.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\PostosController.cs" />
+    <Compile Include="Controllers\RamosController.cs" />
+    <Compile Include="Controllers\ReparticoesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\CandidatosController.cs" />
     <Compile Include="Controllers\ConcelhosController.cs" />
@@ -419,6 +422,18 @@
     <Content Include="Views\Categorias\Edit.cshtml" />
     <Content Include="Views\Categorias\Index.cshtml" />
     <Content Include="Views\Categorias\MassInsert.cshtml" />
+    <Content Include="Views\Postos\Create.cshtml" />
+    <Content Include="Views\Postos\Delete.cshtml" />
+    <Content Include="Views\Postos\Edit.cshtml" />
+    <Content Include="Views\Postos\Index.cshtml" />
+    <Content Include="Views\Ramos\Create.cshtml" />
+    <Content Include="Views\Ramos\Delete.cshtml" />
+    <Content Include="Views\Ramos\Edit.cshtml" />
+    <Content Include="Views\Ramos\Index.cshtml" />
+    <Content Include="Views\Reparticoes\Create.cshtml" />
+    <Content Include="Views\Reparticoes\Delete.cshtml" />
+    <Content Include="Views\Reparticoes\Edit.cshtml" />
+    <Content Include="Views\Reparticoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
