@@ -16,12 +16,41 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Postos
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                var posto = db.Posto.Include(p => p.Categoria).Include(p => p.Ramo);
-                return View(posto.ToList());
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.OrdemSortParm = sortOrder == "Ordem" ? "Ordem_desc" : "Ordem";
+
+                var postos = db.Posto.ToList();
+
+                //search
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    postos = postos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        postos = postos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Ordem":
+                        postos = postos.OrderBy(s => s.Ordem).ToList();
+                        break;
+                    case "Ordem_desc":
+                        postos = postos.OrderByDescending(s => s.Ordem).ToList();
+                        break;
+                    default:
+                        postos = postos.OrderBy(s => s.Nome).ToList();
+                        break;
+                }
+
+                ViewBag.TotalPostos = postos.Count();
+
+                return View(postos);
             }
             else
             {

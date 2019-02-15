@@ -9,10 +9,26 @@
 <p>
     @Html.ActionLink("Criar Nova Repartição", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
+
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
+}
+
+<div class="TotalDiv">
+    Total de Repartições: @ViewBag.TotalReparticoes
+</div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Distrito.Nome)
@@ -26,25 +42,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distrito.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reparticoes1.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reparticoes2.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distrito.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reparticoes1.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reparticoes2.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>

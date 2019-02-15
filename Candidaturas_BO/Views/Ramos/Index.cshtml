@@ -9,10 +9,23 @@
 <p>
     @Html.ActionLink("Criar Novo Ramo", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
+
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
+}
+
+    <div class="TotalDiv">
+        Total de Ramos: @ViewBag.TotalRamos
+    </div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Sigla)

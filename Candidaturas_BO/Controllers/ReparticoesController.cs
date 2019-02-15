@@ -16,12 +16,42 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Reparticoes
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                var reparticoes = db.Reparticoes.Include(r => r.Distrito).Include(r => r.Reparticoes1).Include(r => r.Reparticoes2);
-                return View(reparticoes.ToList());
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+
+                var reparticoes = db.Reparticoes.Include(r => r.Distrito).Include(r => r.Reparticoes1).Include(r => r.Reparticoes2).ToList();
+
+                //search
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    reparticoes = reparticoes.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        reparticoes = reparticoes.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    case "Code":
+                        reparticoes = reparticoes.OrderBy(s => s.Codigo).ToList();
+                        break;
+                    case "code_desc":
+                        reparticoes = reparticoes.OrderByDescending(s => s.Codigo).ToList();
+                        break;
+                    default:
+                        reparticoes = reparticoes.OrderBy(s => s.Nome).ToList();
+                        break;
+                }
+
+                ViewBag.TotalReparticoes = reparticoes.Count();
+
+                return View(reparticoes);
+
             }
             else
             {

@@ -16,11 +16,34 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Ramos
-        public ActionResult Index()
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                return View(db.Ramo.ToList());
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+                var ramos = db.Ramo.ToList();
+
+                //search
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    ramos = ramos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                }
+
+                //sort
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        ramos = ramos.OrderByDescending(s => s.Nome).ToList();
+                        break;
+                    default:
+                        ramos = ramos.OrderBy(s => s.Nome).ToList();
+                        break;
+                }
+
+                ViewBag.TotalRamos = ramos.Count();
+
+                return View(ramos);
             }
             else
             {

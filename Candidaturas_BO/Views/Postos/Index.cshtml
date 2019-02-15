@@ -9,16 +9,29 @@
 <p>
     @Html.ActionLink("Criar Novo Posto", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
+
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
+}
+
+<div class="TotalDiv">
+    Total de Postos: @ViewBag.TotalPostos
+</div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Abreviatura)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ordem)
+            @Html.ActionLink("Ordem", "Index", new { sortOrder = ViewBag.OrdemSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Categoria.Nome)
@@ -29,28 +42,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Abreviatura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ordem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categoria.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ramo.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Código }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Código })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Abreviatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ordem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ramo.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Código }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Código })
+            </td>
+        </tr>
+    }
 
 </table>

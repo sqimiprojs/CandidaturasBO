@@ -434,6 +434,9 @@
     <Content Include="Views\Reparticoes\Delete.cshtml" />
     <Content Include="Views\Reparticoes\Edit.cshtml" />
     <Content Include="Views\Reparticoes\Index.cshtml" />
+    <Content Include="Views\Postos\MassInsert.cshtml" />
+    <Content Include="Views\Ramos\MassInsert.cshtml" />
+    <Content Include="Views\Reparticoes\MassInsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
