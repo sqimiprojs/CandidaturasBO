@@ -22,6 +22,9 @@ namespace Candidaturas_BO.Controllers
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.OrdemSortParm = sortOrder == "Ordem" ? "Ordem_desc" : "Ordem";
+                ViewBag.CategoriaSortParm = sortOrder == "Categoria" ? "Categoria_desc" : "Categoria";
+                ViewBag.RamoSortParm = sortOrder == "Ramo" ? "Ramo_desc" : "Ramo";
+
 
                 var postos = db.Posto.ToList();
 
@@ -42,6 +45,18 @@ namespace Candidaturas_BO.Controllers
                         break;
                     case "Ordem_desc":
                         postos = postos.OrderByDescending(s => s.Ordem).ToList();
+                        break;
+                    case "Categoria":
+                        postos = postos.OrderBy(s => s.CategoriaMilitar).ToList();
+                        break;
+                    case "Categoria_desc":
+                        postos = postos.OrderByDescending(s => s.CategoriaMilitar).ToList();
+                        break;
+                    case "Ramo":
+                        postos = postos.OrderBy(s => s.RamoMilitar).ToList();
+                        break;
+                    case "Ramo_desc":
+                        postos = postos.OrderByDescending(s => s.RamoMilitar).ToList();
                         break;
                     default:
                         postos = postos.OrderBy(s => s.Nome).ToList();

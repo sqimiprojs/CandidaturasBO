@@ -23,7 +23,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
 
-                var reparticoes = db.Reparticoes.Include(r => r.Distrito).Include(r => r.Reparticoes1).Include(r => r.Reparticoes2).ToList();
+                var reparticoes = db.Reparticoes.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))

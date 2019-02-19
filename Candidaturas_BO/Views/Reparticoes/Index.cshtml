@@ -34,10 +34,10 @@
             @Html.DisplayNameFor(model => model.Distrito.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reparticoes1.Nome)
+            Código Concelho
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reparticoes2.Nome)
+           Código Freguesia
         </th>
         <th></th>
     </tr>
@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.Distrito.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reparticoes1.Nome)
+                @Html.DisplayFor(modelItem => item.CodigoConcelho)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reparticoes2.Nome)
+                @Html.DisplayFor(modelItem => item.CodigoFreguesia)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo }) |
