@@ -12,14 +12,12 @@ namespace Candidaturas_BO.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserCurso
+    public partial class Historico
     {
-        public int ID { get; set; }
-        public int UserId { get; set; }
-        public int CursoId { get; set; }
-        public int Prioridade { get; set; }
+        public int CandidaturaID { get; set; }
+        public string mensagem { get; set; }
+        public System.DateTime timestamp { get; set; }
     
-        public virtual Curso Curso { get; set; }
-        public virtual User User { get; set; }
+        public virtual Candidatura Candidatura { get; set; }
     }
 }

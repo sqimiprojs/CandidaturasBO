@@ -14,7 +14,7 @@ namespace Candidaturas_BO.Models
     
     public partial class Inquerito
     {
-        public int UserId { get; set; }
+        public int CandidaturaID { get; set; }
         public int SituacaoPai { get; set; }
         public string OutraPai { get; set; }
         public int SituacaoMae { get; set; }
@@ -25,9 +25,9 @@ namespace Candidaturas_BO.Models
         public Nullable<System.DateTime> DataCriacao { get; set; }
         public Nullable<System.DateTime> DataAtualizacao { get; set; }
     
+        public virtual Candidatura Candidatura { get; set; }
         public virtual ConhecimentoEscola ConhecimentoEscola1 { get; set; }
         public virtual Situacao Situacao { get; set; }
         public virtual Situacao Situacao1 { get; set; }
-        public virtual User User { get; set; }
     }
 }

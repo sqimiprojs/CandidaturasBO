@@ -15,10 +15,10 @@ namespace Candidaturas_BO.Models
     public partial class UserExame
     {
         public int ID { get; set; }
-        public int UserId { get; set; }
+        public int CandidaturaId { get; set; }
         public int ExameId { get; set; }
     
+        public virtual Candidatura Candidatura { get; set; }
         public virtual Exame Exame { get; set; }
-        public virtual User User { get; set; }
     }
 }

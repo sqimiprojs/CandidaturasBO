@@ -341,49 +341,64 @@
     </dl>
     <br />
     <hr />
-    @if ((bool)@ViewData["mil"])
+    @if ((bool)@ViewData["candidato"])
     {
-    <h4>Militar</h4>
-    <dl class="dl-horizontal">        
-        <dt>
-            Nº de Identificação Militar
-        </dt>
+        <h4>Comprovativo de Candidatura</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Data de Criação
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.NIM)
-        </dd>
-
-        <dt>
-            Ramo
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.Ramo)
-        </dd>
-
-        <dt>
-            Categoria
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.Categoria)
-        </dd>
-
-        <dt>
-            Posto
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.Posto)
-        </dd>
-
-        <dt>
-            Classe
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dadosDTO.Classe)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.certificado) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Users", new { id = (int)Model.certificado.CandidaturaID })'"><span>Download</span></a>
+            </dd>
+        </dl>
+        <br />
+        <hr />
     }
-</div>
+        @if ((bool)@ViewData["mil"])
+        {
+            <h4>Militar</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    Nº de Identificação Militar
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.NIM)
+                </dd>
+
+                <dt>
+                    Ramo
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Ramo)
+                </dd>
+
+                <dt>
+                    Categoria
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Categoria)
+                </dd>
+
+                <dt>
+                    Posto
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Posto)
+                </dd>
+
+                <dt>
+                    Classe
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Classe)
+                </dd>
+            </dl>
+        }
+    </div>

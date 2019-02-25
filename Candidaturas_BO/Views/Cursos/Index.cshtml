@@ -12,10 +12,11 @@
 
 @using (Html.BeginForm())
 {
-    <div class="FilterDiv">
-        Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString")
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+<div class="FilterDiv">
+    Procurar por edição: @Html.DropDownList("filtroEdicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+    Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString")
+    <input type="submit" value="Procurar" class="btn btn-default" />
+</div>
 }
 
     <div class="TotalDiv">

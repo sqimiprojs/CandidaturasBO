@@ -171,11 +171,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOConstants.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\EdicaosController.cs" />
     <Compile Include="Controllers\PostosController.cs" />
     <Compile Include="Controllers\RamosController.cs" />
     <Compile Include="Controllers\ReparticoesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\CandidatosController.cs" />
     <Compile Include="Controllers\ConcelhosController.cs" />
     <Compile Include="Controllers\ConhecimentoEscolasController.cs" />
     <Compile Include="Controllers\CursosController.cs" />
@@ -194,11 +194,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Candidato.cs">
-      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CandidatoDisplay.cs" />
     <Compile Include="Models\CandidatoDTO.cs" />
+    <Compile Include="Models\Candidatura.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Candidaturas_BO_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,6 +215,12 @@
       <DependentUpon>Candidaturas_BO_Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Categoria.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Certificado.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CursoExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DocModel.cs" />
@@ -249,19 +255,22 @@
     <Compile Include="Models\Exame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Form.cs">
-      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Freguesia.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Genero.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Historico.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Inquerito.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Localidade.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Opcoes.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pais.cs">
@@ -283,9 +292,6 @@
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserCurso.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserExame.cs">
@@ -413,8 +419,6 @@
     <Content Include="Views\TiposDocumentoID\MassInsert.cshtml" />
     <Content Include="Views\Situacaos\MassInsert.cshtml" />
     <Content Include="Views\ConhecimentoEscolas\MassInsert.cshtml" />
-    <Content Include="Views\Candidatos\Index.cshtml" />
-    <Content Include="Views\Candidatos\Details.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Categorias\Create.cshtml" />
@@ -437,6 +441,11 @@
     <Content Include="Views\Postos\MassInsert.cshtml" />
     <Content Include="Views\Ramos\MassInsert.cshtml" />
     <Content Include="Views\Reparticoes\MassInsert.cshtml" />
+    <Content Include="Views\Edicaos\Create.cshtml" />
+    <Content Include="Views\Edicaos\Delete.cshtml" />
+    <Content Include="Views\Edicaos\Details.cshtml" />
+    <Content Include="Views\Edicaos\Edit.cshtml" />
+    <Content Include="Views\Edicaos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

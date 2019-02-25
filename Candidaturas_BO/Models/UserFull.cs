@@ -12,6 +12,7 @@ namespace Candidaturas_BO.Models
         public List<UserCursoDTO> cursosDTO;
         public List<UserExameDTO> examesDTO;
         public List<DocsDTO> docsDTO;
+        public Certificado certificado;
     }
     [Serializable]
     public class DadosPessoaisDTO

@@ -25,11 +25,13 @@ namespace Candidaturas_BO.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Candidato> Candidato { get; set; }
+        public virtual DbSet<Candidatura> Candidatura { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<Certificado> Certificado { get; set; }
         public virtual DbSet<Concelho> Concelho { get; set; }
         public virtual DbSet<ConhecimentoEscola> ConhecimentoEscola { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
+        public virtual DbSet<CursoExame> CursoExame { get; set; }
         public virtual DbSet<DadosPessoais> DadosPessoais { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Documento> Documento { get; set; }
@@ -37,11 +39,12 @@ namespace Candidaturas_BO.Models
         public virtual DbSet<Edicao> Edicao { get; set; }
         public virtual DbSet<EstadoCivil> EstadoCivil { get; set; }
         public virtual DbSet<Exame> Exame { get; set; }
-        public virtual DbSet<Form> Form { get; set; }
         public virtual DbSet<Freguesia> Freguesia { get; set; }
         public virtual DbSet<Genero> Genero { get; set; }
+        public virtual DbSet<Historico> Historico { get; set; }
         public virtual DbSet<Inquerito> Inquerito { get; set; }
         public virtual DbSet<Localidade> Localidade { get; set; }
+        public virtual DbSet<Opcoes> Opcoes { get; set; }
         public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Posto> Posto { get; set; }
         public virtual DbSet<Ramo> Ramo { get; set; }
@@ -49,7 +52,6 @@ namespace Candidaturas_BO.Models
         public virtual DbSet<Situacao> Situacao { get; set; }
         public virtual DbSet<TipoDocumentoID> TipoDocumentoID { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserCurso> UserCurso { get; set; }
         public virtual DbSet<UserExame> UserExame { get; set; }
     }
 }

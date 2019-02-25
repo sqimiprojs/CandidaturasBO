@@ -12,16 +12,14 @@ namespace Candidaturas_BO.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Documento
+    public partial class CursoExame
     {
-        public int ID { get; set; }
-        public int CandidaturaID { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public string Tipo { get; set; }
-        public System.DateTime UploadTime { get; set; }
+        public int CursoID { get; set; }
+        public int ExameID { get; set; }
+        public string Edicao { get; set; }
     
-        public virtual Candidatura Candidatura { get; set; }
-        public virtual DocumentoBinario DocumentoBinario { get; set; }
+        public virtual Curso Curso { get; set; }
+        public virtual Edicao Edicao1 { get; set; }
+        public virtual Exame Exame { get; set; }
     }
 }

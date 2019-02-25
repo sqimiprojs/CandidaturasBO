@@ -23,7 +23,9 @@ namespace Candidaturas_BO.Models
     
         public int ID { get; set; }
         public string Nome { get; set; }
+        public string Edicao { get; set; }
     
+        public virtual Edicao Edicao1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inquerito> Inquerito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

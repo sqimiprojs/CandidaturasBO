@@ -11,17 +11,20 @@
 
 @using (Html.BeginForm())
 {
-    <div style="display: flex;margin-top: 20px;">
-        Procurar users inscritos entre o seguinte intervalo: &nbsp;
-        @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
-        &nbsp; e &nbsp;
-        @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
-        &nbsp;
-        Procurar user com email: &nbsp;
-        @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
-        &nbsp;
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+<div style="display: flex;margin-top: 20px;">
+
+    Procurar por edição: &nbsp;
+    @Html.DropDownList("filtroEdicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+    Procurar users inscritos entre o seguinte intervalo: &nbsp;
+    @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+    &nbsp; e &nbsp;
+    @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 12%", @value = "" })
+    &nbsp;
+    Procurar user com email: &nbsp;
+    @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @style = "width: 12%", @value = "" })
+    &nbsp;
+    <input type="submit" value="Procurar" class="btn btn-default" />
+</div>
 }
 
 <div class="TotalDiv">

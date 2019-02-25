@@ -14,7 +14,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page)
+        public ActionResult Index(string filtroEdicao, string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -23,6 +23,16 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.IDSortParm = sortOrder == "ID" ? "id_desc" : "ID";
 
                 List<User> usersDB = db.User.ToList();
+
+                if (!String.IsNullOrEmpty(filtroEdicao))
+                {
+                    usersDB = usersDB.Where(s => s.Edicao ==filtroEdicao).ToList();
+                    page = 1;
+                }
+                else
+                {
+                    filtroEdicao = currentFilter;
+                }
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
@@ -91,11 +101,13 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 UserFull user = new UserFull();
+                Candidatura candidatura = new Candidatura();
+                candidatura = db.Candidatura.Where(c => c.UserId == id).FirstOrDefault();
 
                 user.email = db.User.Where(guy => guy.ID == id).Select(guy => guy.Email).FirstOrDefault();
 
                 user.dadosDTO = db.DadosPessoais
-                    .Where(guy => guy.UserId == id)
+                    .Where(guy => guy.CandidaturaId == candidatura.id)
                     .Select(data => new DadosPessoaisDTO
                     {
                         NomeColoquial = data.NomeColoquial,
@@ -137,7 +149,7 @@ namespace Candidaturas_BO.Controllers
                     .FirstOrDefault();
 
                 user.inqueritoDTO = db.Inquerito
-                    .Where(guy => guy.UserId == id)
+                    .Where(guy => guy.CandidaturaID == candidatura.id)
                     .Select(data => new InqueritoDTO
                     {
                         SituacaoPai = db.Situacao.Where(s => s.ID == data.SituacaoPai).Select(s => s.Nome).FirstOrDefault(),
@@ -150,8 +162,10 @@ namespace Candidaturas_BO.Controllers
                     })
                     .FirstOrDefault();
 
-                user.cursosDTO = db.UserCurso
-                    .Where(guy => guy.UserId == id)
+                user.certificado = db.Certificado.Where(c => c.CandidaturaID == candidatura.id).FirstOrDefault();
+
+                user.cursosDTO = db.Opcoes
+                    .Where(guy => guy.CandidaturaId == candidatura.id)
                     .Select(data => new UserCursoDTO
                     {
                         Nome = db.Curso.Where(c => c.ID == data.CursoId).Select(c => c.Nome).FirstOrDefault(),
@@ -160,7 +174,7 @@ namespace Candidaturas_BO.Controllers
                     .ToList();
 
                 user.examesDTO = db.UserExame
-                    .Where(guy => guy.UserId == id)
+                    .Where(guy => guy.CandidaturaId == candidatura.id)
                     .Select(data => new UserExameDTO
                     {
                         Codigo = db.Exame.Where(e => e.ID == data.ExameId).Select(e => e.Código).FirstOrDefault(),
@@ -169,7 +183,7 @@ namespace Candidaturas_BO.Controllers
                     .ToList();
 
                 user.docsDTO = db.Documento
-                    .Where(guy => guy.UserID == id)
+                    .Where(guy => guy.CandidaturaID == candidatura.id)
                     .Select(data => new DocsDTO
                     {
                         Nome = data.Nome,
@@ -178,6 +192,13 @@ namespace Candidaturas_BO.Controllers
                         DocumentoBinario = db.DocumentoBinario.Where(doc => doc.DocID == data.ID).FirstOrDefault()
                     })
                     .ToList();
+
+                ViewData["candidato"] = true;
+
+                if (candidatura == null)
+                {
+                    ViewData["candidato"] = false;
+                }
 
                 ViewData["mil"] = user.dadosDTO.Militar;
 
@@ -230,6 +251,26 @@ namespace Candidaturas_BO.Controllers
             {
                 return View("Error");
             }
+        }
+
+        public ActionResult DownloadFormulario(int id)
+        {
+            CandidaturasBOEntities db = new CandidaturasBOEntities();
+            
+
+            byte[] dForm = db.Certificado.Where(dp => dp.CandidaturaID == id).Select(dp => dp.FormBin).FirstOrDefault();
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.Charset = "";
+            Response.Cache.SetCacheability(System.Web.HttpCacheability.Private);
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + "ComprovativoCandidatura.pdf");
+            Response.BinaryWrite(dForm);
+            Response.Flush();
+            Response.End();
+
+            return View("~/Views/Home/Welcome.cshtml");
         }
     }
 }

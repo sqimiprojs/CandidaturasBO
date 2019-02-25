@@ -16,7 +16,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Exames
-        public ActionResult Index(string searchString, string codigo, string sortOrder)
+        public ActionResult Index(string searchString, string codigo, string sortOrder, string filtroEdicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -24,6 +24,11 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.CodeSortParm = sortOrder == "Código" ? "code_desc" : "Código";
 
                 List<Exame> exames = db.Exame.ToList();
+
+                if (!String.IsNullOrEmpty(filtroEdicao))
+                {
+                    exames = exames.Where(s => s.Edicao == filtroEdicao).ToList();
+                }
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))

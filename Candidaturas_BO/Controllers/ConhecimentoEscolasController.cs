@@ -16,13 +16,18 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: ConhecimentoEscolas
-        public ActionResult Index(string searchString, string sortOrder)
+        public ActionResult Index(string searchString, string sortOrder, string filtroEdicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
                 List<ConhecimentoEscola> conhecimentosEscola = db.ConhecimentoEscola.ToList();
+
+                if (!String.IsNullOrEmpty(filtroEdicao))
+                {
+                    conhecimentosEscola = conhecimentosEscola.Where(s => s.Edicao == filtroEdicao).ToList();
+                }
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))

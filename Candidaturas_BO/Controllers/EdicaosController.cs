@@ -11,54 +11,48 @@ using OfficeOpenXml;
 
 namespace Candidaturas_BO.Controllers
 {
-    public class CursosController : Controller
+    public class EdicaosController : Controller
     {
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
-        // GET: Cursos
-        public ActionResult Index(string searchString, string sortOrder, string filtroEdicao)
+        // GET: Edicaos
+        public ActionResult Index(string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
-                List<Curso> cursos = db.Curso.ToList();
-
-                if (!String.IsNullOrEmpty(filtroEdicao))
-                {
-                    cursos = cursos.Where(s => s.Edicao == filtroEdicao).ToList();
-                }
+                List<Edicao> edicao = db.Edicao.ToList();
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    cursos = cursos.Where(s => s.Nome.Contains(searchString) || s.Nome.ToLower().Contains(searchString)).ToList();
+                    edicao = edicao.Where(s => s.Sigla.ToLower().Contains(searchString) || s.Sigla.Contains(searchString)).ToList();
                 }
 
                 //sort
                 switch (sortOrder)
                 {
                     case "name_desc":
-                        cursos = cursos.OrderByDescending(s => s.Nome).ToList();
+                        edicao = edicao.OrderByDescending(s => s.Sigla).ToList();
                         break;
                     default:
-                        cursos = cursos.OrderBy(s => s.Nome).ToList();
+                        edicao = edicao.OrderBy(s => s.Sigla).ToList();
                         break;
                 }
 
-                ViewBag.TotalCursos = cursos.Count();
+                ViewBag.TotalEdicao = edicao.Count();
 
-                return View(cursos);
+                return View(edicao);
             }
             else
             {
                 return View("Error");
             }
 
-            
         }
 
-        // GET: Cursos/Create
+        // GET: Edicaos/Create
         public ActionResult Create()
         {
             if (ADAuthorization.ADAuthenticate())
@@ -71,38 +65,81 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
-        // POST: Cursos/Create
+        // POST: Edicaos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,CodigoCurso,CodigoRamo")] Curso curso)
+        public ActionResult Create([Bind(Include = "Sigla,AnoLectivo,DataInicio,DataFim")] Edicao edicao)
         {
             if (ModelState.IsValid)
             {
-                db.Curso.Add(curso);
+                string ultimaEdicao = db.Edicao.Select(e => e.Sigla).Last();
+                db.Edicao.Add(edicao);
+                List<User> users = db.User.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach(User user in users)
+                {
+                    user.Edicao = edicao.Sigla;
+                    db.User.Add(user);
+                }
+
+                List<Situacao> situacoes = db.Situacao.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach (Situacao situacao in situacoes)
+                {
+                    situacao.Edicao = edicao.Sigla;
+                    db.Situacao.Add(situacao);
+                }
+
+                List<ConhecimentoEscola> conhecimentos = db.ConhecimentoEscola.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach (ConhecimentoEscola conhecimento in conhecimentos)
+                {
+                    conhecimento.Edicao = edicao.Sigla;
+                    db.ConhecimentoEscola.Add(conhecimento);
+                }
+
+                List<Curso> cursos = db.Curso.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach (Curso curso in cursos)
+                {
+                    curso.Edicao = edicao.Sigla;
+                    db.Curso.Add(curso);
+                }
+
+                List<Exame> exames = db.Exame.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach (Exame exame in exames)
+                {
+                    exame.Edicao = edicao.Sigla;
+                    db.Exame.Add(exame);
+                }
+
+                List<CursoExame> cursosExames = db.CursoExame.Where(u => u.Edicao == ultimaEdicao).ToList();
+                foreach (CursoExame cursoexame in cursosExames)
+                {
+                    cursoexame.Edicao = edicao.Sigla;
+                    db.CursoExame.Add(cursoexame);
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(curso);
+            return View(edicao);
         }
 
-        // GET: Cursos/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Edicaos/Edit/5
+        public ActionResult Edit(string id)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Curso curso = db.Curso.Find(id);
-                if (curso == null)
-                {
-                    return HttpNotFound();
-                }
-                return View(curso);
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Edicao edicao = db.Edicao.Find(id);
+            if (edicao == null)
+            {
+                return HttpNotFound();
+            }
+            return View(edicao);
             }
             else
             {
@@ -110,24 +147,24 @@ namespace Candidaturas_BO.Controllers
             }
         }
 
-        // POST: Cursos/Edit/5
+        // POST: Edicaos/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,CodigoCurso,CodigoRamo")] Curso curso)
+        public ActionResult Edit([Bind(Include = "Sigla,AnoLectivo,DataInicio,DataFim")] Edicao edicao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(curso).State = EntityState.Modified;
+                db.Entry(edicao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(curso);
+            return View(edicao);
         }
 
-        // GET: Cursos/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Edicaos/Delete/5
+        public ActionResult Delete(string id)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -135,31 +172,31 @@ namespace Candidaturas_BO.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Curso curso = db.Curso.Find(id);
-                if (curso == null)
+                Edicao edicao = db.Edicao.Find(id);
+                if (edicao == null)
                 {
                     return HttpNotFound();
                 }
-                return View(curso);
+                return View(edicao);
             }
             else
             {
                 return View("Error");
-            }            
+            }
         }
 
-        // POST: Cursos/Delete/5
+        // POST: Edicaos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            Curso curso = db.Curso.Find(id);
-            db.Curso.Remove(curso);
+            Edicao edicao = db.Edicao.Find(id);
+            db.Edicao.Remove(edicao);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        //GET: Cursos/MassInsert
+        //GET: ConhecimentoEscolas/MassInsert
         public ActionResult MassInsert()
         {
             if (ADAuthorization.ADAuthenticate())
@@ -177,7 +214,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (uploadFile != null && uploadFile.ContentLength > 0)
             {
-                if(ExcelValidator.HasExcelExtension(uploadFile) && ExcelValidator.HasExcelMimeType(uploadFile))
+                if (ExcelValidator.HasExcelExtension(uploadFile) && ExcelValidator.HasExcelMimeType(uploadFile))
                 {
                     string fileName = uploadFile.FileName;
                     string fileContentType = uploadFile.ContentType;
@@ -194,23 +231,25 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            var codigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            var codigoRamo = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            var sigla = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var anoletivo = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            var datainicio = Convert.ToDateTime(workSheet.Cells[rowIterator, 3].Value.ToString());
+                            var datafim = Convert.ToDateTime(workSheet.Cells[rowIterator, 4].Value.ToString());
 
-                            if(!db.Curso.Any(c => c.Nome == nome))
+
+                            if (!db.Edicao.Any(ce => ce.Sigla == sigla))
                             {
-                                Curso curso = new Curso
-                                {
-                                    Nome = nome
-                                };
-
-                                db.Curso.Add(curso);
+                                Edicao edicao = new Edicao();
+                                edicao.Sigla = sigla;
+                                edicao.AnoLectivo = anoletivo;
+                                edicao.DataInicio = datainicio;
+                                edicao.DataFim = datafim;
+                                db.Edicao.Add(edicao);
                                 db.SaveChanges();
                             }
                         }
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         ViewBag.ErrorMessage = "Tipo de ficheiro inválido. Por favor seleccione um ficheiro Excel válido.";
                         return View();

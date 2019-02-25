@@ -14,7 +14,7 @@ namespace Candidaturas_BO.Models
     
     public partial class DadosPessoais
     {
-        public int UserId { get; set; }
+        public int CandidaturaId { get; set; }
         public string NomeColoquial { get; set; }
         public string Nomes { get; set; }
         public string Apelidos { get; set; }
@@ -51,6 +51,7 @@ namespace Candidaturas_BO.Models
         public string NIM { get; set; }
         public System.DateTime DocumentoValidade { get; set; }
     
+        public virtual Candidatura Candidatura { get; set; }
         public virtual Categoria Categoria1 { get; set; }
         public virtual EstadoCivil EstadoCivil1 { get; set; }
         public virtual Freguesia Freguesia { get; set; }
@@ -61,7 +62,5 @@ namespace Candidaturas_BO.Models
         public virtual Ramo Ramo1 { get; set; }
         public virtual Reparticoes Reparticoes { get; set; }
         public virtual TipoDocumentoID TipoDocumentoID { get; set; }
-        public virtual User User { get; set; }
-        public virtual Form Form { get; set; }
     }
 }
