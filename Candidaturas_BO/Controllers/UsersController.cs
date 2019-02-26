@@ -197,6 +197,7 @@ namespace Candidaturas_BO.Controllers
                         Nome = data.Nome,
                         Descricao = data.Descricao,
                         Tipo = data.Tipo,
+                        UploadTime = data.UploadTime,
                         DocumentoBinario = db.DocumentoBinario.Where(doc => doc.DocID == data.ID).FirstOrDefault()
                     })
                     .ToList();

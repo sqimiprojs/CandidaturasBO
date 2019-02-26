@@ -82,6 +82,7 @@ namespace Candidaturas_BO.Models
         public String Nome { get; set; }
         public String Descricao { get; set; }
         public String Tipo { get; set; }
+        public DateTime UploadTime { get; set; }
         public DocumentoBinario DocumentoBinario { get; set; }
     }
 }
