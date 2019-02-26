@@ -171,6 +171,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BOConstants.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\CursoExamesController.cs" />
     <Compile Include="Controllers\EdicaosController.cs" />
     <Compile Include="Controllers\PostosController.cs" />
     <Compile Include="Controllers\RamosController.cs" />
@@ -445,6 +446,11 @@
     <Content Include="Views\Edicaos\Edit.cshtml" />
     <Content Include="Views\Edicaos\Index.cshtml" />
     <Content Include="Views\Edicaos\MassInsert.cshtml" />
+    <Content Include="Views\CursoExames\Create.cshtml" />
+    <Content Include="Views\CursoExames\Delete.cshtml" />
+    <Content Include="Views\CursoExames\Details.cshtml" />
+    <Content Include="Views\CursoExames\Edit.cshtml" />
+    <Content Include="Views\CursoExames\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

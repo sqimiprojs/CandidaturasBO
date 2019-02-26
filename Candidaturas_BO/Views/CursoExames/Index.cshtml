@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.CursoExame>
+
+@{
+    ViewBag.Title = "Curso/Exame";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Ligação Curso/Exame", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+</p>
+
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
+}
+
+<div class="TotalDiv">
+    Total de Cursos/Exames: @ViewBag.TotalCursosExames
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Curso.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Edicao1.AnoLectivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Exame.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edicao1.AnoLectivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exame.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
