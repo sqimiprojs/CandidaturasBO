@@ -195,7 +195,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CandidatoDisplay.cs" />
-    <Compile Include="Models\CandidatoDTO.cs" />
     <Compile Include="Models\Candidatura.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
@@ -443,9 +442,9 @@
     <Content Include="Views\Reparticoes\MassInsert.cshtml" />
     <Content Include="Views\Edicaos\Create.cshtml" />
     <Content Include="Views\Edicaos\Delete.cshtml" />
-    <Content Include="Views\Edicaos\Details.cshtml" />
     <Content Include="Views\Edicaos\Edit.cshtml" />
     <Content Include="Views\Edicaos\Index.cshtml" />
+    <Content Include="Views\Edicaos\MassInsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

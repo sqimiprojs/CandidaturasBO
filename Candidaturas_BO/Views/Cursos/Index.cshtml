@@ -13,7 +13,7 @@
 @using (Html.BeginForm())
 {
 <div class="FilterDiv">
-    Procurar por edição: @Html.DropDownList("filtroEdicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+    Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
     Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString")
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
@@ -28,20 +28,28 @@
         <th>
             @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
-        <th></th>
+        <th>
+            Edição
+        </th>
+        <th>
+
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Edicao)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+        </td>
+    </tr>
     }
 
 </table>

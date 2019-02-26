@@ -16,7 +16,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string searchString, string sortOrder, string filtroEdicao)
+        public ActionResult Index(string searchString, string sortOrder, string edicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -24,9 +24,9 @@ namespace Candidaturas_BO.Controllers
 
                 List<Curso> cursos = db.Curso.ToList();
 
-                if (!String.IsNullOrEmpty(filtroEdicao))
+                if (!String.IsNullOrEmpty(edicao))
                 {
-                    cursos = cursos.Where(s => s.Edicao == filtroEdicao).ToList();
+                    cursos = cursos.Where(s => s.Edicao == edicao).ToList();
                 }
 
                 //search
@@ -45,6 +45,13 @@ namespace Candidaturas_BO.Controllers
                         cursos = cursos.OrderBy(s => s.Nome).ToList();
                         break;
                 }
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
 
                 ViewBag.TotalCursos = cursos.Count();
 

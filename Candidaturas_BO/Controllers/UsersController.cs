@@ -14,7 +14,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string filtroEdicao, string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page)
+        public ActionResult Index(string edicao, string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -24,14 +24,14 @@ namespace Candidaturas_BO.Controllers
 
                 List<User> usersDB = db.User.ToList();
 
-                if (!String.IsNullOrEmpty(filtroEdicao))
+                if (!String.IsNullOrEmpty(edicao))
                 {
-                    usersDB = usersDB.Where(s => s.Edicao ==filtroEdicao).ToList();
+                    usersDB = usersDB.Where(s => s.Edicao ==edicao).ToList();
                     page = 1;
                 }
                 else
                 {
-                    filtroEdicao = currentFilter;
+                    edicao = currentFilter;
                 }
 
                 //search
@@ -80,6 +80,14 @@ namespace Candidaturas_BO.Controllers
                         usersDB = usersDB.OrderBy(s => s.Email).ToList();
                         break;
                 }
+
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
 
                 ViewBag.TotalCandidatos = usersDB.Count();
 

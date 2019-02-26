@@ -16,7 +16,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Exames
-        public ActionResult Index(string searchString, string codigo, string sortOrder, string filtroEdicao)
+        public ActionResult Index(string searchString, string codigo, string sortOrder, string edicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -25,9 +25,9 @@ namespace Candidaturas_BO.Controllers
 
                 List<Exame> exames = db.Exame.ToList();
 
-                if (!String.IsNullOrEmpty(filtroEdicao))
+                if (!String.IsNullOrEmpty(edicao))
                 {
-                    exames = exames.Where(s => s.Edicao == filtroEdicao).ToList();
+                    exames = exames.Where(s => s.Edicao == edicao).ToList();
                 }
 
                 //search
@@ -57,6 +57,14 @@ namespace Candidaturas_BO.Controllers
                         exames = exames.OrderBy(s => s.Nome).ToList();
                         break;
                 }
+
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
 
                 ViewBag.TotalExames = exames.Count();
 

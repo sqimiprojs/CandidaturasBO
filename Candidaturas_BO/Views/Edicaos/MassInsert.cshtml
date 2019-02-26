@@ -1,13 +1,13 @@
-﻿@model Candidaturas_BO.Models.ConhecimentoEscola
+﻿@model Candidaturas_BO.Models.Freguesia
 
 @{
-    ViewBag.Title = "Inserção em Massa - Conhecimentos de Escola";
+    ViewBag.Title = "Inserção em Massa - Freguesias";
 }
 
 <h2>Inserção em Massa</h2>
 <hr />
 
-@using (Html.BeginForm("MassInsert", "ConhecimentoEscolas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("MassInsert", "Freguesias", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 

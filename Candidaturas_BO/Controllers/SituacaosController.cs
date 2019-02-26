@@ -16,7 +16,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Situacaos
-        public ActionResult Index(string filtroEdicao, string searchString, string sortOrder)
+        public ActionResult Index(string edicao, string searchString, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -24,9 +24,9 @@ namespace Candidaturas_BO.Controllers
 
                 List<Situacao> situacoes = db.Situacao.ToList();
 
-                if (!String.IsNullOrEmpty(filtroEdicao))
+                if (!String.IsNullOrEmpty(edicao))
                 {
-                    situacoes = situacoes.Where(s => s.Edicao == filtroEdicao).ToList();
+                    situacoes = situacoes.Where(s => s.Edicao == edicao).ToList();
                 }
 
 
@@ -46,6 +46,14 @@ namespace Candidaturas_BO.Controllers
                         situacoes = situacoes.OrderBy(s => s.Nome).ToList();
                         break;
                 }
+
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
 
                 ViewBag.TotalSituacaos = situacoes.Count();
 
