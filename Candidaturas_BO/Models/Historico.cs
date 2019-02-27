@@ -14,6 +14,7 @@ namespace Candidaturas_BO.Models
     
     public partial class Historico
     {
+        public int id { get; set; }
         public int CandidaturaID { get; set; }
         public string mensagem { get; set; }
         public System.DateTime timestamp { get; set; }

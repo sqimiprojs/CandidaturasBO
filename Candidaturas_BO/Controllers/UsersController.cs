@@ -14,7 +14,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Candidatos
-        public ActionResult Index(string edicao, string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page)
+        public ActionResult Index(string edicao, string startDate, string endDate, string searchString, string sortOrder, string currentFilter, int? page, bool finalizado = false)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -23,6 +23,12 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.IDSortParm = sortOrder == "ID" ? "id_desc" : "ID";
 
                 List<User> usersDB = db.User.ToList();
+                
+                if(finalizado)
+                {
+                    usersDB = db.Certificado.Select(c => c.Candidatura.User).ToList();
+                    
+                }
 
                 if (!String.IsNullOrEmpty(edicao))
                 {

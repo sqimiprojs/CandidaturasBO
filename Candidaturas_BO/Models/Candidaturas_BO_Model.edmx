@@ -176,10 +176,11 @@
         </EntityType>
         <EntityType Name="Historico">
           <Key>
-            <PropertyRef Name="CandidaturaID" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CandidaturaID" Type="int" Nullable="false" />
-          <Property Name="mensagem" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mensagem" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="timestamp" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Inquerito">
@@ -607,7 +608,7 @@
         </Association>
         <Association Name="FK_Historico_Candidatura">
           <End Role="Candidatura" Type="Self.Candidatura" Multiplicity="1" />
-          <End Role="Historico" Type="Self.Historico" Multiplicity="0..1" />
+          <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Candidatura">
               <PropertyRef Name="id" />
@@ -1388,10 +1389,11 @@
         </EntityType>
         <EntityType Name="Historico">
           <Key>
-            <PropertyRef Name="CandidaturaID" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CandidaturaID" Type="Int32" Nullable="false" />
-          <Property Name="mensagem" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mensagem" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Candidatura" Relationship="CandidaturasBOModel.FK_Historico_Candidatura" FromRole="Historico" ToRole="Candidatura" />
         </EntityType>
@@ -1597,7 +1599,7 @@
         </Association>
         <Association Name="FK_Historico_Candidatura">
           <End Type="CandidaturasBOModel.Candidatura" Role="Candidatura" Multiplicity="1" />
-          <End Type="CandidaturasBOModel.Historico" Role="Historico" Multiplicity="0..1" />
+          <End Type="CandidaturasBOModel.Historico" Role="Historico" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Candidatura">
               <PropertyRef Name="id" />
@@ -2215,6 +2217,7 @@
                 <ScalarProperty Name="timestamp" ColumnName="timestamp" />
                 <ScalarProperty Name="mensagem" ColumnName="mensagem" />
                 <ScalarProperty Name="CandidaturaID" ColumnName="CandidaturaID" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

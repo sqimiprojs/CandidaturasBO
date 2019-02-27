@@ -18,6 +18,7 @@ namespace Candidaturas_BO.Models
         public Candidatura()
         {
             this.Documento = new HashSet<Documento>();
+            this.Historico = new HashSet<Historico>();
             this.Opcoes = new HashSet<Opcoes>();
             this.UserExame = new HashSet<UserExame>();
         }
@@ -33,7 +34,8 @@ namespace Candidaturas_BO.Models
         public virtual Certificado Certificado { get; set; }
         public virtual DadosPessoais DadosPessoais { get; set; }
         public virtual Edicao Edicao1 { get; set; }
-        public virtual Historico Historico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Historico> Historico { get; set; }
         public virtual Inquerito Inquerito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Opcoes> Opcoes { get; set; }
