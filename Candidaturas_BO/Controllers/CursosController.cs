@@ -202,15 +202,15 @@ namespace Candidaturas_BO.Controllers
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            var codigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            var codigoRamo = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            var edicao = workSheet.Cells[rowIterator, 2].Value.ToString();
 
-                            if(!db.Curso.Any(c => c.Nome == nome))
+                            if (!db.Curso.Any(c => c.Nome == nome && c.Edicao == edicao))
                             {
-                                Curso curso = new Curso
-                                {
-                                    Nome = nome
-                                };
+                                Curso curso = new Curso();
+
+                                curso.Nome = nome;
+                                curso.Edicao = edicao;
+                                   
 
                                 db.Curso.Add(curso);
                                 db.SaveChanges();

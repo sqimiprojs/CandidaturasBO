@@ -205,18 +205,20 @@ namespace Candidaturas_BO.Controllers
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
-                            var codigoCurso = workSheet.Cells[rowIterator, 2].Value.ToString();
-                            var codigoExame = workSheet.Cells[rowIterator, 3].Value.ToString();
-                            var edicao = workSheet.Cells[rowIterator, 4].Value.ToString();
+                            var codigoCurso = Convert.ToInt32(workSheet.Cells[rowIterator, 1].Value.ToString());
+                            var codigoExame = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            var edicao = workSheet.Cells[rowIterator, 3].Value.ToString();
 
-                                Curso curso = new Curso
-                                {
-                                    Nome = nome
-                                };
+                            if (!db.CursoExame.Any(c => c.CursoID == codigoCurso && c.ExameID == codigoExame && c.Edicao == edicao))
+                            {
+                                CursoExame curso = new CursoExame();
+                                curso.CursoID = codigoCurso;
+                                curso.ExameID = codigoExame;
+                                curso.Edicao = edicao;
 
-                                db.Curso.Add(curso);
+                                db.CursoExame.Add(curso);
                                 db.SaveChanges();
+                            }
 
                         }
                     }

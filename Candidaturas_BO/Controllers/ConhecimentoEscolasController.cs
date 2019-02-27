@@ -202,11 +202,13 @@ namespace Candidaturas_BO.Controllers
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var edicao = workSheet.Cells[rowIterator, 2].Value.ToString();
 
-                            if(!db.ConhecimentoEscola.Any(ce => ce.Nome == nome))
+                            if (!db.ConhecimentoEscola.Any(ce => ce.Nome == nome && ce.Edicao == edicao))
                             {
                                 ConhecimentoEscola conhecimentoEscola = new ConhecimentoEscola();
                                 conhecimentoEscola.Nome = nome;
+                                conhecimentoEscola.Edicao = edicao;
                                 db.ConhecimentoEscola.Add(conhecimentoEscola);
                                 db.SaveChanges();
                             }

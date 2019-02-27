@@ -213,13 +213,17 @@ namespace Candidaturas_BO.Controllers
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
                             var nome = workSheet.Cells[rowIterator, 1].Value.ToString();
+                            var codigo = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
+                            var edicao = workSheet.Cells[rowIterator, 3].Value.ToString();
 
-                            if(!db.Exame.Any(e => e.Nome == nome))
+                            if (!db.Exame.Any(e => e.Nome == nome && e.Edicao == edicao))
                             {
-                                Exame exame = new Exame
-                                {
-                                    Nome = nome
-                                };
+                                Exame exame = new Exame();
+
+                                exame.Nome = nome;
+                                exame.Código = codigo;
+                                exame.Edicao = edicao;
+                                
 
                                 db.Exame.Add(exame);
                                 db.SaveChanges();
