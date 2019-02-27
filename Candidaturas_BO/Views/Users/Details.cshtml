@@ -357,7 +357,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.certificado) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Users", new { id = (int)Model.certificado.CandidaturaID })'"><span>Download</span></a>
+                @Html.DisplayFor(model => model.certificado.DataCriação) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Users", new { id = (int)Model.certificado.CandidaturaID })'"><span>Download</span></a>
             </dd>
         </dl>
         <br />
