@@ -21,9 +21,8 @@ namespace Candidaturas_BO.Controllers
             {
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
-                ViewBag.IDSortParm = sortOrder == "ID" ? "id_desc" : "ID";
 
-                List<Historico> historico = db.Historico.Include(h => h.Candidatura).ToList();
+                List<Historico> historico = db.Historico.ToList();
 
                 if (!String.IsNullOrEmpty(edicao))
                 {
