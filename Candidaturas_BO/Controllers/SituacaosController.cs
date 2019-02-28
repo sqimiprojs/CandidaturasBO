@@ -70,6 +70,14 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
+
                 return View();
             }
             else
@@ -83,7 +91,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome")] Situacao situacao)
+        public ActionResult Create([Bind(Include = "ID,Nome,Edicao")] Situacao situacao)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +117,14 @@ namespace Candidaturas_BO.Controllers
                 {
                     return HttpNotFound();
                 }
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
+
                 return View(situacao);
             }
             else
@@ -122,7 +138,7 @@ namespace Candidaturas_BO.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome")] Situacao situacao)
+        public ActionResult Edit([Bind(Include = "ID,Nome,Edicao")] Situacao situacao)
         {
             if (ModelState.IsValid)
             {

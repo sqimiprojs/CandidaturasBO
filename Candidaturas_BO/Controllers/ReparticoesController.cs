@@ -64,9 +64,29 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                ViewBag.CodigoDistrito = new SelectList(db.Distrito, "Codigo", "Nome");
-                ViewBag.CodigoDistrito = new SelectList(db.Reparticoes, "CodigoDistrito", "Nome");
-                ViewBag.CodigoDistrito = new SelectList(db.Reparticoes, "CodigoDistrito", "Nome");
+                IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.CodigoDistrito = distritos.ToList();
+
+                IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.CodigoConcelho = concelhos.ToList();
+
+                IEnumerable<SelectListItem> freguesias = db.Freguesia.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.CodigoFreguesia = freguesias.ToList();
                 return View();
             }
             else
@@ -96,15 +116,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Reparticoes/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? codigo, int? codigoFreguesia, int? codigoConcelho, int? codigoDistrito)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null && codigoFreguesia == null && codigoConcelho == null && codigoDistrito == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Reparticoes reparticoes = db.Reparticoes.Find(id);
+                Reparticoes reparticoes = db.Reparticoes.Find(codigoDistrito, codigoConcelho, codigoFreguesia, codigo);
                 if (reparticoes == null)
                 {
                     return HttpNotFound();
@@ -140,15 +160,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: Reparticoes/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? codigo, int? codigoFreguesia, int? codigoConcelho, int? codigoDistrito)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (codigo == null && codigoFreguesia == null && codigoConcelho == null && codigoDistrito == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Reparticoes reparticoes = db.Reparticoes.Find(id);
+                Reparticoes reparticoes = db.Reparticoes.Find(codigoDistrito, codigoConcelho, codigoFreguesia, codigo);
                 if (reparticoes == null)
                 {
                     return HttpNotFound();
@@ -164,9 +184,9 @@ namespace Candidaturas_BO.Controllers
         // POST: Reparticoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int codigo, int codigoFreguesia, int codigoConcelho, int codigoDistrito)
         {
-            Reparticoes reparticoes = db.Reparticoes.Find(id);
+            Reparticoes reparticoes = db.Reparticoes.Find(codigoDistrito, codigoConcelho, codigoFreguesia, codigo);
             db.Reparticoes.Remove(reparticoes);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -31,10 +31,10 @@
             @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Distrito.Nome)
+            Distrito
         </th>
         <th>
-            Código Concelho
+            Concelho
         </th>
         <th>
            Código Freguesia
@@ -55,14 +55,14 @@
                 @Html.DisplayFor(modelItem => item.Distrito.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodigoConcelho)
+                @Html.DisplayFor(modelItem => item.Concelho.Nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CodigoFreguesia)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo }) |
-                @Html.ActionLink("Delete", "Delete", new { codigo = item.Codigo })
+                @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
+                @Html.ActionLink("Delete", "Delete", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
             </td>
         </tr>
     }

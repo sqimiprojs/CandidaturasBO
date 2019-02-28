@@ -26,34 +26,33 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Curso.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Curso", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            Exame
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Edicao1.AnoLectivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exame.Nome)
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Curso.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edicao1.AnoLectivo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exame.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Curso.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exame.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Edicao1.AnoLectivo)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { CursoID = item.CursoID, ExameID = item.ExameID, Edicao = item.Edicao })
+        </td>
+    </tr>
     }
 
 </table>

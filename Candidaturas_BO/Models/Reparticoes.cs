@@ -26,6 +26,7 @@ namespace Candidaturas_BO.Models
         public int Codigo { get; set; }
         public string Nome { get; set; }
     
+        public virtual Concelho Concelho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DadosPessoais> DadosPessoais { get; set; }
         public virtual Distrito Distrito { get; set; }

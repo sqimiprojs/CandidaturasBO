@@ -64,6 +64,31 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                IEnumerable<SelectListItem> cursos = db.Curso.OrderBy(dp => dp.ID).Select(c => new SelectListItem
+                {
+                    Value = c.ID.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.CursoID = cursos.ToList();
+
+                IEnumerable<SelectListItem> exames = db.Exame.OrderBy(dp => dp.ID).Select(c => new SelectListItem
+                {
+                    Value = c.ID.ToString(),
+                    Text = c.Nome
+                });
+
+                ViewBag.ExameID = exames.ToList();
+
+
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                {
+                    Value = c.Sigla,
+                    Text = c.Sigla
+                });
+
+                ViewBag.Edicao = edicaos.ToList();
+
                 return View();
             }
             else
@@ -93,15 +118,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: CursoExames/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? CursoID, int? ExameID, string Edicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
+                if (CursoID == null || ExameID == null || Edicao == "")
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                CursoExame cursoExame = db.CursoExame.Find(id);
+                CursoExame cursoExame = db.CursoExame.Find(CursoID, ExameID, Edicao);
                 if (cursoExame == null)
                 {
                     return HttpNotFound();
@@ -137,15 +162,15 @@ namespace Candidaturas_BO.Controllers
         }
 
         // GET: CursoExames/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? CursoID, int? ExameID, string Edicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
-                if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (CursoID == null || ExameID == null || Edicao == "")
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CursoExame cursoExame = db.CursoExame.Find(id);
+            CursoExame cursoExame = db.CursoExame.Find(CursoID, ExameID, Edicao);
             if (cursoExame == null)
             {
                 return HttpNotFound();
@@ -161,9 +186,9 @@ namespace Candidaturas_BO.Controllers
         // POST: CursoExames/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int CursoID, int ExameID, string Edicao)
         {
-            CursoExame cursoExame = db.CursoExame.Find(id);
+            CursoExame cursoExame = db.CursoExame.Find(CursoID, ExameID, Edicao);
             db.CursoExame.Remove(cursoExame);
             db.SaveChanges();
             return RedirectToAction("Index");

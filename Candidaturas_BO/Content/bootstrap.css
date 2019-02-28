@@ -2985,6 +2985,13 @@ select[multiple].input-lg {
     text-align: right;
   }
 }
+
+.form-horizontal .control-label.required::after {
+    content: '*';
+    margin-left: 4px;
+    color: red;
+}
+
 .form-horizontal .has-feedback .form-control-feedback {
   right: 15px;
 }

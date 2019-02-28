@@ -74,56 +74,88 @@ namespace Candidaturas_BO.Controllers
         {
             if (ModelState.IsValid)
             {
-                string ultimaEdicao = db.Edicao.Select(e => e.Sigla).Last();
+                Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataInicio).First();
+
                 db.Edicao.Add(edicao);
-                List<User> users = db.User.Where(u => u.Edicao == ultimaEdicao).ToList();
-                foreach(User user in users)
+                db.SaveChanges();
+                Edicao novaEdicao = db.Edicao.OrderByDescending(e => e.DataInicio).First();
+
+                List<User> users = db.User.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
+                foreach (User user in users)
                 {
-                    user.Edicao = edicao.Sigla;
-                    db.User.Add(user);
+                    User novoUser = new User();
+                    novoUser.Password = user.Password;
+                    novoUser.Email = user.Email;
+                    novoUser.DataCriacao = user.DataCriacao;
+                    novoUser.NomeColoquial = user.NomeColoquial;
+                    novoUser.DataNascimento = user.DataNascimento;
+                    novoUser.TipoDocID = user.TipoDocID;
+                    novoUser.NDI = user.NDI;
+                    novoUser.DocumentoValidade = user.DocumentoValidade;
+                    novoUser.Militar = user.Militar;
+                    novoUser.Ramo = user.Ramo;
+                    novoUser.Categoria = user.Categoria;
+                    novoUser.Posto = user.Posto;
+                    novoUser.Classe = user.Classe;
+                    novoUser.NIM = user.NIM;
+                    novoUser.Edicao = novaEdicao.Sigla;
+                    db.User.Add(novoUser);
                 }
 
-                List<Situacao> situacoes = db.Situacao.Where(u => u.Edicao == ultimaEdicao).ToList();
+                List<Situacao> situacoes = db.Situacao.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (Situacao situacao in situacoes)
                 {
-                    situacao.Edicao = edicao.Sigla;
-                    db.Situacao.Add(situacao);
+                    Situacao novaSituacao = new Situacao();
+                    novaSituacao.Nome = situacao.Nome;
+                    novaSituacao.Edicao = novaEdicao.Sigla;
+                    db.Situacao.Add(novaSituacao);
                 }
 
-                List<ConhecimentoEscola> conhecimentos = db.ConhecimentoEscola.Where(u => u.Edicao == ultimaEdicao).ToList();
+                List<ConhecimentoEscola> conhecimentos = db.ConhecimentoEscola.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (ConhecimentoEscola conhecimento in conhecimentos)
                 {
-                    conhecimento.Edicao = edicao.Sigla;
-                    db.ConhecimentoEscola.Add(conhecimento);
+                    ConhecimentoEscola novoConhecimento = new ConhecimentoEscola();
+                    novoConhecimento.Nome = conhecimento.Nome;
+                    novoConhecimento.Edicao = novaEdicao.Sigla;
+                    db.ConhecimentoEscola.Add(novoConhecimento);
                 }
 
-                List<Curso> cursos = db.Curso.Where(u => u.Edicao == ultimaEdicao).ToList();
+                List<Curso> cursos = db.Curso.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (Curso curso in cursos)
                 {
-                    curso.Edicao = edicao.Sigla;
-                    db.Curso.Add(curso);
+                    Curso novoCurso = new Curso();
+                    novoCurso.Nome = curso.Nome;
+                    novoCurso.Edicao = novaEdicao.Sigla;
+                    db.Curso.Add(novoCurso);
                 }
 
-                List<Exame> exames = db.Exame.Where(u => u.Edicao == ultimaEdicao).ToList();
+                List<Exame> exames = db.Exame.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (Exame exame in exames)
                 {
-                    exame.Edicao = edicao.Sigla;
-                    db.Exame.Add(exame);
+                    Exame novoExame = new Exame();
+                    novoExame.Nome = exame.Nome;
+                    novoExame.Código = exame.Código;
+                    novoExame.Edicao = novaEdicao.Sigla;
+                    db.Exame.Add(novoExame);
                 }
 
-                List<CursoExame> cursosExames = db.CursoExame.Where(u => u.Edicao == ultimaEdicao).ToList();
+                List<CursoExame> cursosExames = db.CursoExame.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (CursoExame cursoexame in cursosExames)
                 {
-                    cursoexame.Edicao = edicao.Sigla;
-                    db.CursoExame.Add(cursoexame);
+                    CursoExame novoCursoExame = new CursoExame();
+                    novoCursoExame.CursoID = cursoexame.CursoID;
+                    novoCursoExame.ExameID = cursoexame.ExameID;
+                    novoCursoExame.Edicao = novaEdicao.Sigla;
+                    db.CursoExame.Add(novoCursoExame);
                 }
-
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             return View(edicao);
         }
+
 
         // GET: Edicaos/Edit/5
         public ActionResult Edit(string id)

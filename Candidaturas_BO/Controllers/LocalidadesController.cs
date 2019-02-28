@@ -209,7 +209,7 @@ namespace Candidaturas_BO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int codigo, int? codigoConcelho, int? codigoDistrito)
         {
-            Localidade localidade = db.Localidade.Find(codigo, codigoConcelho, codigoDistrito);
+            Localidade localidade = db.Localidade.Find(codigoDistrito, codigoConcelho, codigo);
             db.Localidade.Remove(localidade);
             db.SaveChanges();
             return RedirectToAction("Index");

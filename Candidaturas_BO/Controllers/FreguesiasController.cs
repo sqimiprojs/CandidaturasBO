@@ -151,7 +151,7 @@ namespace Candidaturas_BO.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                Freguesia freguesia = db.Freguesia.Find(codigo, codigoConcelho, codigoDistrito);
+                Freguesia freguesia = db.Freguesia.Find(codigoDistrito, codigoConcelho, codigo);
                 if (freguesia == null)
                 {
                     return HttpNotFound();
@@ -200,7 +200,7 @@ namespace Candidaturas_BO.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
-                Freguesia freguesia = db.Freguesia.Find(codigo, codigoConcelho, codigoDistrito);
+                Freguesia freguesia = db.Freguesia.Find(codigoDistrito, codigoConcelho, codigo);
 
                 if (freguesia == null)
                 {
@@ -295,7 +295,7 @@ namespace Candidaturas_BO.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int codigo, int? codigoConcelho, int? codigoDistrito)
         {
-            Freguesia freguesia = db.Freguesia.Find(codigo, codigoConcelho, codigoDistrito);
+            Freguesia freguesia = db.Freguesia.Find(codigoDistrito, codigoConcelho, codigo);
             db.Freguesia.Remove(freguesia);
             db.SaveChanges();
             return RedirectToAction("Index");

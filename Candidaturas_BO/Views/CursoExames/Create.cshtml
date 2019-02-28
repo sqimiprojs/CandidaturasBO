@@ -16,25 +16,25 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.CursoID, "CursoID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CursoID, "CursoID", htmlAttributes: new { @class = "control-label required col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CursoID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CursoID , ViewBag.Cursos as SelectList, "Escolha um curso...", htmlAttributes: new { @class = "form-control", @required = "required" })
                 @Html.ValidationMessageFor(model => model.CursoID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ExameID, "ExameID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ExameID, "ExameID", htmlAttributes: new { @class = "control-label required col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ExameID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ExameID, ViewBag.Exames as SelectList, "Escolha um exame...", htmlAttributes: new { @class = "form-control", @required = "required" })
                 @Html.ValidationMessageFor(model => model.ExameID, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Edicao, "Edicao", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Edicao, "Edicao", htmlAttributes: new { @class = "control-label required col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Edicao", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Edicao, ViewBag.Edicao as SelectList, "Escolha uma edição...", htmlAttributes: new { @class = "form-control", @required = "required" })
                 @Html.ValidationMessageFor(model => model.Edicao, "", new { @class = "text-danger" })
             </div>
         </div>

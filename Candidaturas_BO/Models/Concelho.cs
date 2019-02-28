@@ -19,6 +19,7 @@ namespace Candidaturas_BO.Models
         {
             this.Freguesia = new HashSet<Freguesia>();
             this.Localidade = new HashSet<Localidade>();
+            this.Reparticoes = new HashSet<Reparticoes>();
         }
     
         public string Nome { get; set; }
@@ -30,5 +31,7 @@ namespace Candidaturas_BO.Models
         public virtual ICollection<Freguesia> Freguesia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Localidade> Localidade { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reparticoes> Reparticoes { get; set; }
     }
 }

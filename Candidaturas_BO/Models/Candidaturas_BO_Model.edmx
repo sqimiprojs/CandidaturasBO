@@ -716,6 +716,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reparticoes_Concelho">
+          <End Role="Concelho" Type="Self.Concelho" Multiplicity="1" />
+          <End Role="Reparticoes" Type="Self.Reparticoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Reparticoes">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reparticoes_Distrito">
           <End Role="Distrito" Type="Self.Distrito" Multiplicity="1" />
           <End Role="Reparticoes" Type="Self.Reparticoes" Multiplicity="*" />
@@ -949,6 +963,10 @@
             <End Role="Ramo" EntitySet="Ramo" />
             <End Role="Posto" EntitySet="Posto" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reparticoes_Concelho" Association="Self.FK_Reparticoes_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Reparticoes" EntitySet="Reparticoes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Reparticoes_Distrito" Association="Self.FK_Reparticoes_Distrito">
             <End Role="Distrito" EntitySet="Distrito" />
             <End Role="Reparticoes" EntitySet="Reparticoes" />
@@ -1062,6 +1080,10 @@
           <AssociationSet Name="FK_Localidade_Distrito_Concelho" Association="CandidaturasBOModel.FK_Localidade_Distrito_Concelho">
             <End Role="Concelho" EntitySet="Concelho" />
             <End Role="Localidade" EntitySet="Localidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reparticoes_Concelho" Association="CandidaturasBOModel.FK_Reparticoes_Concelho">
+            <End Role="Concelho" EntitySet="Concelho" />
+            <End Role="Reparticoes" EntitySet="Reparticoes" />
           </AssociationSet>
           <AssociationSet Name="FK_ConhecimentoEscola_Edicao" Association="CandidaturasBOModel.FK_ConhecimentoEscola_Edicao">
             <End Role="Edicao" EntitySet="Edicao" />
@@ -1212,6 +1234,7 @@
           <NavigationProperty Name="Distrito" Relationship="CandidaturasBOModel.FK_Concelho_Distrito" FromRole="Concelho" ToRole="Distrito" />
           <NavigationProperty Name="Freguesia" Relationship="CandidaturasBOModel.FK_Freguesia_Distrito_Concelho" FromRole="Concelho" ToRole="Freguesia" />
           <NavigationProperty Name="Localidade" Relationship="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" FromRole="Concelho" ToRole="Localidade" />
+          <NavigationProperty Name="Reparticoes" Relationship="CandidaturasBOModel.FK_Reparticoes_Concelho" FromRole="Concelho" ToRole="Reparticoes" />
         </EntityType>
         <EntityType Name="ConhecimentoEscola">
           <Key>
@@ -1482,6 +1505,7 @@
           <Property Name="CodigoFreguesia" Type="Int32" Nullable="false" />
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Concelho" Relationship="CandidaturasBOModel.FK_Reparticoes_Concelho" FromRole="Reparticoes" ToRole="Concelho" />
           <NavigationProperty Name="DadosPessoais" Relationship="CandidaturasBOModel.FK_DadosPessoais_Reparticoes" FromRole="Reparticoes" ToRole="DadosPessoais" />
           <NavigationProperty Name="Distrito" Relationship="CandidaturasBOModel.FK_Reparticoes_Distrito" FromRole="Reparticoes" ToRole="Distrito" />
         </EntityType>
@@ -1704,6 +1728,20 @@
               <PropertyRef Name="CodigoDistrito" />
             </Principal>
             <Dependent Role="Localidade">
+              <PropertyRef Name="CodigoConcelho" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reparticoes_Concelho">
+          <End Type="CandidaturasBOModel.Concelho" Role="Concelho" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Reparticoes" Role="Reparticoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concelho">
+              <PropertyRef Name="Codigo" />
+              <PropertyRef Name="CodigoDistrito" />
+            </Principal>
+            <Dependent Role="Reparticoes">
               <PropertyRef Name="CodigoConcelho" />
               <PropertyRef Name="CodigoDistrito" />
             </Dependent>
