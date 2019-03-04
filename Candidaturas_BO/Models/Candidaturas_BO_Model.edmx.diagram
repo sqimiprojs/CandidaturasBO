@@ -5,34 +5,34 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0254b980f9d94f8c90bb0ca8d46824c8" Name="Diagram1" ZoomLevel="10">
-        <EntityTypeShape EntityType="CandidaturasBOModel.Candidatura" Width="1.5" PointX="5.25" PointY="25.875" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Categoria" Width="1.5" PointX="5.25" PointY="13.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Certificado" Width="1.5" PointX="7.5" PointY="50.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="3" PointY="43.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.ConhecimentoEscola" Width="1.5" PointX="3" PointY="31.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Curso" Width="1.5" PointX="3" PointY="37.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.CursoExame" Width="1.5" PointX="5.25" PointY="32.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="7.5" PointY="22.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="0.75" PointY="43.875" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Documento" Width="1.5" PointX="7.5" PointY="47.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.DocumentoBinario" Width="1.5" PointX="9.75" PointY="47.875" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Edicao" Width="1.5" PointX="0.75" PointY="24.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.EstadoCivil" Width="1.5" PointX="5.25" PointY="37.875" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="3" PointY="40.25" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="5.25" PointY="43.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Genero" Width="1.5" PointX="5.25" PointY="35.5" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Historico" Width="1.5" PointX="7.5" PointY="39" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Inquerito" Width="1.5" PointX="10.5" PointY="29.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Localidade" Width="1.5" PointX="5.25" PointY="49.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Opcoes" Width="1.5" PointX="7.5" PointY="33.625" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Pais" Width="1.5" PointX="5.25" PointY="46.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Posto" Width="1.5" PointX="5.25" PointY="20.25" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Ramo" Width="1.5" PointX="3" PointY="20.75" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Reparticoes" Width="1.5" PointX="5.25" PointY="17" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.Situacao" Width="1.5" PointX="3" PointY="34.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.TipoDocumentoID" Width="1.5" PointX="5.25" PointY="40.25" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.User" Width="1.5" PointX="3" PointY="26.375" />
-        <EntityTypeShape EntityType="CandidaturasBOModel.UserExame" Width="1.5" PointX="10.5" PointY="34.25" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Candidatura" Width="1.5" PointX="5.25" PointY="31.875" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Categoria" Width="1.5" PointX="8.25" PointY="42.5" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Certificado" Width="1.5" PointX="7.5" PointY="53.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Concelho" Width="1.5" PointX="6" PointY="45.25" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.ConhecimentoEscola" Width="1.5" PointX="3" PointY="23.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Curso" Width="1.5" PointX="3" PointY="18" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.CursoExame" Width="1.5" PointX="5.25" PointY="26.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.DadosPessoais" Width="1.5" PointX="10.5" PointY="28.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Distrito" Width="1.5" PointX="3.75" PointY="45.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Documento" Width="1.5" PointX="7.5" PointY="56.125" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.DocumentoBinario" Width="1.5" PointX="9.75" PointY="56.5" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Edicao" Width="1.5" PointX="0.75" PointY="24.5" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.EstadoCivil" Width="1.5" PointX="8.25" PointY="59.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Exame" Width="1.5" PointX="3" PointY="35.25" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Freguesia" Width="1.5" PointX="8.25" PointY="45.25" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Genero" Width="1.5" PointX="8.25" PointY="36.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Historico" Width="1.5" PointX="7.5" PointY="50.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Inquerito" Width="1.5" PointX="7.5" PointY="29.25" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Localidade" Width="1.5" PointX="8.25" PointY="64.5" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Opcoes" Width="1.5" PointX="7.5" PointY="25.625" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Pais" Width="1.5" PointX="8.25" PointY="23" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Posto" Width="1.5" PointX="8.25" PointY="39" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Ramo" Width="1.5" PointX="6" PointY="39.5" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Reparticoes" Width="1.5" PointX="8.25" PointY="19.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.Situacao" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.TipoDocumentoID" Width="1.5" PointX="8.25" PointY="61.75" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.User" Width="1.5" PointX="3" PointY="38.375" />
+        <EntityTypeShape EntityType="CandidaturasBOModel.UserExame" Width="1.5" PointX="7.5" PointY="33.75" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Candidatura_Documento" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Candidatura_User" />
         <AssociationConnector Association="CandidaturasBOModel.FK_Certificado_Candidatura" />

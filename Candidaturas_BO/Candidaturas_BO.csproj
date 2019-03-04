@@ -181,8 +181,14 @@
     <Compile Include="BOConstants.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CursoExamesController.cs" />
+    <Compile Include="Controllers\EstatisticasDiaController.cs" />
+    <Compile Include="Controllers\EstatisticasConcelhoController.cs" />
+    <Compile Include="Controllers\EstatisticasGeneroController.cs" />
+    <Compile Include="Controllers\EstatisticasDistritoController.cs" />
+    <Compile Include="Controllers\EstatisticasCursoController.cs" />
     <Compile Include="Controllers\EdicaosController.cs" />
     <Compile Include="Controllers\HistoricoesController.cs" />
+    <Compile Include="Controllers\EstatisticasController.cs" />
     <Compile Include="Controllers\PostosController.cs" />
     <Compile Include="Controllers\RamosController.cs" />
     <Compile Include="Controllers\ReparticoesController.cs" />
@@ -201,7 +207,6 @@
     <Compile Include="Controllers\NacionalidadesController.cs" />
     <Compile Include="Controllers\SituacaosController.cs" />
     <Compile Include="Controllers\TiposDocumentoIDController.cs" />
-    <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="ExcelValidator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -231,6 +236,7 @@
     <Compile Include="Models\Certificado.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EstatisticaCursoDisplay.cs" />
     <Compile Include="Models\CursoExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
@@ -463,6 +469,12 @@
     <Content Include="Views\CursoExames\Index.cshtml" />
     <Content Include="Views\CursoExames\MassInsert.cshtml" />
     <Content Include="Views\Historicoes\Index.cshtml" />
+    <Content Include="Views\EstatisticasCurso\Index.cshtml" />
+    <Content Include="Views\EstatisticasDistrito\Index.cshtml" />
+    <Content Include="Views\EstatisticasGenero\Index.cshtml" />
+    <Content Include="Views\EstatisticasConcelho\Index.cshtml" />
+    <Content Include="Views\EstatisticasDia\Index.cshtml" />
+    <Content Include="Views\Estatisticas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

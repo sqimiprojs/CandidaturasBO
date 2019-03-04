@@ -17,6 +17,7 @@ namespace Candidaturas_BO.Models
         public int CandidaturaID { get; set; }
         public byte[] FormBin { get; set; }
         public System.DateTime DataCriação { get; set; }
+        public System.DateTime DiaCriação { get; set; }
     
         public virtual Candidatura Candidatura { get; set; }
     }

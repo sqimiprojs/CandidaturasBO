@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Candidaturas_BO.Models.EstatisticaCursoDisplay>
+
+@{
+    ViewBag.Title = "Estatistica por Dia";
+
+}
+
+<h2>Estatística por Dia</h2>
+
+
+@using (Html.BeginForm())
+{
+<div class="FilterDiv">
+    Procurar por dia:     @Html.TextBox("date", null, new { @class = "form-control", type = "date", @style = "width: 100%", @value = "" })
+    <input type="submit" value="Procurar" class="btn btn-default" />
+</div>
+}
+
+    <div class="TotalDiv">
+        Total de Candidatos: @ViewBag.TotalCandidatos
+    </div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Data", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            @Html.ActionLink("Percentagem", "Index", new { sortOrder = ViewBag.PercSortParm })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percentagem)
+        </td>
+    </tr>
+    }
+
+</table>
+<div class="form-actions no-color">
+    @Html.ActionLink("Voltar", "Index", "EstatisticasDia");
+</div>

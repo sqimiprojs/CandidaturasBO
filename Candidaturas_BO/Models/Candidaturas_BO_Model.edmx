@@ -29,6 +29,7 @@
           <Property Name="CandidaturaID" Type="int" Nullable="false" />
           <Property Name="FormBin" Type="varbinary(max)" Nullable="false" />
           <Property Name="DataCriação" Type="datetime" Nullable="false" />
+          <Property Name="DiaCriação" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Concelho">
           <Key>
@@ -1221,6 +1222,7 @@
           <Property Name="CandidaturaID" Type="Int32" Nullable="false" />
           <Property Name="FormBin" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="DataCriação" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DiaCriação" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Candidatura" Relationship="CandidaturasBOModel.FK_Certificado_Candidatura" FromRole="Certificado" ToRole="Candidatura" />
         </EntityType>
         <EntityType Name="Concelho">
@@ -2091,6 +2093,7 @@
           <EntitySetMapping Name="Certificado">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Certificado">
               <MappingFragment StoreEntitySet="Certificado">
+                <ScalarProperty Name="DiaCriação" ColumnName="DiaCriação" />
                 <ScalarProperty Name="DataCriação" ColumnName="DataCriação" />
                 <ScalarProperty Name="FormBin" ColumnName="FormBin" />
                 <ScalarProperty Name="CandidaturaID" ColumnName="CandidaturaID" />
