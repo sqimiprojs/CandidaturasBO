@@ -32,6 +32,9 @@
             Exame
         </th>
         <th>
+            Obrigatório
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Edicao1.AnoLectivo)
         </th>
         <th></th>
@@ -45,6 +48,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Exame.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obrigatorio)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Edicao1.AnoLectivo)

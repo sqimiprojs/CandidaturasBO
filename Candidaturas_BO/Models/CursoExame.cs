@@ -17,6 +17,7 @@ namespace Candidaturas_BO.Models
         public int CursoID { get; set; }
         public int ExameID { get; set; }
         public string Edicao { get; set; }
+        public Nullable<bool> Obrigatorio { get; set; }
     
         public virtual Curso Curso { get; set; }
         public virtual Edicao Edicao1 { get; set; }

@@ -233,6 +233,7 @@ namespace Candidaturas_BO.Controllers
                             var codigoCurso = Convert.ToInt32(workSheet.Cells[rowIterator, 1].Value.ToString());
                             var codigoExame = Convert.ToInt32(workSheet.Cells[rowIterator, 2].Value.ToString());
                             var edicao = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            var obrigatorio = Convert.ToBoolean(workSheet.Cells[rowIterator, 4].Value.ToString());
 
                             if (!db.CursoExame.Any(c => c.CursoID == codigoCurso && c.ExameID == codigoExame && c.Edicao == edicao))
                             {
@@ -240,6 +241,7 @@ namespace Candidaturas_BO.Controllers
                                 curso.CursoID = codigoCurso;
                                 curso.ExameID = codigoExame;
                                 curso.Edicao = edicao;
+                                curso.Obrigatorio = obrigatorio;
 
                                 db.CursoExame.Add(curso);
                                 db.SaveChanges();
