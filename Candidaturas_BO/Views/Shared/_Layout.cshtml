@@ -29,6 +29,11 @@
             </div>
             @if (Session["userName"] != null)
             {
+            <div style="display: inline-flex;">
+                @Html.ActionLink("Edições", "Index", "Edicaos", null, new { Style = "color:black;" })
+                &nbsp; &nbsp; @Html.ActionLink("Candidatos", "Index", "Users", null, new { Style = "color:black;" })
+                &nbsp; &nbsp; @Html.ActionLink("Cursos/Exames", "Index", "CursoExames", null, new { Style = "color:black;" })
+                &nbsp; &nbsp; @Html.ActionLink("Estatísticas", "Index", "Estatisticas", null, new { Style = "color:black;" })
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
@@ -38,11 +43,8 @@
                                 <li>@Html.ActionLink("Concelhos", "Index", "Concelhos")</li>
                                 <li>@Html.ActionLink("Conhecimentos", "Index", "ConhecimentoEscolas")</li>
                                 <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
-                                <li>@Html.ActionLink("Cursos/Exames", "Index", "CursoExames")</li>
                                 <li>@Html.ActionLink("Distritos", "Index", "Distritos")</li>
-                                <li>@Html.ActionLink("Edições", "Index", "Edicaos")</li>
                                 <li>@Html.ActionLink("Estados Civis", "Index", "EstadosCivis")</li>
-                                <li>@Html.ActionLink("Estatísticas", "Index", "Estatisticas")</li>
                                 <li>@Html.ActionLink("Exames", "Index", "Exames")</li>
                                 <li>@Html.ActionLink("Freguesias", "Index", "Freguesias")</li>
                                 <li>@Html.ActionLink("Géneros", "Index", "Generos")</li>
@@ -54,13 +56,12 @@
                                 <li>@Html.ActionLink("Repartições", "Index", "Reparticoes")</li>
                                 <li>@Html.ActionLink("Situações", "Index", "Situacaos")</li>
                                 <li>@Html.ActionLink("Tipos de Documento", "Index", "TiposDocumentoID")</li>
-                                <li>@Html.ActionLink("Users", "Index", "Users")</li>
 
                             </ul>
                         </li>
                     </ul>
                 </div>
-
+            </div>
 
 
             }
