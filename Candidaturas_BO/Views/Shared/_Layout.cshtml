@@ -37,15 +37,12 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            Tabelas<span class="glyphicon glyphicon-chevron-down"></span>
+                            Estático<span class="glyphicon glyphicon-chevron-down"></span>
                             <ul>
                                 <li>@Html.ActionLink("Categorias", "Index", "Categorias")</li>
                                 <li>@Html.ActionLink("Concelhos", "Index", "Concelhos")</li>
-                                <li>@Html.ActionLink("Conhecimentos", "Index", "ConhecimentoEscolas")</li>
-                                <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
                                 <li>@Html.ActionLink("Distritos", "Index", "Distritos")</li>
                                 <li>@Html.ActionLink("Estados Civis", "Index", "EstadosCivis")</li>
-                                <li>@Html.ActionLink("Exames", "Index", "Exames")</li>
                                 <li>@Html.ActionLink("Freguesias", "Index", "Freguesias")</li>
                                 <li>@Html.ActionLink("Géneros", "Index", "Generos")</li>
                                 <li>@Html.ActionLink("Histórico", "Index", "Historicoes")</li>
@@ -54,9 +51,21 @@
                                 <li>@Html.ActionLink("Postos", "Index", "Postos")</li>
                                 <li>@Html.ActionLink("Ramos", "Index", "Ramos")</li>
                                 <li>@Html.ActionLink("Repartições", "Index", "Reparticoes")</li>
-                                <li>@Html.ActionLink("Situações", "Index", "Situacaos")</li>
                                 <li>@Html.ActionLink("Tipos de Documento", "Index", "TiposDocumentoID")</li>
 
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            Dinamico<span class="glyphicon glyphicon-chevron-down"></span>
+                            <ul>
+                                <li>@Html.ActionLink("Conhecimentos", "Index", "ConhecimentoEscolas")</li>
+                                <li>@Html.ActionLink("Cursos", "Index", "Cursos")</li>
+                                <li>@Html.ActionLink("Exames", "Index", "Exames")</li>
+                                <li>@Html.ActionLink("Situações", "Index", "Situacaos")</li>
                             </ul>
                         </li>
                     </ul>
