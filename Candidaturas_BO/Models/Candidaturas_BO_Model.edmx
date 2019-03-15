@@ -13,6 +13,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Edicao" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="DataAlteracao" Type="datetime" />
+          <Property Name="DataFinalizacao" Type="datetime" />
         </EntityType>
         <EntityType Name="Categoria">
           <Key>
@@ -219,6 +220,7 @@
           <Property Name="CandidaturaId" Type="int" Nullable="false" />
           <Property Name="CursoId" Type="int" Nullable="false" />
           <Property Name="Prioridade" Type="int" Nullable="false" />
+          <Property Name="Data" Type="datetime" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -1216,6 +1218,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="Edicao" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DataAlteracao" Type="DateTime" Precision="3" />
+          <Property Name="DataFinalizacao" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Candidatura1" Relationship="CandidaturasBOModel.FK_Candidatura_Candidatura" FromRole="Candidatura" ToRole="Candidatura1" />
           <NavigationProperty Name="Candidatura2" Relationship="CandidaturasBOModel.FK_Candidatura_Candidatura" FromRole="Candidatura1" ToRole="Candidatura" />
           <NavigationProperty Name="Edicao1" Relationship="CandidaturasBOModel.FK_Candidatura_Edicao" FromRole="Candidatura" ToRole="Edicao" />
@@ -1485,6 +1488,7 @@
           <Property Name="CandidaturaId" Type="Int32" Nullable="false" />
           <Property Name="CursoId" Type="Int32" Nullable="false" />
           <Property Name="Prioridade" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Candidatura" Relationship="CandidaturasBOModel.FK_Opcoes_Candidatura" FromRole="Opcoes" ToRole="Candidatura" />
           <NavigationProperty Name="Curso" Relationship="CandidaturasBOModel.FK_Opcoes_Curso" FromRole="Opcoes" ToRole="Curso" />
         </EntityType>
@@ -2110,6 +2114,7 @@
           <EntitySetMapping Name="Candidatura">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Candidatura">
               <MappingFragment StoreEntitySet="Candidatura">
+                <ScalarProperty Name="DataFinalizacao" ColumnName="DataFinalizacao" />
                 <ScalarProperty Name="DataAlteracao" ColumnName="DataAlteracao" />
                 <ScalarProperty Name="Edicao" ColumnName="Edicao" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -2328,6 +2333,7 @@
           <EntitySetMapping Name="Opcoes">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Opcoes">
               <MappingFragment StoreEntitySet="Opcoes">
+                <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Prioridade" ColumnName="Prioridade" />
                 <ScalarProperty Name="CursoId" ColumnName="CursoId" />
                 <ScalarProperty Name="CandidaturaId" ColumnName="CandidaturaId" />
