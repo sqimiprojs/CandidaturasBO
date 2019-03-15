@@ -283,7 +283,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.CandidatarOutros)
+            @if(@Model.inqueritoDTO.CandidatarOutros)
+            {
+                 <span>Sim</span>
+            }
+            else
+            {
+                <span>Não</span>
+            }
         </dd>
     </dl>
     <hr />
