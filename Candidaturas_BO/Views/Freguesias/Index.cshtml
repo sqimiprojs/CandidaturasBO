@@ -17,10 +17,10 @@
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
-        Procurar por concelho: @Html.DropDownList("concelho", ViewBag.Concelho as SelectList, "Escolha um concelho...", new { @class = "form-control" })
+        Procurar por concelho: &nbsp; @Html.DropDownList("concelho", ViewBag.Concelho as SelectList, "Escolha um concelho...", new { @class = "form-control" })
     </div>
     <div class="FilterDiv">
-        Procurar por nome: @Html.TextBox("SearchString")
+        Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
 }
