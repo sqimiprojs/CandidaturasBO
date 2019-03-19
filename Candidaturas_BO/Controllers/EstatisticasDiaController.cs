@@ -25,7 +25,7 @@ namespace Candidaturas_BO.Controllers
 
 
                 List<Certificado> certificados = db.Certificado.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Count();
+                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
                 List<DateTime> datas = new List<DateTime>();
                 foreach(Certificado certificado in certificados)
                 {
@@ -47,7 +47,7 @@ namespace Candidaturas_BO.Controllers
                     EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
                     displayCurso.Nome = data.ToString().Split(' ')[0];
                     displayCurso.Total = db.Certificado.Where(c => c.DiaCriação == data).Count();
-                    displayCurso.Percentagem = (db.Certificado.Where(c => c.DiaCriação == data).Count() / ViewBag.TotalCandidatos) * 100;
+                    displayCurso.Percentagem = Math.Round(((double)(db.Certificado.Where(c => c.DiaCriação == data).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
                     display.Add(displayCurso);
                 }
 

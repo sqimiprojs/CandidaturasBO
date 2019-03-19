@@ -10,6 +10,6 @@ namespace Candidaturas_BO.Models
         public string Edicao { get; set; }
         public string Nome { get; set; }
         public int Total { get; set; }
-        public float Percentagem { get; set; }
+        public double Percentagem { get; set; }
     }
 }

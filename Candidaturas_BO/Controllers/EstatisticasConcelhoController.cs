@@ -25,10 +25,10 @@ namespace Candidaturas_BO.Controllers
 
 
                 List<Concelho> concelhos = db.Concelho.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Count();
+                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
                 if (!String.IsNullOrEmpty(edicao))
                 {
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao).Count();
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null).Count();
                 }
 
                 //search
@@ -43,13 +43,13 @@ namespace Candidaturas_BO.Controllers
                     displayCurso.Nome = concelho.Nome;
                     if (!String.IsNullOrEmpty(edicao))
                     {
-                        displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.ConcelhoNatural == concelho.Codigo && c.Edicao == edicao).Count();
-                        displayCurso.Percentagem = (db.Candidatura.Where(c => c.DadosPessoais.ConcelhoNatural == concelho.Codigo && c.Edicao == edicao).Count() / ViewBag.TotalCandidatos) * 100;
+                        displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.ConcelhoMorada == concelho.Codigo && c.DadosPessoais.DistritoMorada == concelho.CodigoDistrito && c.Edicao == edicao).Count();
+                        displayCurso.Percentagem = Math.Round(((double)(db.Candidatura.Where(c => c.DadosPessoais.ConcelhoMorada == concelho.Codigo && c.DadosPessoais.DistritoMorada == concelho.CodigoDistrito && c.Edicao == edicao).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
                     }
                     else
                     {
-                        displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.ConcelhoNatural == concelho.Codigo).Count();
-                        displayCurso.Percentagem = (db.Candidatura.Where(c => c.DadosPessoais.ConcelhoNatural == concelho.Codigo).Count() / ViewBag.TotalCandidatos) * 100;
+                        displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.ConcelhoMorada == concelho.Codigo && c.DadosPessoais.DistritoMorada == concelho.CodigoDistrito).Count();
+                        displayCurso.Percentagem = Math.Round(((double)(db.Candidatura.Where(c => c.DadosPessoais.ConcelhoMorada == concelho.Codigo && c.DadosPessoais.DistritoMorada == concelho.CodigoDistrito).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
                     }
                     display.Add(displayCurso);
                 }

@@ -25,10 +25,10 @@ namespace Candidaturas_BO.Controllers
 
 
                 List<Genero> generos = db.Genero.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Count();
+                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
                 if (!String.IsNullOrEmpty(edicao))
                 {
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao).Count();
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null).Count();
                 }
 
                 //search
@@ -44,12 +44,12 @@ namespace Candidaturas_BO.Controllers
                     if (!String.IsNullOrEmpty(edicao))
                     {
                         displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID && c.Edicao == edicao).Count();
-                        displayCurso.Percentagem = (db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID && c.Edicao == edicao).Count() / ViewBag.TotalCandidatos) * 100;
+                        displayCurso.Percentagem = Math.Round(((double)(db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID && c.Edicao == edicao).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
                     }
                     else
                     {
                         displayCurso.Total = db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID).Count();
-                        displayCurso.Percentagem = (db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID).Count() / ViewBag.TotalCandidatos) * 100;
+                        displayCurso.Percentagem = Math.Round(((double)db.Candidatura.Where(c => c.DadosPessoais.Genero == genero.ID).Count() / (double)ViewBag.TotalCandidatos) * 100, 2);
                     }
                     display.Add(displayCurso);
                 }

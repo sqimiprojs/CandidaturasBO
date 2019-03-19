@@ -25,11 +25,11 @@ namespace Candidaturas_BO.Controllers
 
 
                 List<Curso> cursos = db.Curso.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Count();
+                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
                 if (!String.IsNullOrEmpty(edicao))
                 {
                     cursos = cursos.Where(s => s.Edicao == edicao).ToList();
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao).Count();
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null).Count();
                 }
 
                 //search
@@ -44,7 +44,7 @@ namespace Candidaturas_BO.Controllers
                     displayCurso.Edicao = curso.Edicao;
                     displayCurso.Nome = curso.Nome;
                     displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID).Count());
-                    displayCurso.Percentagem = (db.Opcoes.Where(o => o.CursoId == curso.ID).Count() / ViewBag.TotalCandidatos) * 100;
+                    displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
                     display.Add(displayCurso);
                 }
 
