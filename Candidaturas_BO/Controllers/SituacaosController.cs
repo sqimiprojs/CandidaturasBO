@@ -28,6 +28,20 @@ namespace Candidaturas_BO.Controllers
                 {
                     situacoes = situacoes.Where(s => s.Edicao == edicao).ToList();
                 }
+                else
+                {
+                    Edicao edAux = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).FirstOrDefault();
+                    if (edAux != null)
+                    {
+                        situacoes = situacoes.Where(s => s.Edicao == edAux.Sigla).ToList();
+                    }
+                    else
+                    {
+                        Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataFim).FirstOrDefault();
+                        situacoes = situacoes.Where(s => s.Edicao == ultimaEdicao.Sigla).ToList();
+                    }
+
+                }
 
 
                 //search

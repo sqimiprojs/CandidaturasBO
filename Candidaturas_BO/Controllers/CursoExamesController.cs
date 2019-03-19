@@ -28,11 +28,23 @@ namespace Candidaturas_BO.Controllers
                 {
                     cursosExames = cursosExames.Where(s => s.Edicao == edicao).ToList();
                 }
+                else
+                {
+                    Edicao edAux = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).FirstOrDefault();
+                    if (edAux != null)
+                    {
+                        cursosExames = cursosExames.Where(s => s.Edicao == edAux.Sigla).ToList();
+                    }
+                    else
+                    {
+                        Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataFim).FirstOrDefault();
+                        cursosExames = cursosExames.Where(s => s.Edicao == ultimaEdicao.Sigla).ToList();
+                    }
 
+                }
 
-
-                //sort
-                switch (sortOrder)
+                    //sort
+                    switch (sortOrder)
                 {
                     case "name_desc":
                         cursosExames = cursosExames.OrderByDescending(s => s.CursoID).ToList();
