@@ -12,6 +12,7 @@
 {
 <div class="FilterDiv">
     Procurar por dia:  &nbsp;   @Html.TextBox("date", null, new { @class = "form-control", type = "date", @style = "width: 100%", @value = "" }) &nbsp;
+    Candidatura finalizada: &nbsp; @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%" }) &nbsp;
     <input type="submit" value="Procurar" class="btn btn-default" />
 </div>
 }

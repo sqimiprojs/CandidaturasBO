@@ -80,7 +80,7 @@ namespace Candidaturas_BO.Controllers
                 db.SaveChanges();
                 Edicao novaEdicao = db.Edicao.OrderByDescending(e => e.DataInicio).First();
 
-                List<User> users = db.User.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
+               /* List<User> users = db.User.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (User user in users)
                 {
                     User novoUser = new User();
@@ -100,7 +100,7 @@ namespace Candidaturas_BO.Controllers
                     novoUser.NIM = user.NIM;
                     novoUser.Edicao = novaEdicao.Sigla;
                     db.User.Add(novoUser);
-                }
+                }*/
 
                 List<Situacao> situacoes = db.Situacao.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (Situacao situacao in situacoes)
