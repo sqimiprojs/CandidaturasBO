@@ -16,16 +16,24 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string date, string sortOrder)
+        public ActionResult Index(string date, string sortOrder, bool finalizado = false)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.PercSortParm = sortOrder == "Perc" ? "Perc_desc" : "Perc";
 
-
                 List<Certificado> certificados = db.Certificado.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
+                if (finalizado)
+                {
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null && c.Certificado != null).Count();
+                }
+                else
+                {
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
+                }
+
+
                 List<DateTime> datas = new List<DateTime>();
                 foreach(Certificado certificado in certificados)
                 {

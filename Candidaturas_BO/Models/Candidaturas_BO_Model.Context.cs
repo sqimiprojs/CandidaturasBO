@@ -44,6 +44,7 @@ namespace Candidaturas_BO.Models
         public virtual DbSet<Historico> Historico { get; set; }
         public virtual DbSet<Inquerito> Inquerito { get; set; }
         public virtual DbSet<Localidade> Localidade { get; set; }
+        public virtual DbSet<Militar> Militar { get; set; }
         public virtual DbSet<Opcoes> Opcoes { get; set; }
         public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Posto> Posto { get; set; }

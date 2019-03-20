@@ -30,15 +30,11 @@ namespace Candidaturas_BO.Models
         public string NDI { get; set; }
         public System.DateTime DocumentoValidade { get; set; }
         public bool Militar { get; set; }
-        public string Ramo { get; set; }
-        public string Categoria { get; set; }
-        public Nullable<int> Posto { get; set; }
-        public string Classe { get; set; }
-        public string NIM { get; set; }
         public string Edicao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Candidatura> Candidatura { get; set; }
         public virtual Edicao Edicao1 { get; set; }
+        public virtual Militar Militar1 { get; set; }
     }
 }

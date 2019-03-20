@@ -287,6 +287,9 @@
     <Compile Include="Models\Localidade.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Militar.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Opcoes.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>

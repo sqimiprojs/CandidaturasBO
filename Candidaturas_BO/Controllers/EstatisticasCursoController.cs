@@ -16,21 +16,41 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string searchString, string sortOrder, string edicao)
+        public ActionResult Index(string searchString, string sortOrder, string edicao, bool finalizado =false)
         {
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.PercSortParm = sortOrder == "Perc" ? "Perc_desc" : "Perc";
-
+                if (String.IsNullOrEmpty(edicao))
+                {
+                    edicao = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).Select(e => e.Sigla).FirstOrDefault();
+                    if (String.IsNullOrEmpty(edicao))
+                    {
+                        edicao = db.Edicao.OrderByDescending(e => e.DataFim).Select(e => e.Sigla).FirstOrDefault();
+                    }
+                }
 
                 List<Curso> cursos = db.Curso.ToList();
-                ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
-                if (!String.IsNullOrEmpty(edicao))
+                if (!String.IsNullOrEmpty(edicao) && finalizado)
+                {
+                    cursos = cursos.Where(s => s.Edicao == edicao).ToList();
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null && c.Certificado != null).Count();
+                }
+                else if (!String.IsNullOrEmpty(edicao))
                 {
                     cursos = cursos.Where(s => s.Edicao == edicao).ToList();
                     ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null).Count();
                 }
+                else if (finalizado)
+                {
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null && c.Certificado != null).Count();
+                }
+                else
+                {
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
+                }
+
 
                 //search
                 if (!String.IsNullOrEmpty(searchString))
@@ -40,12 +60,24 @@ namespace Candidaturas_BO.Controllers
                 List<EstatisticaCursoDisplay> display = new List<EstatisticaCursoDisplay>();
                 foreach (Curso curso in cursos)
                 {
-                    EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
-                    displayCurso.Edicao = curso.Edicao;
-                    displayCurso.Nome = curso.Nome;
-                    displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID).Count());
-                    displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID).Count() / (double)ViewBag.TotalCandidatos) * 100),2);
-                    display.Add(displayCurso);
+                    if (finalizado)
+                    {
+                        EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
+                        displayCurso.Edicao = curso.Edicao;
+                        displayCurso.Nome = curso.Nome;
+                        displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID && o.Candidatura.Certificado != null).Count());
+                        displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID && o.Candidatura.Certificado != null).Count() / (double)ViewBag.TotalCandidatos) * 100), 2);
+                        display.Add(displayCurso);
+                    } else
+                    {
+                        EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
+                        displayCurso.Edicao = curso.Edicao;
+                        displayCurso.Nome = curso.Nome;
+                        displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID).Count());
+                        displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID).Count() / (double)ViewBag.TotalCandidatos) * 100), 2);
+                        display.Add(displayCurso);
+                    }
+
                 }
 
                 //sort

@@ -18,6 +18,7 @@ namespace Candidaturas_BO.Models
         public Posto()
         {
             this.DadosPessoais = new HashSet<DadosPessoais>();
+            this.Militar = new HashSet<Militar>();
         }
     
         public int Código { get; set; }
@@ -30,6 +31,8 @@ namespace Candidaturas_BO.Models
         public virtual Categoria Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DadosPessoais> DadosPessoais { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Militar> Militar { get; set; }
         public virtual Ramo Ramo { get; set; }
     }
 }

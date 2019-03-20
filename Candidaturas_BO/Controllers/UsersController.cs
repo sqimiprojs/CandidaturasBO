@@ -21,6 +21,14 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
                 ViewBag.IDSortParm = sortOrder == "ID" ? "id_desc" : "ID";
+                if (String.IsNullOrEmpty(edicao))
+                {
+                    edicao = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).Select(e => e.Sigla).FirstOrDefault();
+                    if (String.IsNullOrEmpty(edicao))
+                    {
+                        edicao = db.Edicao.OrderByDescending(e => e.DataFim).Select(e => e.Sigla).FirstOrDefault();
+                    }
+                }
 
                 List<User> usersDB = db.User.ToList();
                 
@@ -210,7 +218,7 @@ namespace Candidaturas_BO.Controllers
 
                 ViewData["candidato"] = true;
 
-                if (candidatura == null)
+                if (candidatura.Certificado == null)
                 {
                     ViewData["candidato"] = false;
                 }

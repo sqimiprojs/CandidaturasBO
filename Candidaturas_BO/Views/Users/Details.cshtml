@@ -283,14 +283,18 @@
         </dt>
 
         <dd>
-            @if(@Model.inqueritoDTO.CandidatarOutros)
+            @if (Model.inqueritoDTO != null)
             {
-                 <span>Sim</span>
+                if (@Model.inqueritoDTO.CandidatarOutros)
+                {
+                    <span>Sim</span>
+                }
+                else
+                {
+                    <span>Não</span>
+                }
             }
-            else
-            {
-                <span>Não</span>
-            }
+
         </dd>
     </dl>
     <hr />

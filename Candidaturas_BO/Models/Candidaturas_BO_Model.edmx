@@ -212,6 +212,17 @@
           <Property Name="Codigo" Type="int" Nullable="false" />
           <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Militar">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Ramo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Posto" Type="int" Nullable="false" />
+          <Property Name="Classe" Type="nvarchar" MaxLength="50" />
+          <Property Name="NIM" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Opcoes">
           <Key>
             <PropertyRef Name="ID" />
@@ -289,11 +300,6 @@
           <Property Name="NDI" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DocumentoValidade" Type="date" Nullable="false" />
           <Property Name="Militar" Type="bit" Nullable="false" />
-          <Property Name="Ramo" Type="nvarchar" MaxLength="50" />
-          <Property Name="Categoria" Type="nvarchar" MaxLength="50" />
-          <Property Name="Posto" Type="int" />
-          <Property Name="Classe" Type="nvarchar" MaxLength="50" />
-          <Property Name="NIM" Type="nvarchar" MaxLength="50" />
           <Property Name="Edicao" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="UserExame">
@@ -696,6 +702,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Militar_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Militar" Type="Self.Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_Posto">
+          <End Role="Posto" Type="Self.Posto" Multiplicity="1" />
+          <End Role="Militar" Type="Self.Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posto">
+              <PropertyRef Name="Código" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="Posto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_Ramo">
+          <End Role="Ramo" Type="Self.Ramo" Multiplicity="1" />
+          <End Role="Militar" Type="Self.Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ramo">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="Ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Militar" Type="Self.Militar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Opcoes_Candidatura">
           <End Role="Candidatura" Type="Self.Candidatura" Multiplicity="1" />
           <End Role="Opcoes" Type="Self.Opcoes" Multiplicity="*" />
@@ -838,6 +892,7 @@
           <EntitySet Name="Historico" EntityType="Self.Historico" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inquerito" EntityType="Self.Inquerito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidade" EntityType="Self.Localidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Militar" EntityType="Self.Militar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Opcoes" EntityType="Self.Opcoes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posto" EntityType="Self.Posto" Schema="dbo" store:Type="Tables" />
@@ -971,6 +1026,22 @@
             <End Role="Concelho" EntitySet="Concelho" />
             <End Role="Localidade" EntitySet="Localidade" />
           </AssociationSet>
+          <AssociationSet Name="FK_Militar_Categoria" Association="Self.FK_Militar_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_Posto" Association="Self.FK_Militar_Posto">
+            <End Role="Posto" EntitySet="Posto" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_Ramo" Association="Self.FK_Militar_Ramo">
+            <End Role="Ramo" EntitySet="Ramo" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_User" Association="Self.FK_Militar_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
           <AssociationSet Name="FK_Opcoes_Candidatura" Association="Self.FK_Opcoes_Candidatura">
             <End Role="Candidatura" EntitySet="Candidatura" />
             <End Role="Opcoes" EntitySet="Opcoes" />
@@ -1036,6 +1107,7 @@
           <EntitySet Name="Historico" EntityType="CandidaturasBOModel.Historico" />
           <EntitySet Name="Inquerito" EntityType="CandidaturasBOModel.Inquerito" />
           <EntitySet Name="Localidade" EntityType="CandidaturasBOModel.Localidade" />
+          <EntitySet Name="Militar" EntityType="CandidaturasBOModel.Militar" />
           <EntitySet Name="Opcoes" EntityType="CandidaturasBOModel.Opcoes" />
           <EntitySet Name="Pais" EntityType="CandidaturasBOModel.Pais" />
           <EntitySet Name="Posto" EntityType="CandidaturasBOModel.Posto" />
@@ -1088,6 +1160,10 @@
           <AssociationSet Name="FK_DadosPessoais_Categoria" Association="CandidaturasBOModel.FK_DadosPessoais_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="DadosPessoais" EntitySet="DadosPessoais" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_Categoria" Association="CandidaturasBOModel.FK_Militar_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Militar" EntitySet="Militar" />
           </AssociationSet>
           <AssociationSet Name="FK_Posto_Categoria" Association="CandidaturasBOModel.FK_Posto_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
@@ -1205,6 +1281,18 @@
             <End Role="Situacao" EntitySet="Situacao" />
             <End Role="Inquerito" EntitySet="Inquerito" />
           </AssociationSet>
+          <AssociationSet Name="FK_Militar_Posto" Association="CandidaturasBOModel.FK_Militar_Posto">
+            <End Role="Posto" EntitySet="Posto" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_Ramo" Association="CandidaturasBOModel.FK_Militar_Ramo">
+            <End Role="Ramo" EntitySet="Ramo" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Militar_User" Association="CandidaturasBOModel.FK_Militar_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Militar" EntitySet="Militar" />
+          </AssociationSet>
           <AssociationSet Name="FK_Posto_Ramo" Association="CandidaturasBOModel.FK_Posto_Ramo">
             <End Role="Ramo" EntitySet="Ramo" />
             <End Role="Posto" EntitySet="Posto" />
@@ -1239,6 +1327,7 @@
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ordem" Type="Int16" Nullable="false" />
           <NavigationProperty Name="DadosPessoais" Relationship="CandidaturasBOModel.FK_DadosPessoais_Categoria" FromRole="Categoria" ToRole="DadosPessoais" />
+          <NavigationProperty Name="Militar" Relationship="CandidaturasBOModel.FK_Militar_Categoria" FromRole="Categoria" ToRole="Militar" />
           <NavigationProperty Name="Posto" Relationship="CandidaturasBOModel.FK_Posto_Categoria" FromRole="Categoria" ToRole="Posto" />
         </EntityType>
         <EntityType Name="Certificado">
@@ -1480,6 +1569,21 @@
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Concelho" Relationship="CandidaturasBOModel.FK_Localidade_Distrito_Concelho" FromRole="Localidade" ToRole="Concelho" />
         </EntityType>
+        <EntityType Name="Militar">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Ramo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Posto" Type="Int32" Nullable="false" />
+          <Property Name="Classe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NIM" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Categoria1" Relationship="CandidaturasBOModel.FK_Militar_Categoria" FromRole="Militar" ToRole="Categoria" />
+          <NavigationProperty Name="Posto1" Relationship="CandidaturasBOModel.FK_Militar_Posto" FromRole="Militar" ToRole="Posto" />
+          <NavigationProperty Name="Ramo1" Relationship="CandidaturasBOModel.FK_Militar_Ramo" FromRole="Militar" ToRole="Ramo" />
+          <NavigationProperty Name="User" Relationship="CandidaturasBOModel.FK_Militar_User" FromRole="Militar" ToRole="User" />
+        </EntityType>
         <EntityType Name="Opcoes">
           <Key>
             <PropertyRef Name="ID" />
@@ -1512,6 +1616,7 @@
           <Property Name="Ordem" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="CandidaturasBOModel.FK_Posto_Categoria" FromRole="Posto" ToRole="Categoria" />
           <NavigationProperty Name="DadosPessoais" Relationship="CandidaturasBOModel.FK_DadosPessoais_Posto" FromRole="Posto" ToRole="DadosPessoais" />
+          <NavigationProperty Name="Militar" Relationship="CandidaturasBOModel.FK_Militar_Posto" FromRole="Posto" ToRole="Militar" />
           <NavigationProperty Name="Ramo" Relationship="CandidaturasBOModel.FK_Posto_Ramo" FromRole="Posto" ToRole="Ramo" />
         </EntityType>
         <EntityType Name="Ramo">
@@ -1521,6 +1626,7 @@
           <Property Name="Sigla" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DadosPessoais" Relationship="CandidaturasBOModel.FK_DadosPessoais_Ramo" FromRole="Ramo" ToRole="DadosPessoais" />
+          <NavigationProperty Name="Militar" Relationship="CandidaturasBOModel.FK_Militar_Ramo" FromRole="Ramo" ToRole="Militar" />
           <NavigationProperty Name="Posto" Relationship="CandidaturasBOModel.FK_Posto_Ramo" FromRole="Ramo" ToRole="Posto" />
         </EntityType>
         <EntityType Name="Reparticoes">
@@ -1572,14 +1678,10 @@
           <Property Name="NDI" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DocumentoValidade" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Militar" Type="Boolean" Nullable="false" />
-          <Property Name="Ramo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Posto" Type="Int32" />
-          <Property Name="Classe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NIM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Edicao" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Candidatura" Relationship="CandidaturasBOModel.FK_Candidatura_User" FromRole="User" ToRole="Candidatura" />
           <NavigationProperty Name="Edicao1" Relationship="CandidaturasBOModel.FK_User_Edicao" FromRole="User" ToRole="Edicao" />
+          <NavigationProperty Name="Militar1" Relationship="CandidaturasBOModel.FK_Militar_User" FromRole="User" ToRole="Militar" />
         </EntityType>
         <EntityType Name="UserExame">
           <Key>
@@ -1719,6 +1821,18 @@
               <PropertyRef Name="Sigla" />
             </Principal>
             <Dependent Role="DadosPessoais">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_Categoria">
+          <End Type="CandidaturasBOModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Militar" Role="Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="Militar">
               <PropertyRef Name="Categoria" />
             </Dependent>
           </ReferentialConstraint>
@@ -2093,6 +2207,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Militar_Posto">
+          <End Type="CandidaturasBOModel.Posto" Role="Posto" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Militar" Role="Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posto">
+              <PropertyRef Name="Código" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="Posto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_Ramo">
+          <End Type="CandidaturasBOModel.Ramo" Role="Ramo" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Militar" Role="Militar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ramo">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="Ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Militar_User">
+          <End Type="CandidaturasBOModel.User" Role="User" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.Militar" Role="Militar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Militar">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Posto_Ramo">
           <End Type="CandidaturasBOModel.Ramo" Role="Ramo" Multiplicity="1" />
           <End Type="CandidaturasBOModel.Posto" Role="Posto" Multiplicity="*" />
@@ -2330,6 +2480,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Militar">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.Militar">
+              <MappingFragment StoreEntitySet="Militar">
+                <ScalarProperty Name="NIM" ColumnName="NIM" />
+                <ScalarProperty Name="Classe" ColumnName="Classe" />
+                <ScalarProperty Name="Posto" ColumnName="Posto" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Ramo" ColumnName="Ramo" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Opcoes">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Opcoes">
               <MappingFragment StoreEntitySet="Opcoes">
@@ -2401,11 +2563,6 @@
             <EntityTypeMapping TypeName="CandidaturasBOModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="Edicao" ColumnName="Edicao" />
-                <ScalarProperty Name="NIM" ColumnName="NIM" />
-                <ScalarProperty Name="Classe" ColumnName="Classe" />
-                <ScalarProperty Name="Posto" ColumnName="Posto" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="Ramo" ColumnName="Ramo" />
                 <ScalarProperty Name="Militar" ColumnName="Militar" />
                 <ScalarProperty Name="DocumentoValidade" ColumnName="DocumentoValidade" />
                 <ScalarProperty Name="NDI" ColumnName="NDI" />
