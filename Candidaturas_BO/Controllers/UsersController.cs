@@ -185,6 +185,7 @@ namespace Candidaturas_BO.Controllers
                     .FirstOrDefault();
 
                 user.certificado = db.Certificado.Where(c => c.CandidaturaID == candidatura.id).FirstOrDefault();
+                user.historico = db.Historico.Where(h => h.CandidaturaID == candidatura.id).ToList();
 
                 user.cursosDTO = db.Opcoes
                     .Where(guy => guy.CandidaturaId == candidatura.id)

@@ -298,6 +298,17 @@
         </dd>
     </dl>
     <hr />
+    <h4>Histórico</h4>
+    <dl class="dl-horizontal">
+        @foreach (var item in Model.historico)
+        {
+            <dd>
+                @Html.DisplayFor(modelItem => item.mensagem) - @Html.DisplayFor(modelItem => item.timestamp)
+            </dd>
+        }
+    </dl>
+    <br />
+    <hr />
     <h4>Exames</h4>
     <dl class="dl-horizontal">
         @foreach (var item in Model.examesDTO)
@@ -374,49 +385,49 @@
         <br />
         <hr />
     }
-        @if ((bool)@ViewData["mil"])
-        {
-            <h4>Militar</h4>
-            <dl class="dl-horizontal">
-                <dt>
-                    Nº de Identificação Militar
-                </dt>
+    @if ((bool)@ViewData["mil"])
+    {
+        <h4>Militar</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                Nº de Identificação Militar
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.NIM)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.dadosDTO.NIM)
+            </dd>
 
-                <dt>
-                    Ramo
-                </dt>
+            <dt>
+                Ramo
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Ramo)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.dadosDTO.Ramo)
+            </dd>
 
-                <dt>
-                    Categoria
-                </dt>
+            <dt>
+                Categoria
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Categoria)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.dadosDTO.Categoria)
+            </dd>
 
-                <dt>
-                    Posto
-                </dt>
+            <dt>
+                Posto
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Posto)
-                </dd>
+            <dd>
+                @Html.DisplayFor(model => model.dadosDTO.Posto)
+            </dd>
 
-                <dt>
-                    Classe
-                </dt>
+            <dt>
+                Classe
+            </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Classe)
-                </dd>
-            </dl>
-        }
-    </div>
+            <dd>
+                @Html.DisplayFor(model => model.dadosDTO.Classe)
+            </dd>
+        </dl>
+    }
+</div>
