@@ -302,8 +302,11 @@
     <dl class="dl-horizontal">
         @foreach (var item in Model.historico)
         {
+            <dt>
+                @Html.DisplayFor(modelItem => item.timestamp)
+            </dt>
             <dd>
-                @Html.DisplayFor(modelItem => item.mensagem) - @Html.DisplayFor(modelItem => item.timestamp)
+                @Html.DisplayFor(modelItem => item.mensagem)
             </dd>
         }
     </dl>
