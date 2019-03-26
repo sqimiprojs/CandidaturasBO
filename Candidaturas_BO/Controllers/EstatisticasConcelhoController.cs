@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ASPNET_MVC_ChartsDemo.Models;
 using Candidaturas_BO.Models;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 
 namespace Candidaturas_BO.Controllers
@@ -105,6 +107,12 @@ namespace Candidaturas_BO.Controllers
                 });
 
                 ViewBag.Edicao = edicaos.ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                foreach (EstatisticaCursoDisplay chart in display)
+                {
+                    dataPoints.Add(new DataPoint(chart.Nome, chart.Percentagem));
+                }
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
                 return View(display);
             }

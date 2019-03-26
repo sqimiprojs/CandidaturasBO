@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ASPNET_MVC_ChartsDemo.Models;
 using Candidaturas_BO.Models;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 
 namespace Candidaturas_BO.Controllers
@@ -16,7 +18,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string date, string sortOrder, bool finalizado = false)
+        public ActionResult Index(string date, string sortOrder)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -24,14 +26,8 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.PercSortParm = sortOrder == "Perc" ? "Perc_desc" : "Perc";
 
                 List<Certificado> certificados = db.Certificado.ToList();
-                if (finalizado)
-                {
                     ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null && c.Certificado != null).Count();
-                }
-                else
-                {
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
-                }
+
 
 
                 List<DateTime> datas = new List<DateTime>();
@@ -82,6 +78,13 @@ namespace Candidaturas_BO.Controllers
                 });
 
                 ViewBag.Edicao = edicaos.ToList();
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                foreach (EstatisticaCursoDisplay chart in display)
+                {
+                    dataPoints.Add(new DataPoint(chart.Nome, chart.Percentagem));
+                }
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
 
                 return View(display);
             }

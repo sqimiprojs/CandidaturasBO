@@ -317,6 +317,7 @@
     <Compile Include="Models\UserExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\UserFull.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

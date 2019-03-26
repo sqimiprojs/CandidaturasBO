@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ASPNET_MVC_ChartsDemo.Models;
 using Candidaturas_BO.Models;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 
 namespace Candidaturas_BO.Controllers
@@ -16,7 +18,7 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string searchString, string sortOrder, string edicao, bool finalizado =false)
+        public ActionResult Index(string searchString, string sortOrder, string edicao)
         {
             if (ADAuthorization.ADAuthenticate())
             {
@@ -32,23 +34,14 @@ namespace Candidaturas_BO.Controllers
                 }
 
                 List<Curso> cursos = db.Curso.ToList();
-                if (!String.IsNullOrEmpty(edicao) && finalizado)
+                if (!String.IsNullOrEmpty(edicao))
                 {
                     cursos = cursos.Where(s => s.Edicao == edicao).ToList();
                     ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null && c.Certificado != null).Count();
-                }
-                else if (!String.IsNullOrEmpty(edicao))
-                {
-                    cursos = cursos.Where(s => s.Edicao == edicao).ToList();
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null).Count();
-                }
-                else if (finalizado)
-                {
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null && c.Certificado != null).Count();
-                }
+                }         
                 else
                 {
-                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null).Count();
+                    ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.DadosPessoais != null && c.Certificado != null).Count();
                 }
 
 
@@ -60,24 +53,12 @@ namespace Candidaturas_BO.Controllers
                 List<EstatisticaCursoDisplay> display = new List<EstatisticaCursoDisplay>();
                 foreach (Curso curso in cursos)
                 {
-                    if (finalizado)
-                    {
                         EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
                         displayCurso.Edicao = curso.Edicao;
                         displayCurso.Nome = curso.Nome;
                         displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID && o.Candidatura.Certificado != null).Count());
                         displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID && o.Candidatura.Certificado != null).Count() / (double)ViewBag.TotalCandidatos) * 100), 2);
                         display.Add(displayCurso);
-                    } else
-                    {
-                        EstatisticaCursoDisplay displayCurso = new EstatisticaCursoDisplay();
-                        displayCurso.Edicao = curso.Edicao;
-                        displayCurso.Nome = curso.Nome;
-                        displayCurso.Total = (db.Opcoes.Where(o => o.CursoId == curso.ID).Count());
-                        displayCurso.Percentagem = Math.Round(((double)(db.Opcoes.Where(o => o.CursoId == curso.ID).Count() / (double)ViewBag.TotalCandidatos) * 100), 2);
-                        display.Add(displayCurso);
-                    }
-
                 }
 
                 //sort
@@ -101,6 +82,12 @@ namespace Candidaturas_BO.Controllers
                     Value = c.Sigla,
                     Text = c.Sigla
                 });
+                List<DataPoint> dataPoints = new List<DataPoint>();
+                foreach (EstatisticaCursoDisplay chart in display)
+                {
+                    dataPoints.Add(new DataPoint(chart.Nome, chart.Percentagem));
+                }
+                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
                 ViewBag.Edicao = edicaos.ToList();
 
