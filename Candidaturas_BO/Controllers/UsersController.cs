@@ -30,7 +30,7 @@ namespace Candidaturas_BO.Controllers
                     }
                 }
 
-                List<User> usersDB = db.User.ToList();
+                List<User> usersDB = db.Candidatura.Select(c => c.User).ToList();
                 
                 if(finalizado)
                 {

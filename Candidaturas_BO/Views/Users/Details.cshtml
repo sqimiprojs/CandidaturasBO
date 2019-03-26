@@ -17,13 +17,23 @@
             clear: both;
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
+
 @Html.ActionLink("Regressar à Lista", "Index")
-<h2>Detalhes</h2>
 <h3>
     User - @Html.DisplayFor(model => model.dadosDTO.NomeColoquial)
 </h3>
+<br />
+<select class="form-control" id="selector" name="selector">
+    <option value="1">Dados Pessoais</option>
+    <option value="2">Inquérito</option>
+    <option value="3">Histórico</option>
+    <option value="4">Documentos</option>
+    <option value="5">Cursos</option>
+</select>
 
+<h2>Detalhes</h2>
 <div>
     <dl class="dl-horizontal">
 
@@ -52,385 +62,442 @@
         </dd>
     </dl>
     <hr />
-    <h4>Dados Pessoais</h4>
-    <dl class="dl-horizontal">
-        <div class="row">
-            <div class="column">
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Nomes)
-                </dt>
+    <div id="dadospessoais">
+        <h4>Dados Pessoais</h4>
+        <dl class="dl-horizontal">
+            <div class="row">
+                <div class="column">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Nomes)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Nomes)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Nomes)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Apelidos)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Apelidos)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Apelidos)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Apelidos)
+                    </dd>
 
-                <dt>
-                    Nome do Pai
-                </dt>
+                    <dt>
+                        Nome do Pai
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.NomePai)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.NomePai)
+                    </dd>
 
-                <dt>
-                    Nome da Mãe
-                </dt>
+                    <dt>
+                        Nome da Mãe
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.NomeMae)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.NomeMae)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Genero)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Genero)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Genero)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Genero)
+                    </dd>
 
-                <dt>
-                    Estado Civil
-                </dt>
+                    <dt>
+                        Estado Civil
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.EstadoCivil)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.EstadoCivil)
+                    </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Telefone)
-                </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Telefone)
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Telefone)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Telefone)
+                    </dd>
 
-                <dt>
-                    Tipo de Documento de Identificação
-                </dt>
+                    <dt>
+                        Tipo de Documento de Identificação
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.TipoDocID)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.TipoDocID)
+                    </dd>
 
-                <dt>
-                    Nº de Documento de Identificação
-                </dt>
+                    <dt>
+                        Nº de Documento de Identificação
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.NDI)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.NDI)
+                    </dd>
 
-                <dt>
-                    Dígitos de Controlo
-                </dt>
+                    <dt>
+                        Dígitos de Controlo
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.CCDigitosControlo)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.CCDigitosControlo)
+                    </dd>
 
-                <dt>
-                    Nº de Identificação Fiscal
-                </dt>
+                    <dt>
+                        Nº de Identificação Fiscal
+                    </dt>
 
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.NIF)
-                </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.NIF)
+                    </dd>
+                </div>
+                <div class="column">
+                    <dt>
+                        Repartição de Finanças do NIF
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.RepFinNIF)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Nacionalidade)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Nacionalidade)
+                    </dd>
+
+                    <dt>
+                        Distrito Natural
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.DistritoNatural)
+                    </dd>
+
+                    <dt>
+                        Concelho Natural
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.ConcelhoNatural)
+                    </dd>
+
+                    <dt>
+                        Freguesia Natural
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.FreguesiaNatural)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.dadosDTO.Morada)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.Morada)
+                    </dd>
+
+                    <dt>
+                        Código Postal
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.CodigoPostal4Dig) - @Html.DisplayFor(model => model.dadosDTO.CodigoPostal3Dig)
+                    </dd>
+
+                    <dt>
+                        Distrito Morada
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.DistritoMorada)
+                    </dd>
+
+                    <dt>
+                        Concelho Morada
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.ConcelhoMorada)
+                    </dd>
+
+                    <dt>
+                        Freguesia Morada
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.dadosDTO.FreguesiaMorada)
+                    </dd>
+                </div>
             </div>
-            <div class="column">
-                <dt>
-                    Repartição de Finanças do NIF
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.RepFinNIF)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Nacionalidade)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Nacionalidade)
-                </dd>
-
-                <dt>
-                    Distrito Natural
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.DistritoNatural)
-                </dd>
-
-                <dt>
-                    Concelho Natural
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.ConcelhoNatural)
-                </dd>
-
-                <dt>
-                    Freguesia Natural
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.FreguesiaNatural)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.dadosDTO.Morada)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.Morada)
-                </dd>
-
-                <dt>
-                    Código Postal
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.CodigoPostal4Dig) - @Html.DisplayFor(model => model.dadosDTO.CodigoPostal3Dig)
-                </dd>
-
-                <dt>
-                    Distrito Morada
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.DistritoMorada)
-                </dd>
-
-                <dt>
-                    Concelho Morada
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.ConcelhoMorada)
-                </dd>
-
-                <dt>
-                    Freguesia Morada
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.dadosDTO.FreguesiaMorada)
-                </dd>
-            </div>
-        </div>
-    </dl>
-    <hr />
-    <h4>Inquerito</h4>
-    <dl class="dl-horizontal">
-        <dt>
-            Situação do Pai
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.SituacaoPai)
-        </dd>
-
-        <dt>
-            Outro
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.OutraPai)
-        </dd>
-
-        <dt>
-            Situação da Mãe
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.SituacaoMae)
-        </dd>
-
-        <dt>
-            Outro
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.OutraMae)
-        </dd>
-
-        <dt>
-            Como tomou conhecimento da escola?
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.ConhecimentoEscola)
-        </dd>
-
-        <dt>
-            Outro
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.inqueritoDTO.Outro)
-        </dd>
-
-        <dt>
-            Candidatou-se a outras escolas?
-        </dt>
-
-        <dd>
-            @if (Model.inqueritoDTO != null)
-            {
-                if (@Model.inqueritoDTO.CandidatarOutros)
-                {
-                    <span>Sim</span>
-                }
-                else
-                {
-                    <span>Não</span>
-                }
-            }
-
-        </dd>
-    </dl>
-    <hr />
-    <h4>Histórico</h4>
-    <dl class="dl-horizontal">
-        @foreach (var item in Model.historico)
+        </dl>
+        <hr />
+        @if ((bool)@ViewData["mil"])
         {
-            <dt>
-                @Html.DisplayFor(modelItem => item.timestamp)
-            </dt>
-            <dd>
-                @Html.DisplayFor(modelItem => item.mensagem)
-            </dd>
+            <h4>Militar</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    Nº de Identificação Militar
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.NIM)
+                </dd>
+
+                <dt>
+                    Ramo
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Ramo)
+                </dd>
+
+                <dt>
+                    Categoria
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Categoria)
+                </dd>
+
+                <dt>
+                    Posto
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Posto)
+                </dd>
+
+                <dt>
+                    Classe
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.dadosDTO.Classe)
+                </dd>
+            </dl>
         }
-    </dl>
-    <br />
-    <hr />
-    <h4>Exames</h4>
-    <dl class="dl-horizontal">
-        @foreach (var item in Model.examesDTO)
-        {
-            <dt>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.Exame)
-            </dd>
-        }
-    </dl>
-    <br />
-    <hr />
-    <h4>Cursos</h4>
-    <dl class="dl-horizontal">
-        @foreach (var item in Model.cursosDTO)
-        {
-            <dt>
-                @Html.DisplayFor(modelItem => item.Prioridade).
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </dd>
-        }
-    </dl>
-    <br />
-    <hr />
-    <h4>Documentos</h4>
-    <dl class="dl-horizontal">
-        @foreach (var item in Model.docsDTO)
-        {
-            <dt>
-                Nome
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.Nome) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadDocumento", "Users", new { id = (int)item.DocumentoBinario.DocID })'"><span>Download</span></a>
-            </dd>
-
-            <dt>
-                Descrição
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </dd>
-            <dt>
-                Data de Inserção
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.UploadTime)
-            </dd>
-        }
-
-    </dl>
-    <br />
-    <hr />
-    @if ((bool)@ViewData["candidato"])
-    {
-        <h4>Comprovativo de Candidatura</h4>
+    </div>
+    <div id="inquerito">
+        <h4>Inquerito</h4>
         <dl class="dl-horizontal">
             <dt>
-                Data de Criação
+                Situação do Pai
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.certificado.DataCriação) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Users", new { id = (int)Model.certificado.CandidaturaID })'"><span>Download</span></a>
+                @Html.DisplayFor(model => model.inqueritoDTO.SituacaoPai)
             </dd>
+
+            <dt>
+                Outro
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.inqueritoDTO.OutraPai)
+            </dd>
+
+            <dt>
+                Situação da Mãe
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.inqueritoDTO.SituacaoMae)
+            </dd>
+
+            <dt>
+                Outro
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.inqueritoDTO.OutraMae)
+            </dd>
+
+            <dt>
+                Como tomou conhecimento da escola?
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.inqueritoDTO.ConhecimentoEscola)
+            </dd>
+
+            <dt>
+                Outro
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.inqueritoDTO.Outro)
+            </dd>
+
+            <dt>
+                Candidatou-se a outras escolas?
+            </dt>
+
+            <dd>
+                @if (Model.inqueritoDTO != null)
+                {
+                    if (@Model.inqueritoDTO.CandidatarOutros)
+                    {
+                        <span>Sim</span>
+                    }
+                    else
+                    {
+                        <span>Não</span>
+                    }
+                }
+
+            </dd>
+        </dl>
+        <hr />
+    </div>
+    <div id="historico">
+        <h4>Histórico</h4>
+        <dl class="dl-horizontal">
+            @foreach (var item in Model.historico)
+            {
+                <dt>
+                    @Html.DisplayFor(modelItem => item.timestamp)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.mensagem)
+                </dd>
+            }
         </dl>
         <br />
         <hr />
-    }
-    @if ((bool)@ViewData["mil"])
-    {
-        <h4>Militar</h4>
+    </div>
+    <div id="cursos">
+        <h4>Cursos</h4>
         <dl class="dl-horizontal">
-            <dt>
-                Nº de Identificação Militar
-            </dt>
+            @foreach (var item in Model.cursosDTO)
+            {
+                <dt>
+                    @Html.DisplayFor(modelItem => item.Prioridade).
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.dadosDTO.NIM)
-            </dd>
-
-            <dt>
-                Ramo
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dadosDTO.Ramo)
-            </dd>
-
-            <dt>
-                Categoria
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dadosDTO.Categoria)
-            </dd>
-
-            <dt>
-                Posto
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dadosDTO.Posto)
-            </dd>
-
-            <dt>
-                Classe
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dadosDTO.Classe)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </dd>
+            }
         </dl>
-    }
+        <br />
+        <hr />
+    </div>
+    <div id="documentos">
+        <h4>Documentos</h4>
+        <dl class="dl-horizontal">
+            @foreach (var item in Model.docsDTO)
+            {
+                <dt>
+                    Nome
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Nome) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadDocumento", "Users", new { id = (int)item.DocumentoBinario.DocID })'"><span>Download</span></a>
+                </dd>
+
+                <dt>
+                    Descrição
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </dd>
+                <dt>
+                    Data de Inserção
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.UploadTime)
+                </dd>
+            }
+
+        </dl>
+        <br />
+        <hr />
+        @if ((bool)@ViewData["candidato"])
+        {
+            <h4>Comprovativo de Candidatura</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    Data de Criação
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.certificado.DataCriação) <a class="fa fa-download badge badge-primary text-light p-2" onclick="location.href='@Url.Action("DownloadFormulario", "Users", new { id = (int)Model.certificado.CandidaturaID })'"><span>Download</span></a>
+                </dd>
+            </dl>
+            <br />
+            <hr />
+        }
+    </div>
+  
 </div>
+
+<script type="text/javascript">
+    window.onload = loadViews();
+
+    $("#selector").change(function () {
+        var selector = $("#selector")
+        var dadospessoais = $("#dadospessoais");
+        var inquerito = $("#inquerito");
+        var documentos = $("#documentos");
+        var cursos = $("#cursos");
+        var historico = $("#historico");
+        if (selector.val() == 1) {
+            dadospessoais.show();
+            inquerito.hide();
+            documentos.hide();
+            cursos.hide();
+            historico.hide();
+        } else if (selector.val() == 2) {
+            dadospessoais.hide();
+            inquerito.show();
+            documentos.hide();
+            cursos.hide();
+            historico.hide();
+        } else if (selector.val() == 3) {
+            dadospessoais.hide();
+            inquerito.hide();
+            documentos.hide();
+            cursos.hide();
+            historico.show();
+        } else if (selector.val() == 4) {
+            dadospessoais.hide();
+            inquerito.hide();
+            documentos.show();
+            cursos.hide();
+            historico.hide();
+        } else if (selector.val() == 5) {
+            dadospessoais.hide();
+            inquerito.hide();
+            documentos.hide();
+            cursos.show();
+            historico.hide();
+        }  
+
+
+    })
+
+    function loadViews() {
+        var dadospessoais = $("#dadospessoais");
+        var inquerito = $("#inquerito");
+        var documentos = $("#documentos");
+        var cursos = $("#cursos");
+        var historico = $("#historico");
+
+        dadospessoais.show();
+        inquerito.hide();
+        documentos.hide();
+        cursos.hide();
+        historico.hide();
+    }
+</script>
+
