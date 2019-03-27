@@ -28,6 +28,7 @@ namespace Candidaturas_BO.Controllers
                     Text = c.Nome
                 });
                 ViewBag.Distrito = distritos.ToList();
+                ViewBag.DistritoEscolhido = distrito;
 
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.PercSortParm = sortOrder == "Perc" ? "Perc_desc" : "Perc";
