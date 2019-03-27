@@ -236,6 +236,7 @@
     <Compile Include="Models\Certificado.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SimpleReportViewModel.cs" />
     <Compile Include="Models\EstatisticaCursoDisplay.cs" />
     <Compile Include="Models\CursoExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
@@ -317,7 +318,6 @@
     <Compile Include="Models\UserExame.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataPoint.cs" />
     <Compile Include="Models\UserFull.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

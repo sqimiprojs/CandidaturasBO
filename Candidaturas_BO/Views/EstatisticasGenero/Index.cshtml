@@ -56,55 +56,147 @@
 </div>
 @if (@ViewBag.TotalCandidatos > 0)
 {
-    <div id="chartContainerPer" style="height: 370px; width: 100%;"></div>
-    <div id="chartContainerTot" style="height: 370px; width: 100%;"></div>
+<div style="height:370px; width:100%; text-align:center ">
+    <h4>Número de candidados por Género</h4>
+    <canvas id="chartTot"></canvas>
+    <h4>Distribuição de candidatos por Género</h4>
+    <canvas id="chartPie"></canvas>
+</div>
+
+
 
 }
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script>
-    window.onload = function () {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-var chartPer = new CanvasJS.Chart("chartContainerPer", {
-	theme: "light1", // "light1", "light2", "dark1", "dark2"
-	exportEnabled: true,
-	animationEnabled: true,
-	title: {
-		text: "Distribuição por Género"
-	},
-	subtitles: [{
-		text: ""
-    }],
-    backgroundColor: "#f0f8ff",
-	data: [{
-		type: "pie",
-		startAngle: 180,
-		toolTipContent: "<b>{label}</b>: {y}%",
-		showInLegend: "true",
-		legendText: "{label}",
-		indexLabel: "{label} - {y}%",
-		dataPoints: @Html.Raw(ViewBag.DataPointsPer)
-	}]
-});
+<script type="text/javascript">
 
-var chartTot = new CanvasJS.Chart("chartContainerTot", {
-    animationEnabled: true,
-    exportEnabled: true,
-	theme: "light1", // "light1", "light2", "dark1", "dark2"
-	title: {
-		text: "Número candidatos por Género"
-	},
-	axisY: {
-		title: "Nº de Candidatos"
-    },
-    backgroundColor: "#f0f8ff",
-	data: [{
-        type: "bar",
-        indexLabel: "{y}",
-        dataPoints: @Html.Raw(ViewBag.DataPointsTot)
-	}]
-});
-chartTot.render();
-chartPer.render();
+        $(function () {
+    var chartNameTot = "chartTot";
+        var ctxTot = document.getElementById(chartNameTot).getContext('2d');
+        var dataTot = {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Nome).ToList())),
+                datasets: [{
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Total).ToList())),
+    }]
+            };
 
-}
-</script>
+            var optionsTot = {
+                responsive:true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChartTot = new  Chart(ctxTot, {
+                options: optionsTot,
+                data: dataTot,
+                type:'bar'
+
+            });
+
+        var chartNamePer = "chartPie";
+        var ctxPer = document.getElementById(chartNamePer).getContext('2d');
+        var dataPer = {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Nome).ToList())),
+                datasets: [{
+                    label: "Distribuição por género",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Percentagem).ToList())),
+    }]
+            };
+
+            var optionsPer = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                }
+            };
+
+       var myChartPer = new  Chart(ctxPer, {
+                options: optionsPer,
+                data: dataPer,
+                type:'pie'
+
+            });
+        });
+</script>  

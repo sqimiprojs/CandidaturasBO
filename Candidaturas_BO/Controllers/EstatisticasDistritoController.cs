@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ASPNET_MVC_ChartsDemo.Models;
 using Candidaturas_BO.Models;
 using Newtonsoft.Json;
 using OfficeOpenXml;
@@ -108,17 +107,7 @@ namespace Candidaturas_BO.Controllers
                 });
 
                 ViewBag.Edicao = edicaos.ToList();
-                List<DataPoint> dataPointsPer = new List<DataPoint>();
-                List<DataPoint> dataPointsTot = new List<DataPoint>();
-                foreach (EstatisticaCursoDisplay chart in display)
-                {
-                    dataPointsPer.Add(new DataPoint(chart.Nome, chart.Percentagem));
-                    dataPointsTot.Add(new DataPoint(chart.Nome, chart.Total));
-                }
 
-
-                ViewBag.DataPointsPer = JsonConvert.SerializeObject(dataPointsPer);
-                ViewBag.DataPointsTot = JsonConvert.SerializeObject(dataPointsTot);
 
                 return View(display);
             }
