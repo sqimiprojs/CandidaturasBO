@@ -18,10 +18,18 @@ namespace Candidaturas_BO.Controllers
         private CandidaturasBOEntities db = new CandidaturasBOEntities();
 
         // GET: Cursos
-        public ActionResult Index(string searchString, string sortOrder, string edicao, bool finalizado = false)
+        public ActionResult Index(string searchString, string sortOrder, string distrito, string edicao, bool finalizado = false)
         {
             if (ADAuthorization.ADAuthenticate())
             {
+
+                IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
+                {
+                    Value = c.Codigo.ToString(),
+                    Text = c.Nome
+                });
+                ViewBag.Distrito = distritos.ToList();
+
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.PercSortParm = sortOrder == "Perc" ? "Perc_desc" : "Perc";
                 if (String.IsNullOrEmpty(edicao))
@@ -34,6 +42,10 @@ namespace Candidaturas_BO.Controllers
                 }
 
                 List<Concelho> concelhos = db.Concelho.ToList();
+                if (!String.IsNullOrEmpty(distrito))
+                {
+                    concelhos = concelhos.Where(s => s.CodigoDistrito == Convert.ToInt32(distrito)).ToList();
+                }
                 if (!String.IsNullOrEmpty(edicao) && finalizado)
                 {
                     ViewBag.TotalCandidatos = db.Candidatura.Where(c => c.Edicao == edicao && c.DadosPessoais != null && c.Certificado != null).Count();

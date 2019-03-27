@@ -87,18 +87,23 @@ var chartPer = new CanvasJS.Chart("chartContainerPer", {
 });
 
 var chartTot = new CanvasJS.Chart("chartContainerTot", {
+    exportEnabled: true,
 	animationEnabled: true,
 	theme: "light1", // "light1", "light2", "dark1", "dark2"
 	title: {
-		text: "Número candidatos por distrito"
+        text: "Número candidatos por Distrito",
 	},
 	axisY: {
-		title: "Nº de Candidatos"
+        title: "Nº de Candidatos",
+    },
+    axisX: {
+        labelFontSize: 0
     },
     backgroundColor: "#f0f8ff",
 	data: [{
-		type: "column",
-		dataPoints: @Html.Raw(ViewBag.DataPointsTot)
+        type: "bar",
+        indexLabel: "{y}",
+        dataPoints: @Html.Raw(ViewBag.DataPointsTot)
 	}]
 });
 chartTot.render();

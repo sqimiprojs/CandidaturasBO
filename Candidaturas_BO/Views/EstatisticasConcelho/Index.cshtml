@@ -10,8 +10,11 @@
 
 @using (Html.BeginForm())
 {
+<div class="FilterDiv">
+    Procurar por distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control" })
+   &nbsp; Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+</div>
     <div class="FilterDiv">
-        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
         &nbsp; Procurar por nome: @Html.TextBox("SearchString") &nbsp;
         Candidatura finalizada: &nbsp; @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%" }) &nbsp;
         <input type="submit" value="Procurar" class="btn btn-default" />
@@ -91,14 +94,18 @@ var chartTot = new CanvasJS.Chart("chartContainerTot", {
 	animationEnabled: true,
 	theme: "light1", // "light1", "light2", "dark1", "dark2"
 	title: {
-		text: "Número candidatos por concelho"
+		text: "Número candidatos por Concelho"
 	},
 	axisY: {
 		title: "Nº de Candidatos"
     },
+    axisX: {
+        labelFontSize: 0
+    },
     backgroundColor: "#f0f8ff",
 	data: [{
-		type: "column",
+        type: "bar",
+        indexLabel: "{y}",
 		dataPoints: @Html.Raw(ViewBag.DataPointsTot)
 	}]
 });
