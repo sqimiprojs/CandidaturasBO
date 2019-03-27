@@ -82,12 +82,17 @@ namespace Candidaturas_BO.Controllers
                     Value = c.Sigla,
                     Text = c.Sigla
                 });
-                List<DataPoint> dataPoints = new List<DataPoint>();
+                List<DataPoint> dataPointsPer = new List<DataPoint>();
+                List<DataPoint> dataPointsTot = new List<DataPoint>();
                 foreach (EstatisticaCursoDisplay chart in display)
                 {
-                    dataPoints.Add(new DataPoint(chart.Nome, chart.Percentagem));
+                    dataPointsPer.Add(new DataPoint(chart.Nome, chart.Percentagem));
+                    dataPointsTot.Add(new DataPoint(chart.Nome, chart.Total));
                 }
-                ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+
+                ViewBag.DataPointsPer = JsonConvert.SerializeObject(dataPointsPer);
+                ViewBag.DataPointsTot = JsonConvert.SerializeObject(dataPointsTot);
 
                 ViewBag.Edicao = edicaos.ToList();
 
