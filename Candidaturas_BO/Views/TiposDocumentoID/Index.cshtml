@@ -5,11 +5,12 @@
 }
 
 <h2>Lista de Tipos de Documento de Identificação</h2>
-
+@if (ViewBag.UserAdmin)
+{
 <p class="BoParag">
     @Html.ActionLink("Criar Novo Tipo de Documento de Identificação", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
-
+}
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
@@ -32,15 +33,18 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        @if (ViewBag.UserAdmin)
+        {
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
             </td>
-        </tr>
+        }
+    </tr>
     }
 
 </table>

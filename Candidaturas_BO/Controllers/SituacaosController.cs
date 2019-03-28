@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<Situacao> situacoes = db.Situacao.ToList();
 
@@ -82,7 +83,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Situacaos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
                 {
@@ -120,7 +121,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Situacaos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -166,7 +167,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Situacaos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -199,7 +200,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Situacaos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

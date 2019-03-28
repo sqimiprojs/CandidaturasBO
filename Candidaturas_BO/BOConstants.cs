@@ -19,5 +19,6 @@ namespace Candidaturas_BO
 
         //Grupo da Active Directory que tem permissões de aceder ao BO
         public const string AdGroup = "Candidaturas";
+        public const string AdAdminGroup = "CandidaturasAdmin";
     }
 }

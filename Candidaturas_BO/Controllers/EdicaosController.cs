@@ -20,6 +20,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
                 List<Edicao> edicao = db.Edicao.ToList();
@@ -55,7 +56,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Edicaos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -160,7 +161,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Edicaos/Edit/5
         public ActionResult Edit(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
             {
@@ -198,7 +199,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Edicaos/Delete/5
         public ActionResult Delete(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -231,7 +232,7 @@ namespace Candidaturas_BO.Controllers
         //GET: ConhecimentoEscolas/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

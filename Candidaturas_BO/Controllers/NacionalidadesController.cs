@@ -23,6 +23,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.CurrentSort = sortOrder;
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.SiglaSortParm = sortOrder == "Sigla" ? "sigla_desc" : "Sigla";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<Pais> pais = db.Pais.ToList();
 
@@ -62,7 +63,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Nacionalidades/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -92,7 +93,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Nacionalidades/Edit/5
         public ActionResult Edit(String sigla)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (sigla == null)
                 {
@@ -133,7 +134,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Nacionalidades/Delete/5
         public ActionResult Delete(String sigla)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (sigla == null)
                 {
@@ -169,7 +170,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Nacionalidades/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

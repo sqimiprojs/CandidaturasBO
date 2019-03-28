@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<Genero> generos = db.Genero.ToList();
 
@@ -54,7 +55,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Generos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -84,7 +85,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Generos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -122,7 +123,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Generos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -155,7 +156,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Generos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

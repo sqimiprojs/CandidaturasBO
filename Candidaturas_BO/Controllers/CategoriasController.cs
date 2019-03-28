@@ -22,6 +22,7 @@ namespace Candidaturas_BO.Controllers
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.OrdemSortParm = sortOrder == "Ordem" ? "ordem_desc" : "Ordem";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<Categoria> categorias = db.Categoria.ToList();
 
@@ -60,7 +61,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Categorias/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -90,7 +91,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Categorias/Edit/5
         public ActionResult Edit(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -128,7 +129,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Categorias/Delete/5
         public ActionResult Delete(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -161,7 +162,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Concelhos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

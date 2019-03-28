@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 var ramos = db.Ramo.ToList();
 
@@ -54,7 +55,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Ramos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
 
@@ -85,7 +86,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Ramos/Edit/5
         public ActionResult Edit(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -123,7 +124,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Ramos/Delete/5
         public ActionResult Delete(string id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -156,7 +157,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Ramos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

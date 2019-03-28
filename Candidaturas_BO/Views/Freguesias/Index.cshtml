@@ -3,51 +3,52 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-                /**/
 
-                ViewBag.Title = "Freguesias";
+
+    ViewBag.Title = "Freguesias";
 }
 
 <h2>Lista de Freguesias</h2>
-
-<p class="BoParag">
-    @Html.ActionLink("Criar Nova Freguesia", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
-</p>
-
-@using (Html.BeginForm())
+@if (ViewBag.UserAdmin)
 {
-    <div class="FilterDiv">
-        Procurar por concelho: &nbsp; @Html.DropDownList("concelho", ViewBag.Concelho as SelectList, "Escolha um concelho...", new { @class = "form-control" })
-    </div>
-    <div class="FilterDiv">
-        Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+    <p class="BoParag">
+        @Html.ActionLink("Criar Nova Freguesia", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+    </p>
 }
-
-<div class="TotalDiv">
-    Total de Freguesias: @ViewBag.TotalFreguesias
-</div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Código Concelho", "Index", new { sortOrder = ViewBag.ConcelhoSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.ActionLink("Código Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
+        <div class="FilterDiv">
+            Procurar por concelho: &nbsp; @Html.DropDownList("concelho", ViewBag.Concelho as SelectList, "Escolha um concelho...", new { @class = "form-control" })
+        </div>
+        <div class="FilterDiv">
+            Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+            <input type="submit" value="Procurar" class="btn btn-default" />
+        </div>
+    }
+
+    <div class="TotalDiv">
+        Total de Freguesias: @ViewBag.TotalFreguesias
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Código Concelho", "Index", new { sortOrder = ViewBag.ConcelhoSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Código Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -61,16 +62,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CodigoDistrito)
             </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
-                @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
-            </td>
+            @if (ViewBag.UserAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
+                    @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
+                </td>
+            }
         </tr>
-    }
+        }
 
-</table>
-<br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

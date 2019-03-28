@@ -25,6 +25,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
                 ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<Concelho> concelhos = db.Concelho.ToList();
 
@@ -93,7 +94,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Concelhos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 IEnumerable<SelectListItem> distritos = db.Distrito.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
@@ -131,7 +132,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Concelhos/Edit/5
         public ActionResult Edit(int? codigo, int? codigoDistrito)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null)
                 {
@@ -179,7 +180,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Concelhos/Delete/5
         public ActionResult Delete(int? codigo, int? codigoDistrito)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null)
                 {
@@ -213,7 +214,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Concelhos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

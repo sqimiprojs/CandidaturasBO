@@ -24,6 +24,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.OrdemSortParm = sortOrder == "Ordem" ? "Ordem_desc" : "Ordem";
                 ViewBag.CategoriaSortParm = sortOrder == "Categoria" ? "Categoria_desc" : "Categoria";
                 ViewBag.RamoSortParm = sortOrder == "Ramo" ? "Ramo_desc" : "Ramo";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
 
                 var postos = db.Posto.ToList();
@@ -76,7 +77,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Postos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 ViewBag.CategoriaMilitar = new SelectList(db.Categoria, "Sigla", "Nome");
                 ViewBag.RamoMilitar = new SelectList(db.Ramo, "Sigla", "Nome");
@@ -110,7 +111,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Postos/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
 
                 if (id == null)
@@ -153,7 +154,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Postos/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -186,7 +187,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Postos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

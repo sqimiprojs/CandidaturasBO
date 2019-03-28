@@ -5,42 +5,46 @@
 }
 
 <h2>Lista de Estados Civis</h2>
-
-<p class="BoParag">
-    @Html.ActionLink("Criar Novo Estado Civil", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
-</p>
-
-@using (Html.BeginForm())
+@if (ViewBag.UserAdmin)
 {
-    <div class="FilterDiv">
-        Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+    <p class="BoParag">
+        @Html.ActionLink("Criar Novo Estado Civil", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+    </p>
 }
+    @using (Html.BeginForm())
+    {
+        <div class="FilterDiv">
+            Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+            <input type="submit" value="Procurar" class="btn btn-default" />
+        </div>
+    }
 
     <div class="TotalDiv">
         Total de Estados Civis: @ViewBag.TotalEstadosCivis
     </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
-            </td>
+            @if (ViewBag.UserAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
+                </td>
+            }
         </tr>
-    }
+        }
 
-</table>
+    </table>

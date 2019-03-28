@@ -26,6 +26,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
                 ViewBag.ConcelhoSortParm = sortOrder == "Concelho" ? "concelho_desc" : "Concelho";
                 ViewBag.DistritoSortParm = sortOrder == "Distrito" ? "distrito_desc" : "Distrito";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 if (searchString != null)
                 {
@@ -91,7 +92,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Localidades/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 IEnumerable<SelectListItem> concelhos = db.Concelho.OrderBy(dp => dp.Nome).Select(c => new SelectListItem
                 {
@@ -132,7 +133,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Localidades/Edit/5
         public ActionResult Edit(int? codigo, int? codigoConcelho, int? codigoDistrito)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null || codigoConcelho == null || codigoDistrito == null)
                 {
@@ -182,7 +183,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Localidades/Delete/5
         public ActionResult Delete(int? codigo, int? codigoConcelho, int? codigoDistrito)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null || codigoConcelho == null || codigoDistrito == null)
                 {
@@ -218,7 +219,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Localidades/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

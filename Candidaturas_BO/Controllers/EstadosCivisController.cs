@@ -20,6 +20,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticate())
             {
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
                 List<EstadoCivil> estadosCivis = db.EstadoCivil.ToList();
@@ -54,7 +55,7 @@ namespace Candidaturas_BO.Controllers
         // GET: EstadosCivis/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -84,7 +85,7 @@ namespace Candidaturas_BO.Controllers
         // GET: EstadosCivis/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -122,7 +123,7 @@ namespace Candidaturas_BO.Controllers
         // GET: EstadosCivis/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -155,7 +156,7 @@ namespace Candidaturas_BO.Controllers
         //GET: EstadosCivis/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

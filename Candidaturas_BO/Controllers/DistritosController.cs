@@ -22,6 +22,7 @@ namespace Candidaturas_BO.Controllers
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
                 ViewBag.CodeSortParm = sortOrder == "Code" ? "code_desc" : "Code";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 var distritos = db.Distrito.ToList();
 
@@ -61,7 +62,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Distritos/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -91,7 +92,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Distritos/Edit/5
         public ActionResult Edit(int? codigo)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null)
                 {
@@ -129,7 +130,7 @@ namespace Candidaturas_BO.Controllers
         // GET: Distritos/Delete/5
         public ActionResult Delete(int? codigo)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (codigo == null)
                 {
@@ -162,7 +163,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Distritos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<CursoExame> cursosExames = db.CursoExame.ToList();
 
@@ -74,7 +75,7 @@ namespace Candidaturas_BO.Controllers
         // GET: CursoExames/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 IEnumerable<SelectListItem> cursos = db.Curso.OrderBy(dp => dp.ID).Select(c => new SelectListItem
                 {
@@ -132,7 +133,7 @@ namespace Candidaturas_BO.Controllers
         // GET: CursoExames/Edit/5
         public ActionResult Edit(int? CursoID, int? ExameID, string Edicao)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (CursoID == null || ExameID == null || Edicao == "")
                 {
@@ -176,7 +177,7 @@ namespace Candidaturas_BO.Controllers
         // GET: CursoExames/Delete/5
         public ActionResult Delete(int? CursoID, int? ExameID, string Edicao)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (CursoID == null || ExameID == null || Edicao == "")
                 {
@@ -210,7 +211,7 @@ namespace Candidaturas_BO.Controllers
         //GET: Cursos/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

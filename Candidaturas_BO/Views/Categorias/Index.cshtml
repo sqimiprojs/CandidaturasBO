@@ -1,16 +1,17 @@
 ﻿@model IEnumerable<Candidaturas_BO.Models.Categoria>
 
 @{
-                /**/
-
-                ViewBag.Title = "Categorias";
+    ViewBag.Title = "Categorias";
 }
 
 <h2>Lista de Categorias</h2>
+@if (ViewBag.UserAdmin)
+{
+    <p class="BoParag">
+        @Html.ActionLink("Criar Nova Categoria", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+    </p>
+}
 
-<p class="BoParag">
-    @Html.ActionLink("Criar Nova Categoria", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
-</p>
 
 
 @using (Html.BeginForm())
@@ -51,11 +52,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Sigla)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Sigla }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Sigla })
-        </td>
+        @if (ViewBag.UserAdmin)
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Sigla }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Sigla })
+            </td>
+        }
+
+
     </tr>
 }
-
 </table>

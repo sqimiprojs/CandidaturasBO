@@ -7,9 +7,13 @@
 
 <h2>Lista de Concelhos</h2>
 
+@if (ViewBag.UserAdmin)
+{
 <p class="BoParag">
     @Html.ActionLink("Criar Novo Concelho", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
+}
+
 
 @using (Html.BeginForm())
 {
@@ -42,20 +46,23 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Nome, "Index", "Freguesias", new { concelho = item.Nome }, null)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoDistrito)
-            </td>
+    <tr>
+        <td>
+            @Html.ActionLink(item.Nome, "Index", "Freguesias", new { concelho = item.Nome }, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodigoDistrito)
+        </td>
+        @if (ViewBag.UserAdmin)
+        {
             <td>
                 @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo, codigoDistrito = item.CodigoDistrito }) |
                 @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo, codigoDistrito = item.CodigoDistrito })
             </td>
+        }
         </tr>
     }
 

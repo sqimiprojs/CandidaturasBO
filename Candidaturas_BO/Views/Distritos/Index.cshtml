@@ -6,10 +6,12 @@
 
 <h2>Lista de Distritos</h2>
 
+@if (ViewBag.UserAdmin)
+{
 <p class="BoParag">
     @Html.ActionLink("Criar Novo Distrito", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
 </p>
-
+}
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
@@ -42,11 +44,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
-            @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo })
-        </td>
-    </tr>
+        @if (ViewBag.UserAdmin)
+        {
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { codigo = item.Codigo }) |
+                @Html.ActionLink("Apagar", "Delete", new { codigo = item.Codigo })
+            </td>
+        }
+     </tr>
     }
 
 </table>

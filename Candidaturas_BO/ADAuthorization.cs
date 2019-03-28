@@ -21,6 +21,7 @@ namespace Candidaturas_BO
 
                 // find the group in question
                 GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, BOConstants.AdGroup);
+                GroupPrincipal groupAdmin = GroupPrincipal.FindByIdentity(ctx, BOConstants.AdAdminGroup);
 
                 if (user != null)
                 {
@@ -28,6 +29,10 @@ namespace Candidaturas_BO
                     if (user.IsMemberOf(group))
                     {
                         HttpContext.Current.Session["userName"] = userName;
+                        if (user.IsMemberOf(groupAdmin))
+                        {
+                            HttpContext.Current.Session["admin"] = true;
+                        }
                         return true;
                     }
                     else
@@ -67,6 +72,46 @@ namespace Candidaturas_BO
 
             // find the group in question
             GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, BOConstants.AdGroup);
+
+            if (user != null)
+            {
+                // check if user is member of that group
+                if (user.IsMemberOf(group))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static Boolean ADAuthenticateAdmin()
+        {
+            // set up domain context
+            PrincipalContext ctx = new PrincipalContext(ContextType.Domain, BOConstants.AdDomain, BOConstants.AdDomainDC, BOConstants.AdDomainUser, BOConstants.AdDomainPassword);
+
+            // find current user
+            string Name = String.Empty;
+
+            if (HttpContext.Current.Session["userName"] != null)
+            {
+                Name = HttpContext.Current.Session["userName"].ToString();
+            }
+            else
+            {
+                Name = System.Web.HttpContext.Current.User.Identity.Name;
+            }
+
+            UserPrincipal user = UserPrincipal.FindByIdentity(ctx, Name);
+
+            // find the group in question
+            GroupPrincipal group = GroupPrincipal.FindByIdentity(ctx, BOConstants.AdAdminGroup);
 
             if (user != null)
             {

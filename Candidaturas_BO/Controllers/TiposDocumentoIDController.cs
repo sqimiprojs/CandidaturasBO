@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Controllers
             if (ADAuthorization.ADAuthenticate())
             {
                 ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.UserAdmin = ADAuthorization.ADAuthenticateAdmin();
 
                 List<TipoDocumentoID> tiposDocID = db.TipoDocumentoID.ToList();
 
@@ -54,7 +55,7 @@ namespace Candidaturas_BO.Controllers
         // GET: TiposDocumentoID/Create
         public ActionResult Create()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }
@@ -84,7 +85,7 @@ namespace Candidaturas_BO.Controllers
         // GET: TiposDocumentoID/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -125,7 +126,7 @@ namespace Candidaturas_BO.Controllers
         // GET: TiposDocumentoID/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 if (id == null)
                 {
@@ -161,7 +162,7 @@ namespace Candidaturas_BO.Controllers
         //GET: TiposDocumentoID/MassInsert
         public ActionResult MassInsert()
         {
-            if (ADAuthorization.ADAuthenticate())
+            if (ADAuthorization.ADAuthenticateAdmin())
             {
                 return View();
             }

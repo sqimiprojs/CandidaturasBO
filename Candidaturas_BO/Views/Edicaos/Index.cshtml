@@ -5,38 +5,39 @@
 }
 
 <h2>Lista de Edições</h2>
-
-<p>
-    @Html.ActionLink("Criar Nova Edição", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
-</p>
-
-@using (Html.BeginForm())
+@if (ViewBag.UserAdmin)
 {
-    <div class="FilterDiv">
-        Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+    <p>
+        @Html.ActionLink("Criar Nova Edição", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+    </p>
 }
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink("Sigla", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AnoLectivo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataInicio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataFim)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
+        <div class="FilterDiv">
+            Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+            <input type="submit" value="Procurar" class="btn btn-default" />
+        </div>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Sigla", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnoLectivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFim)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Sigla)
@@ -50,11 +51,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DataFim)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Sigla }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Sigla })
-            </td>
+            @if (ViewBag.UserAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Sigla }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Sigla })
+                </td>
+            }
         </tr>
-    }
+        }
 
-</table>
+    </table>

@@ -1,49 +1,52 @@
 ﻿@model IEnumerable<Candidaturas_BO.Models.Reparticoes>
 
 @{
-    ViewBag.Title = "Repartições";
+                /**/
+
+                ViewBag.Title = "Repartições";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Criar Nova Repartição", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
-</p>
-
-@using (Html.BeginForm())
+<h2>Lista de Repartições</h2>
+@if (ViewBag.UserAdmin)
 {
-    <div class="FilterDiv">
-        Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
-        <input type="submit" value="Procurar" class="btn btn-default" />
-    </div>
+    <p>
+        @Html.ActionLink("Criar Nova Repartição", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
+    </p>
 }
-
-<div class="TotalDiv">
-    Total de Repartições: @ViewBag.TotalReparticoes
-</div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
-        </th>
-        <th>
-            Distrito
-        </th>
-        <th>
-            Concelho
-        </th>
-        <th>
-           Código Freguesia
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm())
     {
+        <div class="FilterDiv">
+            Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+            <input type="submit" value="Procurar" class="btn btn-default" />
+        </div>
+    }
+
+    <div class="TotalDiv">
+        Total de Repartições: @ViewBag.TotalReparticoes
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm })
+            </th>
+            <th>
+                Distrito
+            </th>
+            <th>
+                Concelho
+            </th>
+            <th>
+                Código Freguesia
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -60,11 +63,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CodigoFreguesia)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
-                @Html.ActionLink("Delete", "Delete", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
-            </td>
+            @if (ViewBag.UserAdmin)
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito }) |
+                    @Html.ActionLink("Delete", "Delete", new { codigo = item.Codigo, codigoFreguesia = item.CodigoFreguesia, codigoConcelho = item.CodigoConcelho, codigoDistrito = item.CodigoDistrito })
+                </td>
+            }
         </tr>
-    }
+        }
 
-</table>
+    </table>
