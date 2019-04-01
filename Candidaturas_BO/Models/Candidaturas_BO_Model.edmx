@@ -134,6 +134,14 @@
           <Property Name="DocID" Type="int" Nullable="false" />
           <Property Name="DocBinario" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="DocumentosNecessarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Edicao" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
         <EntityType Name="Edicao">
           <Key>
             <PropertyRef Name="Sigla" />
@@ -602,6 +610,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DocumentosNecessarios_Edicao">
+          <End Role="Edicao" Type="Self.Edicao" Multiplicity="1" />
+          <End Role="DocumentosNecessarios" Type="Self.DocumentosNecessarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edicao">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="DocumentosNecessarios">
+              <PropertyRef Name="Edicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exame_Edicao">
           <End Role="Edicao" Type="Self.Edicao" Multiplicity="1" />
           <End Role="Exame" Type="Self.Exame" Multiplicity="*" />
@@ -884,6 +904,7 @@
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentoBinario" EntityType="Self.DocumentoBinario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentosNecessarios" EntityType="Self.DocumentosNecessarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Edicao" EntityType="Self.Edicao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Exame" EntityType="Self.Exame" Schema="dbo" store:Type="Tables" />
@@ -994,6 +1015,10 @@
             <End Role="Documento" EntitySet="Documento" />
             <End Role="DocumentoBinario" EntitySet="DocumentoBinario" />
           </AssociationSet>
+          <AssociationSet Name="FK_DocumentosNecessarios_Edicao" Association="Self.FK_DocumentosNecessarios_Edicao">
+            <End Role="Edicao" EntitySet="Edicao" />
+            <End Role="DocumentosNecessarios" EntitySet="DocumentosNecessarios" />
+          </AssociationSet>
           <AssociationSet Name="FK_Exame_Edicao" Association="Self.FK_Exame_Edicao">
             <End Role="Edicao" EntitySet="Edicao" />
             <End Role="Exame" EntitySet="Exame" />
@@ -1099,6 +1124,7 @@
           <EntitySet Name="Distrito" EntityType="CandidaturasBOModel.Distrito" />
           <EntitySet Name="Documento" EntityType="CandidaturasBOModel.Documento" />
           <EntitySet Name="DocumentoBinario" EntityType="CandidaturasBOModel.DocumentoBinario" />
+          <EntitySet Name="DocumentosNecessarios" EntityType="CandidaturasBOModel.DocumentosNecessarios" />
           <EntitySet Name="Edicao" EntityType="CandidaturasBOModel.Edicao" />
           <EntitySet Name="EstadoCivil" EntityType="CandidaturasBOModel.EstadoCivil" />
           <EntitySet Name="Exame" EntityType="CandidaturasBOModel.Exame" />
@@ -1256,6 +1282,10 @@
           <AssociationSet Name="FK_DocumentoBinario_Documento" Association="CandidaturasBOModel.FK_DocumentoBinario_Documento">
             <End Role="Documento" EntitySet="Documento" />
             <End Role="DocumentoBinario" EntitySet="DocumentoBinario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentosNecessarios_Edicao" Association="CandidaturasBOModel.FK_DocumentosNecessarios_Edicao">
+            <End Role="Edicao" EntitySet="Edicao" />
+            <End Role="DocumentosNecessarios" EntitySet="DocumentosNecessarios" />
           </AssociationSet>
           <AssociationSet Name="FK_Exame_Edicao" Association="CandidaturasBOModel.FK_Exame_Edicao">
             <End Role="Edicao" EntitySet="Edicao" />
@@ -1470,6 +1500,15 @@
           <Property Name="DocBinario" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Documento" Relationship="CandidaturasBOModel.FK_DocumentoBinario_Documento" FromRole="DocumentoBinario" ToRole="Documento" />
         </EntityType>
+        <EntityType Name="DocumentosNecessarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Edicao" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Edicao1" Relationship="CandidaturasBOModel.FK_DocumentosNecessarios_Edicao" FromRole="DocumentosNecessarios" ToRole="Edicao" />
+        </EntityType>
         <EntityType Name="Edicao">
           <Key>
             <PropertyRef Name="Sigla" />
@@ -1482,6 +1521,7 @@
           <NavigationProperty Name="ConhecimentoEscola" Relationship="CandidaturasBOModel.FK_ConhecimentoEscola_Edicao" FromRole="Edicao" ToRole="ConhecimentoEscola" />
           <NavigationProperty Name="Curso" Relationship="CandidaturasBOModel.FK_Curso_Edicao" FromRole="Edicao" ToRole="Curso" />
           <NavigationProperty Name="CursoExame" Relationship="CandidaturasBOModel.FK_CursoExame_Edicao" FromRole="Edicao" ToRole="CursoExame" />
+          <NavigationProperty Name="DocumentosNecessarios" Relationship="CandidaturasBOModel.FK_DocumentosNecessarios_Edicao" FromRole="Edicao" ToRole="DocumentosNecessarios" />
           <NavigationProperty Name="Exame" Relationship="CandidaturasBOModel.FK_Exame_Edicao" FromRole="Edicao" ToRole="Exame" />
           <NavigationProperty Name="Situacao" Relationship="CandidaturasBOModel.FK_Situacao_Edicao" FromRole="Edicao" ToRole="Situacao" />
           <NavigationProperty Name="User" Relationship="CandidaturasBOModel.FK_User_Edicao" FromRole="Edicao" ToRole="User" />
@@ -2135,6 +2175,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DocumentosNecessarios_Edicao">
+          <End Type="CandidaturasBOModel.Edicao" Role="Edicao" Multiplicity="1" />
+          <End Type="CandidaturasBOModel.DocumentosNecessarios" Role="DocumentosNecessarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Edicao">
+              <PropertyRef Name="Sigla" />
+            </Principal>
+            <Dependent Role="DocumentosNecessarios">
+              <PropertyRef Name="Edicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exame_Edicao">
           <End Type="CandidaturasBOModel.Edicao" Role="Edicao" Multiplicity="1" />
           <End Type="CandidaturasBOModel.Exame" Role="Exame" Multiplicity="*" />
@@ -2395,6 +2447,15 @@
               <MappingFragment StoreEntitySet="DocumentoBinario">
                 <ScalarProperty Name="DocBinario" ColumnName="DocBinario" />
                 <ScalarProperty Name="DocID" ColumnName="DocID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentosNecessarios">
+            <EntityTypeMapping TypeName="CandidaturasBOModel.DocumentosNecessarios">
+              <MappingFragment StoreEntitySet="DocumentosNecessarios">
+                <ScalarProperty Name="Edicao" ColumnName="Edicao" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

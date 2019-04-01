@@ -21,6 +21,7 @@ namespace Candidaturas_BO.Models
             this.ConhecimentoEscola = new HashSet<ConhecimentoEscola>();
             this.Curso = new HashSet<Curso>();
             this.CursoExame = new HashSet<CursoExame>();
+            this.DocumentosNecessarios = new HashSet<DocumentosNecessarios>();
             this.Exame = new HashSet<Exame>();
             this.Situacao = new HashSet<Situacao>();
             this.User = new HashSet<User>();
@@ -39,6 +40,8 @@ namespace Candidaturas_BO.Models
         public virtual ICollection<Curso> Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CursoExame> CursoExame { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DocumentosNecessarios> DocumentosNecessarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exame> Exame { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

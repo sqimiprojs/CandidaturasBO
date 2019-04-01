@@ -181,6 +181,7 @@
     <Compile Include="BOConstants.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\CursoExamesController.cs" />
+    <Compile Include="Controllers\DocumentosNecessariosController.cs" />
     <Compile Include="Controllers\EstatisticasDiaController.cs" />
     <Compile Include="Controllers\EstatisticasConcelhoController.cs" />
     <Compile Include="Controllers\EstatisticasGeneroController.cs" />
@@ -234,6 +235,9 @@
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Certificado.cs">
+      <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DocumentosNecessarios.cs">
       <DependentUpon>Candidaturas_BO_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EstatisticaCursoDisplay.cs" />
@@ -479,6 +483,11 @@
     <Content Include="Views\EstatisticasConcelho\Index.cshtml" />
     <Content Include="Views\EstatisticasDia\Index.cshtml" />
     <Content Include="Views\Estatisticas\Index.cshtml" />
+    <Content Include="Views\DocumentosNecessarios\Create.cshtml" />
+    <Content Include="Views\DocumentosNecessarios\Delete.cshtml" />
+    <Content Include="Views\DocumentosNecessarios\Edit.cshtml" />
+    <Content Include="Views\DocumentosNecessarios\Index.cshtml" />
+    <Content Include="Views\DocumentosNecessarios\MassInsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

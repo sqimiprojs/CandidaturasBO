@@ -1,0 +1,38 @@
+﻿@model Candidaturas_BO.Models.DocumentosNecessarios
+
+@{
+    ViewBag.Title = "Apagar Documento Necessário " + Model.Documento;
+}
+
+<h2>Apagar</h2>
+
+<h3>Tem a certeza que deseja apagar o seguinte Documento Necessário?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Documento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Documento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Edicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Edicao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Apagar" class="btn btn-default" /> |
+            @Html.ActionLink("Regressar à Lista", "Index")
+        </div>
+    }
+</div>
