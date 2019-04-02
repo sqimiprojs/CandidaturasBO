@@ -112,6 +112,15 @@ namespace Candidaturas_BO.Controllers
                     db.Situacao.Add(novaSituacao);
                 }
 
+                List<DocumentosNecessarios> docNecessarios = db.DocumentosNecessarios.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
+                foreach (DocumentosNecessarios docNecessario in docNecessarios)
+                {
+                    DocumentosNecessarios novoDocNecessario = new DocumentosNecessarios();
+                    novoDocNecessario.Documento = docNecessario.Documento;
+                    novoDocNecessario.Edicao = novaEdicao.Sigla;
+                    db.DocumentosNecessarios.Add(novoDocNecessario);
+                }
+
                 List<ConhecimentoEscola> conhecimentos = db.ConhecimentoEscola.Where(u => u.Edicao == ultimaEdicao.Sigla).ToList();
                 foreach (ConhecimentoEscola conhecimento in conhecimentos)
                 {
