@@ -36,7 +36,7 @@
                 Obrigatório
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Edicao1.AnoLectivo)
+                @Html.DisplayNameFor(model => model.Edicao)
             </th>
             <th></th>
         </tr>
@@ -50,11 +50,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Exame.Nome)
             </td>
+            @if (item.Obrigatorio)
+            {
+                <td>
+                    Sim
+                </td>
+            } else
+            {
+                <td>
+                    Não
+                </td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.Obrigatorio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Edicao1.AnoLectivo)
+                @Html.DisplayFor(modelItem => item.Edicao)
             </td>
             @if (ViewBag.UserAdmin)
             {

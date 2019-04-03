@@ -105,7 +105,7 @@ namespace Candidaturas_BO.Controllers
                     case "Perc":
                         display = display.OrderBy(s => s.Percentagem).ToList();
                         break;
-                    case "perc_desc":
+                    case "Perc_desc":
                         display = display.OrderByDescending(s => s.Percentagem).ToList();
                         break;
                     default:

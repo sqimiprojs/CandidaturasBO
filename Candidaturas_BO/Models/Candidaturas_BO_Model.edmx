@@ -66,7 +66,7 @@
           <Property Name="CursoID" Type="int" Nullable="false" />
           <Property Name="ExameID" Type="int" Nullable="false" />
           <Property Name="Edicao" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Obrigatorio" Type="bit" />
+          <Property Name="Obrigatorio" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DadosPessoais">
           <Key>
@@ -1413,7 +1413,7 @@
           <Property Name="CursoID" Type="Int32" Nullable="false" />
           <Property Name="ExameID" Type="Int32" Nullable="false" />
           <Property Name="Edicao" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Obrigatorio" Type="Boolean" />
+          <Property Name="Obrigatorio" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Curso" Relationship="CandidaturasBOModel.FK_CursoExame_Curso" FromRole="CursoExame" ToRole="Curso" />
           <NavigationProperty Name="Edicao1" Relationship="CandidaturasBOModel.FK_CursoExame_Edicao" FromRole="CursoExame" ToRole="Edicao" />
           <NavigationProperty Name="Exame" Relationship="CandidaturasBOModel.FK_CursoExame_Exame" FromRole="CursoExame" ToRole="Exame" />

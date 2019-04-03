@@ -130,6 +130,42 @@ namespace Candidaturas_BO.Controllers
             return View(cursoExame);
         }
 
+        [HttpPost]
+        public JsonResult updateCursos(string edicao)
+        {
+            var cursos = db.Curso.Where(c => c.Edicao == edicao).Select(c => new
+            {
+                ID = c.ID,
+                Nome = c.Nome
+            }).ToList();
+
+            JsonResult jsonCursos = new JsonResult
+            {
+                Data = cursos.ToList(),
+                ContentType = "application / json"
+            };
+
+            return jsonCursos;
+        }
+
+        [HttpPost]
+        public JsonResult updateExames(string edicao)
+        {
+            var exames = db.Exame.Where(c => c.Edicao == edicao).Select(c => new
+            {
+                ID = c.ID,
+                Nome = c.Nome
+            }).ToList();
+
+            JsonResult jsonExames = new JsonResult
+            {
+                Data = exames.ToList(),
+                ContentType = "application / json"
+            };
+
+            return jsonExames;
+        }
+
         // GET: CursoExames/Edit/5
         public ActionResult Edit(int? CursoID, int? ExameID, string Edicao)
         {

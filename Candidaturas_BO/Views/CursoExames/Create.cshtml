@@ -1,64 +1,130 @@
 ﻿@model Candidaturas_BO.Models.CursoExame
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Criar Ligação Curso/Exame";
 }
 
-<h2>Create</h2>
+<h2>Criar</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>CursoExame</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CursoID, "CursoID", htmlAttributes: new { @class = "control-label required col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CursoID , ViewBag.Cursos as SelectList, "Escolha um curso...", htmlAttributes: new { @class = "form-control", @required = "required" })
-                @Html.ValidationMessageFor(model => model.CursoID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ExameID, "ExameID", htmlAttributes: new { @class = "control-label required col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ExameID, ViewBag.Exames as SelectList, "Escolha um exame...", htmlAttributes: new { @class = "form-control", @required = "required" })
-                @Html.ValidationMessageFor(model => model.ExameID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Obrigatorio, "Obrigatorio", htmlAttributes: new { @class = "control-label required col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Obrigatorio)
-                @Html.ValidationMessageFor(model => model.Obrigatorio, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Edicao, "Edicao", htmlAttributes: new { @class = "control-label required col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Edicao, ViewBag.Edicao as SelectList, "Escolha uma edição...", htmlAttributes: new { @class = "form-control", @required = "required" })
-                @Html.ValidationMessageFor(model => model.Edicao, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>CursoExame</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Edicao, "Edicao", htmlAttributes: new { @class = "control-label required col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Edicao, ViewBag.Edicao as SelectList, "Escolha uma edição...", htmlAttributes: new {@id = "EdicaoSelect", @class = "form-control", @required = "required", @onchange = "updatecursosexames()" })
+            @Html.ValidationMessageFor(model => model.Edicao, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CursoID, "CursoID", htmlAttributes: new { @class = "control-label required col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CursoID, ViewBag.Cursos as SelectList, "Escolha um curso...", htmlAttributes: new {@id = "CursoSelect", @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(model => model.CursoID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ExameID, "ExameID", htmlAttributes: new { @class = "control-label required col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ExameID, ViewBag.Exames as SelectList, "Escolha um exame...", htmlAttributes: new { @id = "ExameSelect", @class = "form-control", @required = "required" })
+            @Html.ValidationMessageFor(model => model.ExameID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Obrigatorio, "Obrigatorio", htmlAttributes: new { @class = "control-label required col-md-2" })
+        <div class="col-md-10">
+            @Html.CheckBoxFor(model => model.Obrigatorio, new { htmlAttributes = new { @id = "ObrigatorioSelect", @class = "form-control", @type = "checkbox" } })
+            @Html.ValidationMessageFor(model => model.Obrigatorio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Criar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regressar à Lista", "Index")
 </div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    window.onload = disablecampos();
+
+    function disablecampos() {
+        $('#CursoSelect').prop('disabled', true);
+        $('#ExameSelect').prop('disabled', true);
+        $('#ObrigatorioSelect').prop('disabled', true);
+    }
+
+    function updatecursosexames() {
+
+        var edicaoEscolhida = $('#EdicaoSelect').val();
+        if (edicaoEscolhida != "") {
+            $.ajax({
+                url: '@Url.Action("UpdateCursos", "CursoExames")',
+                data: {
+                    edicao: edicaoEscolhida
+                },
+                type: "POST",
+                success: function (cursos) {
+                    $('#CursoSelect').empty();
+                    $('#CursoSelect').append('<option value=""> Escolha uma opção...</options>');
+                    $('#CursoSelect').prop('disabled', false);
+                    $.each(cursos, function (i, curso) {
+                        $('<option>', {
+                            value: curso.ID
+                        }).html(curso.Nome).appendTo($('#CursoSelect'));
+                    })
+                },
+                error: function (e) { console.log(e); }
+            })
+
+
+            $.ajax({
+                url: '@Url.Action("UpdateExames", "CursoExames")',
+                data: {
+                    edicao: edicaoEscolhida
+                },
+                type: "POST",
+                success: function (exames) {
+                    $('#ExameSelect').empty();
+                    $('#ExameSelect').append('<option value=""> Escolha uma opção...</options>');
+                    $('#ExameSelect').prop('disabled', false);
+                    $.each(exames, function (i, exame) {
+                        $('<option>', {
+                            value: exame.ID
+                        }).html(exame.Nome).appendTo($('#ExameSelect'));
+                    })
+                },
+                error: function (e) { console.log(e); }
+            })
+        } else {
+            $('#CursoSelect').empty();
+            $('#CursoSelect').append('<option value=""> Escolha uma opção...</options>');
+            $('#CursoSelect').prop('disabled', true);
+            $('#ExameSelect').empty();
+            $('#ExameSelect').append('<option value=""> Escolha uma opção...</options>');
+            $('#ExameSelect').prop('disabled', true);
+        }
+    }
+
+
+</script>
 }
