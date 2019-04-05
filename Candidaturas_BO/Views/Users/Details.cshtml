@@ -395,6 +395,8 @@
         <dl class="dl-horizontal">
             @foreach (var item in Model.docsDTO)
             {
+                if (item.Nome != "" && item.Tipo != "")
+                {
                 <dt>
                     Nome
                 </dt>
@@ -417,6 +419,7 @@
                 <dd>
                     @Html.DisplayFor(modelItem => item.UploadTime)
                 </dd>
+                }
             }
 
         </dl>

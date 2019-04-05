@@ -11,34 +11,34 @@
         @Html.ActionLink("Criar Novo Curso", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
     </p>
 }
-    @using (Html.BeginForm())
-    {
-        <div class="FilterDiv">
-            Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" }) &nbsp;
-            Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString") &nbsp;
-            <input type="submit" value="Procurar" class="btn btn-default" />
-        </div>
-    }
-
-    <div class="TotalDiv">
-        Total de Cursos: @ViewBag.TotalCursos
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" }) &nbsp;
+        Procurar por nome ou código de curso ou ramo: @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
+}
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
-            </th>
-            <th>
-                Edição
-            </th>
-            <th>
+<div class="TotalDiv">
+    Total de Cursos: @ViewBag.TotalCursos
+</div>
 
-            </th>
-        </tr>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            Edição
+        </th>
+        <th>
 
-        @foreach (var item in Model)
-        {
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -53,7 +53,20 @@
                     @Html.ActionLink("Apagar", "Delete", new { id = item.ID })
                 </td>
             }
-            </tr>
-        }
+        </tr>
+    }
 
-    </table>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        window.onload = edicaoDropChange();
+
+        function edicaoDropChange() {
+            var aux = "@ViewBag.EdicaoEscolhida";
+            $("#edicaoDrop").val(aux);
+
+        }
+    </script>
+}

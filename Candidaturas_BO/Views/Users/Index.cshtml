@@ -11,25 +11,25 @@
 
 @using (Html.BeginForm())
 {
-<div class="FilterDiv" style="display: flex;margin-top: 20px;">
+    <div class="FilterDiv" style="display: flex;margin-top: 20px;">
 
 
-    Procurar por edição: &nbsp;
-    @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" }) &nbsp;
-    Procurar users inscritos entre o seguinte intervalo: &nbsp;
-    @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 30%" , @value = "" }) &nbsp;
-    &nbsp; e &nbsp;
-    @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 30%" , @value = "" })
-    &nbsp;
- </div>
- <div class="FilterDiv">
-    Procurar user com email: &nbsp;
-    @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @value = "" })
-    &nbsp;
-    Candidatura finalizada: &nbsp;
-    @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%" }) &nbsp;
-    <input type="submit" value="Procurar" class="btn btn-default" />
-</div>
+        Procurar por edição: &nbsp;
+        @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" }) &nbsp;
+        Procurar users inscritos entre o seguinte intervalo: &nbsp;
+        @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 30%", @value = "" }) &nbsp;
+        &nbsp; e &nbsp;
+        @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 30%", @value = "" })
+        &nbsp;
+    </div>
+    <div class="FilterDiv">
+        Procurar user com email: &nbsp;
+        @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @value = "" })
+        &nbsp;
+        Candidatura finalizada: &nbsp;
+        @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%" }) &nbsp;
+        <input type="submit" value="Procurar" class="btn btn-default" />
+    </div>
 }
 
 <div class="TotalDiv">
@@ -57,23 +57,23 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataCriacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Edicao)
-        </td>
-        <td>
-            @Html.ActionLink("Detalhes", "Details", new { id = item.ID })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCriacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edicao)
+            </td>
+            <td>
+                @Html.ActionLink("Detalhes", "Details", new { id = item.ID })
+            </td>
+        </tr>
     }
 
 </table>
@@ -82,3 +82,17 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        window.onload = edicaoDropChange();
+
+        function edicaoDropChange() {
+            var aux = "@ViewBag.EdicaoEscolhida";
+            $("#edicaoDrop").val(aux);
+
+        }
+    </script>
+}

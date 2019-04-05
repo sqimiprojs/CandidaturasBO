@@ -28,6 +28,8 @@ namespace Candidaturas_BO.Controllers
                 if (!String.IsNullOrEmpty(edicao))
                 {
                     cursosExames = cursosExames.Where(s => s.Edicao == edicao).ToList();
+                    ViewBag.EdicaoEscolhida = edicao;
+
                 }
                 else
                 {
@@ -35,11 +37,15 @@ namespace Candidaturas_BO.Controllers
                     if (edAux != null)
                     {
                         cursosExames = cursosExames.Where(s => s.Edicao == edAux.Sigla).ToList();
+                        ViewBag.EdicaoEscolhida = edAux.Sigla;
+
                     }
                     else
                     {
                         Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataFim).FirstOrDefault();
                         cursosExames = cursosExames.Where(s => s.Edicao == ultimaEdicao.Sigla).ToList();
+                        ViewBag.EdicaoEscolhida = ultimaEdicao.Sigla;
+
                     }
 
                 }
@@ -99,6 +105,19 @@ namespace Candidaturas_BO.Controllers
                     Value = c.Sigla,
                     Text = c.Sigla
                 });
+
+                Edicao edAux = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).FirstOrDefault();
+                if (edAux != null)
+                {
+                    ViewBag.EdicaoEscolhida = edAux.Sigla;
+
+                }
+                else
+                {
+                    Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataFim).FirstOrDefault();
+                    ViewBag.EdicaoEscolhida = ultimaEdicao.Sigla;
+
+                }
 
                 ViewBag.Edicao = edicaos.ToList();
 

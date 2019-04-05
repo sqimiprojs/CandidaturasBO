@@ -314,25 +314,25 @@ $.extend($.validator, {
 		$.extend( $.validator.defaults, settings );
 	},
 
-	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Please enter the same value again.",
-		accept: "Please enter a value with a valid extension.",
-		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
-		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
-		range: $.validator.format("Please enter a value between {0} and {1}."),
-		max: $.validator.format("Please enter a value less than or equal to {0}."),
-		min: $.validator.format("Please enter a value greater than or equal to {0}.")
-	},
+    messages: {
+        required: "Este campo é obrigatório.",
+        remote: "Por favor, corrija este campo.",
+        email: "Por favor, insira um endereço de email válido.",
+        url: "Por favor, insira um URL válido.",
+        date: "Por favor, insira uma data válida.",
+        dateISO: "Por favor, insira uma data (ISO) válida.",
+        number: "Por favor, insira um número válido.",
+        digits: "Por favor, insira apenas dígitos.",
+        creditcard: "Por favor, insira um cartão de crédito válido.",
+        equalTo: "Por favor, volte a inserir o mesmo valor.",
+        accept: "Por favor, insira um valor com extensão válida.",
+        maxlength: $.validator.format("Por favor, não insira mais que {0} caracteres."),
+        minlength: $.validator.format("Por favor, insira pelo menos {0} caracteres."),
+        rangelength: $.validator.format("Por favor, insira um valor entre {0} e {1} caracteres."),
+        range: $.validator.format("Por favor, insira um valor entre {0} e {1}."),
+        max: $.validator.format("Por favor, insira um valor menor ou igual a {0}."),
+        min: $.validator.format("Por favor, insira um valor maior ou igual a {0}.")
+    },
 	
 	autoCreateRanges: false,
 	

@@ -27,10 +27,24 @@ namespace Candidaturas_BO.Controllers
                 if (!String.IsNullOrEmpty(edicao))
                 {
                     historico = historico.Where(s => s.Candidatura.Edicao == edicao).ToList();
+                    ViewBag.EdicaoEscolhida = edicao;
                 }
                 else
                 {
-                    edicao = currentFilter;
+                    Edicao edAux = db.Edicao.Where(e => e.DataInicio < System.DateTime.Now && e.DataFim > System.DateTime.Now).FirstOrDefault();
+                    if (edAux != null)
+                    {
+                        historico = historico.Where(s => s.Candidatura.Edicao == edAux.Sigla).ToList();
+                        ViewBag.EdicaoEscolhida = edAux.Sigla;
+
+                    }
+                    else
+                    {
+                        Edicao ultimaEdicao = db.Edicao.OrderByDescending(e => e.DataFim).FirstOrDefault();
+                        historico = historico.Where(s => s.Candidatura.Edicao == ultimaEdicao.Sigla).ToList();
+                        ViewBag.EdicaoEscolhida = ultimaEdicao.Sigla;
+
+                    }
                 }
 
                 //search

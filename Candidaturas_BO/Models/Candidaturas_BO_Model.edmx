@@ -126,6 +126,7 @@
           <Property Name="Descricao" Type="varchar" MaxLength="50" />
           <Property Name="Tipo" Type="varchar" MaxLength="50" />
           <Property Name="UploadTime" Type="datetime" Nullable="false" />
+          <Property Name="DataAualizacao" Type="datetime" />
         </EntityType>
         <EntityType Name="DocumentoBinario">
           <Key>
@@ -1489,6 +1490,7 @@
           <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UploadTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataAualizacao" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Candidatura" Relationship="CandidaturasBOModel.FK_Documento_Candidatura" FromRole="Documento" ToRole="Candidatura" />
           <NavigationProperty Name="DocumentoBinario" Relationship="CandidaturasBOModel.FK_DocumentoBinario_Documento" FromRole="Documento" ToRole="DocumentoBinario" />
         </EntityType>
@@ -2433,6 +2435,7 @@
           <EntitySetMapping Name="Documento">
             <EntityTypeMapping TypeName="CandidaturasBOModel.Documento">
               <MappingFragment StoreEntitySet="Documento">
+                <ScalarProperty Name="DataAualizacao" ColumnName="DataAualizacao" />
                 <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />

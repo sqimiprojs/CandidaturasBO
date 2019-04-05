@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<Candidaturas_BO.Models.Situacao>
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Situações Profissionais";
+    /**/
+
+    ViewBag.Title = "Situações Profissionais";
 }
 
 <h2>Lista de Situações Profissionais</h2>
@@ -13,32 +15,32 @@
         @Html.ActionLink("Criar Nova Situação Profissional", "Create") | @Html.ActionLink("Inserção em Massa", "MassInsert")
     </p>
 }
-    @using (Html.BeginForm())
-    {
-        <div class="FilterDiv">
-            Procurar por edição: &nbsp; @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
-            &nbsp; Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
-            <input type="submit" value="Procurar" class="btn btn-default" />
-        </div>
-    }
-
-    <div class="TotalDiv">
-        Total de Situações Profissionais: @ViewBag.TotalSituacaos
+@using (Html.BeginForm())
+{
+    <div class="FilterDiv">
+        Procurar por edição: &nbsp; @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" })
+        &nbsp; Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+        <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
+}
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
-            </th>
-            <th>
-                Edição
-            </th>
-            <th></th>
-        </tr>
+<div class="TotalDiv">
+    Total de Situações Profissionais: @ViewBag.TotalSituacaos
+</div>
 
-        @foreach (var item in Model)
-        {
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(model => model.Nome).ToHtmlString()), "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            Edição
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
@@ -54,6 +56,19 @@
                 </td>
             }
         </tr>
-        }
+    }
 
-    </table>
+</table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        window.onload = edicaoDropChange();
+
+        function edicaoDropChange() {
+            var aux = "@ViewBag.EdicaoEscolhida";
+            $("#edicaoDrop").val(aux);
+
+        }
+    </script>
+}

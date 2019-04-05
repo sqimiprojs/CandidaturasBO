@@ -16,7 +16,7 @@
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
-        Procurar por edição: &nbsp; @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control" })
+        Procurar por edição: &nbsp; @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" })
         &nbsp; Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
@@ -57,3 +57,16 @@
     }
 
 </table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        window.onload = edicaoDropChange();
+
+        function edicaoDropChange() {
+            var aux = "@ViewBag.EdicaoEscolhida";
+            $("#edicaoDrop").val(aux);
+
+        }
+    </script>
+}

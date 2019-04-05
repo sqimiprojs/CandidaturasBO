@@ -65,12 +65,12 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script>
-    window.onload = disablecampos();
+    window.onload = updateEdicao();
 
-    function disablecampos() {
-        $('#CursoSelect').prop('disabled', true);
-        $('#ExameSelect').prop('disabled', true);
-        $('#ObrigatorioSelect').prop('disabled', true);
+    function updateEdicao() {
+       var aux = "@ViewBag.EdicaoEscolhida";
+        $("#EdicaoSelect").val(aux);
+        updatecursosexames();
     }
 
     function updatecursosexames() {

@@ -27,7 +27,16 @@ namespace Candidaturas_BO.Controllers
                     if (String.IsNullOrEmpty(edicao))
                     {
                         edicao = db.Edicao.OrderByDescending(e => e.DataFim).Select(e => e.Sigla).FirstOrDefault();
+                        ViewBag.EdicaoEscolhida = edicao;
                     }
+                    else
+                    {
+                        ViewBag.EdicaoEscolhida = edicao;
+                    }
+                }
+                else
+                {
+                    ViewBag.EdicaoEscolhida = edicao;
                 }
 
                 List<User> usersDB = db.Candidatura.Select(c => c.User).ToList();
