@@ -87,7 +87,7 @@ namespace Candidaturas_BO.Controllers
                         break;
                 }
 
-                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderByDescending(dp => dp.DataFim).Select(c => new SelectListItem
                 {
                     Value = c.Sigla,
                     Text = c.Sigla

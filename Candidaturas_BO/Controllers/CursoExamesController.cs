@@ -60,7 +60,7 @@ namespace Candidaturas_BO.Controllers
                         cursosExames = cursosExames.OrderBy(s => s.CursoID).ToList();
                         break;
                 }
-                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderByDescending(dp => dp.DataFim).Select(c => new SelectListItem
                 {
                     Value = c.Sigla,
                     Text = c.Sigla
@@ -100,7 +100,7 @@ namespace Candidaturas_BO.Controllers
                 ViewBag.ExameID = exames.ToList();
 
 
-                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderByDescending(dp => dp.DataFim).Select(c => new SelectListItem
                 {
                     Value = c.Sigla,
                     Text = c.Sigla

@@ -66,7 +66,7 @@ namespace Candidaturas_BO.Controllers
                         cursos = cursos.OrderBy(s => s.Nome).ToList();
                         break;
                 }
-                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderByDescending(dp => dp.DataFim).Select(c => new SelectListItem
                 {
                     Value = c.Sigla,
                     Text = c.Sigla
@@ -91,7 +91,7 @@ namespace Candidaturas_BO.Controllers
         {
             if (ADAuthorization.ADAuthenticateAdmin())
             {
-                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderBy(dp => dp.Sigla).Select(c => new SelectListItem
+                IEnumerable<SelectListItem> edicaos = db.Edicao.OrderByDescending(dp => dp.DataFim).Select(c => new SelectListItem
                 {
                     Value = c.Sigla,
                     Text = c.Sigla
