@@ -18,10 +18,9 @@
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
-        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" })
-        &nbsp; Procurar por nome: @Html.TextBox("SearchString")
-        &nbsp;
-        Procurar por código: @Html.TextBox("codigo") &nbsp;
+        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control", @style = "margin-righ:5px" })
+        Procurar por nome: @Html.TextBox("SearchString", null, new { @style = "margin-right:5px" })
+        Procurar por código: @Html.TextBox("codigo", null, new { @style = "margin-right:5px" })
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
 }

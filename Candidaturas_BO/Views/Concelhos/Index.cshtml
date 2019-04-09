@@ -18,10 +18,10 @@
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
-        Procurar por distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control" })
+        Procurar por distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control", @style = "margin-right:5px" })
     </div>
     <div class="FilterDiv">
-       &nbsp; Procurar por nome: &nbsp; @Html.TextBox("SearchString") &nbsp;
+        Procurar por nome: @Html.TextBox("SearchString", null, new { @style = "margin-right: 5px" })
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
 }

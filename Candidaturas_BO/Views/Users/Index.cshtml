@@ -14,20 +14,19 @@
     <div class="FilterDiv" style="display: flex;margin-top: 20px;">
 
 
-        Procurar por edição: &nbsp;
-        @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control" }) &nbsp;
-        Procurar users inscritos entre o seguinte intervalo: &nbsp;
-        @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 30%", @value = "" }) &nbsp;
-        &nbsp; e &nbsp;
-        @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 30%", @value = "" })
-        &nbsp;
+        Procurar por edição:
+        @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @id = "edicaoDrop", @class = "form-control", @style = "margin-right: 5px" })
+        Procurar users inscritos entre o seguinte intervalo:
+        @Html.TextBox("startDate", null, new { @class = "form-control", type = "date", @style = "width: 30%; margin-right: 5px", @value = "" })
+        e
+        @Html.TextBox("endDate", null, new { @class = "form-control", type = "date", @style = "width: 30%; margin-right: 5px; margin-left:5px", @value = "" })
+        
     </div>
     <div class="FilterDiv">
-        Procurar user com email: &nbsp;
-        @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @value = "" })
-        &nbsp;
-        Candidatura finalizada: &nbsp;
-        @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%" }) &nbsp;
+        Procurar user com email:
+        @Html.TextBox("searchString", null, new { @class = "form-control", type = "text", @value = "", @style = "margin-right: 5px" })
+        Candidatura finalizada:
+        @Html.CheckBox("finalizado", new { @class = "form-control", @style = "width: 12%; margin-right: 5px" })
         <input type="submit" value="Procurar" class="btn btn-default" />
     </div>
 }
