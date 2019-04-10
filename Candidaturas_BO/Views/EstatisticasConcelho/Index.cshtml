@@ -11,8 +11,8 @@
 @using (Html.BeginForm())
 {
     <div class="FilterDiv">
-        Procurar por distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control; margin-right:5px" })
-        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control; margin-right:5px" })
+        Procurar por distrito: @Html.DropDownList("distrito", ViewBag.Distrito as SelectList, "Escolha um distrito...", new { @class = "form-control", @style = "margin-right:5px" })
+        Procurar por edição: @Html.DropDownList("edicao", ViewBag.Edicao as SelectList, "Escolha uma edição...", new { @class = "form-control", @style = "margin-right:5px" })
     </div>
     <div class="FilterDiv">
         Procurar por nome: @Html.TextBox("SearchString", null, new { @style = "margin-right: 5px" })
