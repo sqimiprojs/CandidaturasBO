@@ -39,7 +39,7 @@
             @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Distrito - Cód.", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -54,7 +54,7 @@
             @Html.DisplayFor(modelItem => item.Codigo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CodigoDistrito)
+            @Html.DisplayFor(modelItem => item.Distrito.Nome)
         </td>
         @if (ViewBag.UserAdmin)
         {

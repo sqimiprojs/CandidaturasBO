@@ -34,10 +34,10 @@
                 @Html.ActionLink("Código", "Index", new { sortOrder = ViewBag.CodeSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.ActionLink("Código Concelho", "Index", new { sortOrder = ViewBag.ConcelhoSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("Concelho", "Index", new { sortOrder = ViewBag.ConcelhoSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.ActionLink("Código Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
+                @Html.ActionLink("Distrito", "Index", new { sortOrder = ViewBag.DistritoSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
             <th></th>
         </tr>
@@ -52,10 +52,10 @@
                 @Html.DisplayFor(modelItem => item.Codigo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodigoConcelho)
+                @Html.DisplayFor(modelItem => item.Concelho.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CodigoDistrito)
+                @Html.DisplayFor(modelItem => item.Concelho.Distrito.Nome)
             </td>
             @if (ViewBag.UserAdmin)
             {

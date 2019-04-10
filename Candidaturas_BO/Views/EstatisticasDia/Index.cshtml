@@ -68,65 +68,37 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript">
+    var colors = [];
 
-        $(function () {
+    function getColors() {
+        var dias =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Nome).ToArray()));
+        for(var i = 0; i < dias.length; i++) {
+            colors.push(getRandomColor());
+        }
+        console.log("COLOR")
+        console.log(colors)
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+
+
+    $(function () {
+        getColors();
     var chartNameTot = "chartTot";
         var ctxTot = document.getElementById(chartNameTot).getContext('2d');
         var dataTot = {
                 labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Nome).ToList())),
                 datasets: [{
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)',
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)'
-                    ],
+                    backgroundColor: colors,
+                    borderColor: colors,
                     borderWidth: 1,
                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Total).ToList())),
     }]
@@ -142,7 +114,8 @@
                     yAxes: [{
                         ticks: {
                             min: 0,
-                            beginAtZero: true
+                            beginAtZero: true,
+                            stepSize: 1
                         },
                         gridLines: {
                             display: true,
@@ -174,58 +147,8 @@
                 labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Nome).ToList())),
                 datasets: [{
                     label: "Distribuição por género",
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)',
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 0, 0)',
-                        'rgba(0, 255, 0)',
-                        'rgba(0, 0, 255)',
-                        'rgba(192, 192, 192)',
-                        'rgba(255, 255, 0)',
-                        'rgba(255, 0, 255)'
-                    ],
+                    backgroundColor: colors,
+                    borderColor: colors,
                     borderWidth: 1,
                     data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Percentagem).ToList())),
     }]
